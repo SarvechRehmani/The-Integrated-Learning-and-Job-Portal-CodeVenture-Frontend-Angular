@@ -1,0 +1,85 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card *ngIf="quiz" class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">{{quiz.lecture.lNo}}:- {{quiz.qTitle}}</mat-card-title>
+                        <mat-card-subtitle>{{quiz.lecture.lTitle}} ({{quiz.lecture.course.cTitle}})</mat-card-subtitle>
+                    </div>
+                </mat-card>
+                <mat-card *ngIf="quiz"  class="shadow">
+                    <mat-card-content>
+                        {{quiz.qDescription}}
+                    </mat-card-content>
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <button mat-button color="primary">Questions : {{questions.length}}</button>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <button mat-button color="warn">Max Marks :
+                                {{quiz.maxMarks}}</button>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <button mat-button color="primary">Number of Questions :
+                                {{quiz.numberOfQuestions}}</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        <button (click)="deleteQuiz(quiz.qId)" class="m-2" mat-raised-button color="warn">
+                            <mat-icon>delete</mat-icon>
+                            Delete</button>
+                    </div>
+                    <mat-card class="shadow mb-1" *ngFor="let q of questions">
+                      <mat-card-header [innerHTML]="q.questionContent">
+  
+                      </mat-card-header>
+                      <mat-card-content>
+                          <div class="container">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <b>a)</b> {{q.option1}}
+                                  </div>
+                                  <div class="col-md-6">
+                                      <b>b)</b> {{q.option2}}
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <b>c)</b> {{q.option3}}
+                                  </div>
+                                  <div class="col-md-6">
+                                      <b>d)</b> {{q.option4}}
+                                  </div>
+                              </div>
+                          </div>
+                          <hr>
+                          <div>
+                              ANSWER: <b>{{q.answer}}</b>
+                          </div>
+                      </mat-card-content>
+                      <div class="text-center">
+                          <button class="m-2" (click)="deleteQuestion(q.questionId)" mat-raised-button color="warn">Delete</button>
+                      </div>
+                      <hr>
+                      
+                    </mat-card>
+                </mat-card>
+                <mat-card *ngIf="!quiz" class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">Quiz for this Lecture is not available right now...</mat-card-title>
+                        <mat-card-subtitle>Please come back letter...</mat-card-subtitle>
+                    </div>
+                </mat-card>
+                <mat-card *ngIf="!quiz" class="shadow p-4">
+                    <div class="text-center">
+                        <img src="assets/img/stockNotFound.png" class="img-fluid" style="max-width: 45%;">
+                        <h2 class="text-color">NOT FOUND</h2>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,47 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">All Assignments</mat-card-title>
+            <mat-card-subtitle>List of Assignments</mat-card-subtitle>
+          </div>
+        </mat-card>
+        <mat-card *ngFor="let a of assignments" class="shadow mb-1 mainCard">
+          <div class="row rowa">
+            <div class="col-md-8 col1">
+              <img
+                style="height: 100px; width: 100px"
+                src="assets/img/assignmnt1.png"
+              />
+              <div class="colm">
+                <mat-card-subtitle class="text-center sub-title"
+                  >Course : {{ a.lecture.course.cTitle }}</mat-card-subtitle
+                >
+                <mat-card-title class="text-center"
+                  >Assignments No : {{ a.lecture.lNo }}</mat-card-title
+                >
+                <mat-card-title class="text-center">{{
+                  a.lecture.lTitle
+                }}</mat-card-title>
+              </div>
+            </div>
+            <div class="col-md-4 col2">
+              <mat-card-actions>
+                <button
+                  mat-fab
+                  extended
+                  style="background-color: grey"
+                  [routerLink]="'/user/assignment/' + a.lecture.lId"
+                >
+                  Continue
+                </button>
+              </mat-card-actions>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

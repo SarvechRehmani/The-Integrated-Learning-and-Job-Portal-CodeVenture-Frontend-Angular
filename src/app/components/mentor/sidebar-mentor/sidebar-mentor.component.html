@@ -1,0 +1,73 @@
+<mat-card class="shadow mb-2">
+  <mat-card-header>
+    <div class="logo">
+      <img src="/assets/img/mentor3.png" alt="Company Logo" />
+      <span>Mentor Panel</span>
+    </div>
+  </mat-card-header>
+  <mat-action-list>
+    <button mat-list-item routerLink="/mentor/">
+      <mat-icon matListItemIcon>home</mat-icon>
+      Home
+    </button>
+
+    <button mat-list-item routerLink="/mentor/profile">
+      <mat-icon matListItemIcon>account_circle</mat-icon>
+      Profile
+    </button>
+
+    <button mat-list-item routerLink="/mentor/addcourse">
+      <mat-icon matListItemIcon>playlist_add</mat-icon>
+      Add Course
+    </button>
+
+    <button mat-list-item routerLink="/mentor/courses">
+      <mat-icon matListItemIcon>subscriptions</mat-icon>
+      Courses
+    </button>
+
+    <button mat-list-item routerLink="/mentor/addlecture">
+      <mat-icon matListItemIcon>play_arrow</mat-icon>
+      Add Lecture
+    </button>
+    <button mat-list-item routerLink="/mentor/lectures">
+      <mat-icon matListItemIcon>slideshow</mat-icon>
+      Show Lecture
+    </button>
+
+    <button mat-list-item routerLink="/mentor/addassignment">
+      <mat-icon matListItemIcon>note_add</mat-icon>
+      Add Assignments
+    </button>
+
+    <button mat-list-item routerLink="/mentor/assignments">
+      <mat-icon matListItemIcon>assignment</mat-icon>
+      Show Assignments
+    </button>
+
+    <button mat-list-item routerLink="/mentor/addlabtask">
+      <mat-icon matListItemIcon>add_task</mat-icon>
+      Add Lab Task
+    </button>
+
+    <button mat-list-item routerLink="/mentor/labtasks">
+      <mat-icon matListItemIcon>assignment_turned_in</mat-icon>
+      Show Lab Task
+    </button>
+
+    <button mat-list-item routerLink="/mentor/addquiz">
+      <mat-icon matListItemIcon>add_circle</mat-icon>
+      Add Quizzes
+    </button>
+
+    <button mat-list-item routerLink="/mentor/quizzes">
+      <mat-icon matListItemIcon>help</mat-icon>
+      Show Quizzes
+    </button>
+
+    <button mat-list-item (click)="logout()">
+      <mat-icon matListItemIcon>logout</mat-icon>
+      Logout
+    </button>
+  </mat-action-list>
+</mat-card>

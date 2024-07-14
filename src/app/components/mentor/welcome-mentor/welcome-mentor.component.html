@@ -1,0 +1,171 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">
+              MENTOR DASHBOARD
+            </mat-card-title>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <mat-card-content>
+            <div class="card">
+              <div class="card-header bg-color text-center">
+                <h1 class="m-0 fw-bold">Your Courses Details</h1>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4">
+                    <div class="card shadow1 cardd mb-2">
+                      <div
+                        class="card-header header text-center bg-color fw-bold"
+                      >
+                        <h3 class="m-0 fw-bold">COURSES</h3>
+                      </div>
+                      <div class="card-body text-center text-color">
+                        <h4 class="m-0 fs-3">{{ coursesDetails.courses }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4">
+                    <div class="card shadow1 cardd mb-2">
+                      <div
+                        class="card-header header text-center bg-color fw-bold"
+                      >
+                        <h3 class="m-0 fw-bold">LECTURE</h3>
+                      </div>
+                      <div class="card-body text-center text-color">
+                        <h4 class="m-0 fs-3">{{ coursesDetails.lectures }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4">
+                    <div class="card shadow1 cardd mb-2">
+                      <div
+                        class="card-header header text-center bg-color fw-bold"
+                      >
+                        <h3 class="m-0 fw-bold">QUIZZES</h3>
+                      </div>
+                      <div class="card-body text-center text-color">
+                        <h4 class="m-0 fs-3">{{ coursesDetails.quizzes }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4 col-md-6 offset-lg-2">
+                    <div class="card shadow1 cardd mb-2">
+                      <div
+                        class="card-header header text-center bg-color fw-bold"
+                      >
+                        <h3 class="m-0 fw-bold">LABTASKS</h3>
+                      </div>
+                      <div class="card-body text-center text-color">
+                        <h4 class="m-0 fs-3">{{ coursesDetails.labTasks }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6">
+                    <div class="card shadow1 cardd mb-2">
+                      <div
+                        class="card-header header text-center bg-color fw-bold"
+                      >
+                        <h3 class="m-0 fw-bold">ASSIGNMENTS</h3>
+                      </div>
+                      <div class="card-body text-center text-color">
+                        <h4 class="m-0 fs-3">
+                          {{ coursesDetails.assignments }}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card>
+          <mat-card-content>
+            <div class="card">
+              <div class="card-header text-center bg-color4">
+                <h1 class="m-0 fw-bold text-white">Submitted Tasks By Users</h1>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4">
+                    <div class="card shadow1 cardd mb-2">
+                      <div class="card-header header bg-color1 p-3">
+                        <h2 class="text-center m-0">
+                          <div>SUBMITTED</div>
+                          ASSIGNMENTS
+                        </h2>
+                      </div>
+                      <div class="card-body text-center text-color">
+                        <h3 class="text-center fw-bold fs-1">
+                          {{ submittedAssignments.length }}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4">
+                    <div class="card shadow1 cardd mb-2">
+                      <div class="card-header header bg-color2 p-3">
+                        <h2 class="text-center m-0">
+                          <div>SUBMITTED</div>
+                          LABTASKS
+                        </h2>
+                      </div>
+                      <div class="card-body text-center text-color">
+                        <h3 class="text-center fw-bold fs-1">
+                          {{ submittedLabTasks.length }}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4">
+                    <div class="card shadow1 cardd mb-2">
+                      <div class="card-header header bg-color3 p-3">
+                        <h2 class="text-center m-0">
+                          <div>SUBMITTED</div>
+                          QUIZZES
+                        </h2>
+                      </div>
+                      <div class="card-body text-center text-color">
+                        <h3 class="text-center fw-bold fs-1">
+                          {{ submittedQuizzes.length }}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow">
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-12">
+                <canvas id="myChart" style="width: 100%"></canvas>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

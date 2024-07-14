@@ -1,0 +1,86 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">All Courses</mat-card-title>
+            <mat-card-subtitle>List of Courses</mat-card-subtitle>
+          </div>
+        </mat-card>
+        <mat-card class="mb-1 shadow mainCard" *ngFor="let c of courses">
+          <div class="row rowc">
+            <div class="col-md-4 col1">
+              <img
+                style="height: 100px; width: 100px"
+                src="assets/img/coursesimg.png"
+              />
+              <div class="col2">
+                <mat-card-subtitle class="sub-title text-center">
+                  Field : {{ c.field }}
+                </mat-card-subtitle>
+                <mat-card-title class="text-center">{{
+                  c.cTitle
+                }}</mat-card-title>
+              </div>
+            </div>
+            <div class="col-md-6 col2">
+              <p class="justifyPara m-2">{{ c.cDescription }}</p>
+            </div>
+            <div
+              class="col-md-2 d-flex justify-content-center align-items-center"
+            >
+              <mat-card-actions class="m-2">
+                <button
+                  mat-fab
+                  style="background-color: grey"
+                  extended
+                  [routerLink]="'/user/lectures/' + c.cId + '/' + c.cTitle"
+                >
+                  Continue
+                </button>
+              </mat-card-actions>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <mat-card style="padding: 10px; width: 100%; background-color: rgb(255, 254, 252)">
+  <div
+    *ngFor="let c of courses"
+    class="card shadow-sm bg-light course-card"
+    style="width: 300px; height: 400px; margin: 10px"
+  >
+    <div
+      class="card-image"
+      [style.background-image]="'url(assets/img/laptop.jpg)'"
+    >
+
+
+      <div class="card-body">
+        <br /><br />
+        <br /><br />
+        <br /><br /><br /><br />
+        <h1 class="card-title">{{ c.cTitle }}</h1>
+        <h4 class="card-subtitle">{{ c.cField }}</h4>
+      </div>
+    </div>
+    <br />
+    <h2 class="card-title" style="text-align: left; padding: 10px">
+      {{ c.cDescription }}
+    </h2>
+    <br />
+    <div class="text-center">
+      <button
+        [routerLink]="'/user/showcourse/'+c.cId+'/'+c.cTitle"
+        mat-raised-button
+        style="background-color: rgb(247, 107, 26); color: white"
+      >
+        Show Course
+      </button>
+    </div>
+  </div>
+</mat-card> -->

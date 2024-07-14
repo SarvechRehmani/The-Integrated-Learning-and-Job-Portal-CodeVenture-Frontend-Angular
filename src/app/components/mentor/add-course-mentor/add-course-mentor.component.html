@@ -1,0 +1,79 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">Add Course</mat-card-title>
+            <mat-card-subtitle>Add details of the Course</mat-card-subtitle>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow">
+          <mat-card-content>
+            <form (ngSubmit)="formSubmit()" class="p-5">
+              <!-- COURSE TITLE -->
+              <mat-form-field class="max-width" appearance="fill">
+                <mat-label>Course Title</mat-label>
+                <input
+                  [(ngModel)]="course.cTitle"
+                  name="title"
+                  type="text"
+                  matInput
+                  placeholder="Enter Course Title"
+                  required
+                />
+              </mat-form-field>
+
+              <!-- COURSE DESCRIPTION -->
+              <mat-form-field class="max-width" appearance="fill">
+                <mat-label>Course Description</mat-label>
+                <textarea
+                  [(ngModel)]="course.cDescription"
+                  name="description"
+                  matInput
+                  placeholder="Enter Course Description"
+                  rows="5"
+                ></textarea>
+              </mat-form-field>
+              <div class="row">
+                <div class="col-md-12">
+                  <!-- TOTAL LECTURES -->
+                  <mat-form-field class="max-width" appearance="fill">
+                    <mat-label>Total Course Lectures</mat-label>
+                    <input
+                      [(ngModel)]="course.totalLectures"
+                      name="totalLectures"
+                      type="number"
+                      matInput
+                      placeholder="Enter Total Lectures for Course"
+                      required
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- {{course | json}} -->
+              <div class="text-center mt20">
+                <button class="m-2" mat-raised-button color="accent">
+                  Add Course
+                </button>
+                <button
+                  class="m-2"
+                  mat-raised-button
+                  type="reset"
+                  color="primary"
+                >
+                  Clear
+                </button>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

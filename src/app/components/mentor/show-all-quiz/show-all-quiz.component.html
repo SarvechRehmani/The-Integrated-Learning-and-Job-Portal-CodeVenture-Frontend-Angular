@@ -1,0 +1,47 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">Show All Quizzes</mat-card-title>
+                        <mat-card-subtitle>List of quizzes</mat-card-subtitle>
+                    </div>
+            </mat-card>
+                <mat-card class="shadow mb-3" *ngFor="let q of quizzes index as i">
+                    <mat-card-header>
+                        <div mat-card-avatar class="img"></div>
+                        <mat-card-title class="text-color">{{i+1}}:- {{q.qTitle}}</mat-card-title>
+                        <mat-card-subtitle>{{q.lecture.lTitle}} <span
+                                class="m-2">({{q.lecture.course.cTitle}})</span></mat-card-subtitle>
+                    </mat-card-header>
+                    <hr>
+                    <mat-card-content class="justifyPara">
+                        {{q.qDescription}}
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button color="warn">Max Marks :
+                            {{q.maxMarks}}</button>
+                        <button mat-button color="primary">Number of Questions :
+                            {{q.numberOfQuestions}}</button>
+                    </mat-card-actions>
+                    <hr>
+                    <div class="text-center pb-3">
+                        <button [routerLink]="'/mentor/addquestion/'+q.qId+'/'+q.qTitle" class="m-2" mat-raised-button color="primary">
+                            <mat-icon>add_circle</mat-icon>
+                            Add Question</button>
+                        <button [routerLink]="'/mentor/quiz/'+q.lecture.lId" class="m-2" mat-raised-button color="primary">
+                            <mat-icon>visibility</mat-icon>
+                            View</button>
+                        <button [routerLink]="'/mentor/updatequiz/'+q.qId" class="m-2" mat-raised-button color="accent">
+                            <mat-icon>update</mat-icon>
+                            Update</button>
+                        <button (click)="deleteQuiz(q.qId)" class="m-2" mat-raised-button color="warn">
+                            <mat-icon>delete</mat-icon>
+                            Delete</button>
+                        </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

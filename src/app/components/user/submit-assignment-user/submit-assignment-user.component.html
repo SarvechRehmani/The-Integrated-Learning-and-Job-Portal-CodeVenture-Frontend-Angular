@@ -1,0 +1,124 @@
+<div *ngIf="assignment">
+    <!-- IfNot Result -->
+    <div class="bootstrap-wrapper" *ngIf="!result">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-card class="shadow mb-2">
+                        <div class="text-center m-3">
+                            <mat-card-title class="text-color">Assignment of {{assignment.lecture.lTitle}} Lecture (
+                                Course:
+                                {{assignment.lecture.course.cTitle}} )</mat-card-title>
+                            <mat-card-subtitle>Submit Your Assignment</mat-card-subtitle>
+                        </div>
+                    </mat-card>
+
+                    <mat-card>
+                        <mat-card-content [innerHTML]="assignment.aContent"></mat-card-content>
+                        <hr>
+                        <mat-card-content>
+                            <pre>
+                                {{assignment | json}}
+                            </pre>
+
+                            <form (ngSubmit)="submitAssignmentForm()" action="">
+                                <div class="row">
+                                    <div class="col-md-8 offset-md-2">
+                                        <!-- Assignment Answer -->
+                                        <ckeditor [editor]="Editor" [(ngModel)]="assignment.aAnswer" name="answer"
+                                            required [config]="{
+                                          placeholder:'Enter Assignment Answer Here',
+                                          toolbar: [
+                                          '|','undo' , 'redo',
+                                          '|','heading',
+                                          '|', 'bold', 'italic', 'Link',
+                                          '|', 'bulletedList', 'numberedList',
+                                          '|', 'blockQuote',
+                                          '|', 'insertTable'
+                                          ]
+                                      }"></ckeditor>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button mat-raised-button class="m-2" color="accent">Submit</button>
+                                    <button type="reset" class="m-2" mat-raised-button color="primary">Clear</button>
+                                </div>
+                            </form>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- If Submited Assignment -->
+    <div class="bootstrap-wrapper" *ngIf="result">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-card class="shadow mb-2">
+                        <div class="text-center m-3">
+                            <mat-card-title class="text-color">Assignment of {{assignment.lecture.lTitle}} Lecture (
+                                Course:
+                                {{assignment.lecture.course.cTitle}} )</mat-card-title>
+                            <mat-card-subtitle>Your submitted Assignment details</mat-card-subtitle>
+                        </div>
+                    </mat-card>
+                    <mat-card>
+                        <div class="row mt-4">
+
+                            <div class="col-md-10 offset-md-1">
+                                <div class="text-center text-color">
+                                    <h1>ASSIGNMENT QUESTION</h1>
+                                </div>
+                                <mat-card-content [innerHTML]="result.assignment.aContent"></mat-card-content>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-10 offset-md-1">
+                                <div class="text-center text-color">
+                                    <h1>SUBMITTED ASSIGNMENT ANSWER</h1>
+                                </div>
+                                <mat-card-content [innerHTML]="result.assignmentAnswer"></mat-card-content>
+                                <hr>
+                                <div class="text-center">
+                                    <h2>Marks :
+                                        <span class="text-color" *ngIf="result.gotMarks > 0">{{result.gotMarks}}</span>
+                                        <span class="text-color" *ngIf="result.gotMarks <= 0">Pending</span> From
+                                        {{result.assignment.maxMarks}}
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <div class="text-center m-3">
+                        <button mat-raised-button routerLink="/user/lectures" color="accent">Lectures</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!assignment">
+    <div class="bootstrap-wrapper" *ngIf="!result">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-card class="shadow mb-2">
+                        <div class="text-center m-3">
+                            <mat-card-title class="text-color">Assignment for this Lecture is not available right now...</mat-card-title>
+                            <mat-card-subtitle>Please come back letter...</mat-card-subtitle>
+                        </div>
+                    </mat-card>
+                    <mat-card class="shadow p-4">
+                        <div class="text-center">
+                            <img src="assets/img/stockNotFound.png" class="img-fluid" style="max-width: 45%;">
+                            <h2 class="text-color">NOT FOUND</h2>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

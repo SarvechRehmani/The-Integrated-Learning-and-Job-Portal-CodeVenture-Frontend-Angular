@@ -1,0 +1,64 @@
+.mainCard{
+    border-radius: 10px;
+}
+.text-color{
+  color:#fa5d02 !important;
+}
+.rowa {
+    margin: 20px;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.rowa:hover{
+    border: 1px #fbfafa ;
+}
+.col1 {
+    background-color: #fa9b02;
+    color: white;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.colm{
+  padding: 20px;
+}
+
+.sub-title{
+    color: white!important;
+}
+
+.col2 {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+    /* Apply different border-radius for screens less than 768px wide (e.g., mobile devices) */
+    .col1 {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 0px;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 0px;
+    }
+  }
+  
+  .sub-title {
+    color: rgb(255, 255, 255);
+  }
+  
+  .col2 {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 10px;
+  }
+  
+  

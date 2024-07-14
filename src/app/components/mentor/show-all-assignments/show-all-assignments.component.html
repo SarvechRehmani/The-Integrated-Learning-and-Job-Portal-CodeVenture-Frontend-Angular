@@ -1,0 +1,33 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">Show All Assignments</mat-card-title>
+                        <mat-card-subtitle>List of Assignments</mat-card-subtitle>
+                    </div>
+                </mat-card>
+                <mat-card class="shadow mb-3" *ngFor="let a of assignments">
+                    <mat-card-header>
+                        <div mat-card-avatar class="img"></div>
+                        <mat-card-title class="text-color">{{a.lecture.lNo}}:- {{a.lecture.lTitle}}</mat-card-title>
+                        <mat-card-subtitle>{{a.lecture.course.cTitle}} <span class="m-2">({{a.lecture.course.field}})</span></mat-card-subtitle>
+                    </mat-card-header>
+
+                    <div class="px-2 pb-2">
+                        <button mat-button color="warn" class="m-2">Max Marks : {{a.maxMarks}}</button>
+                        
+                        <button [routerLink]="'/mentor/assignment/'+a.lecture.lId" class="m-2" mat-raised-button color="primary">View</button>
+                        <button [routerLink]="'/mentor/updateassignment/'+a.aId" class="m-2" mat-raised-button color="accent">Update</button>
+                        <button (click)="deleteAssignment(a.aId)" class="m-2" mat-raised-button color="warn">Delete</button>
+                        <button
+                        [routerLink]="'/mentor/gradding/assignment/'+a.aId"
+                        class="m-2" mat-stroked-button color="primary">Grading</button>
+                        
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

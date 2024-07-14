@@ -1,0 +1,77 @@
+<div *ngIf="quiz">
+    <div class="bootstrap-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-card class="shadow mb-2">
+                        <div class="text-center m-3">
+                            <mat-card-title class="text-color">Read The indtructions of this page carefully</mat-card-title>
+                            <mat-card-subtitle>One step more to go...</mat-card-subtitle>
+                        </div>
+                    </mat-card>
+                    <mat-card class="shadow p-3">
+                        <mat-card-header>
+                            <mat-card-title>
+                                Quiz of Lecture # {{quiz.lecture.lNo}} :
+                                {{quiz.qTitle}}
+                            </mat-card-title>
+                            <mat-card-subtitle>
+                                {{quiz.qDescription}}
+                            </mat-card-subtitle>
+                        </mat-card-header>
+                        <hr>
+                        <mat-card-content>
+                            <h1>Important Instructions</h1>
+                            <ul>
+                                <li>This quiz is only for practise purpose.</li>
+                                <li>You have to submite quiz within <b>{{quiz.numberOfQuestions * 2}} minutes</b>.</li>
+                                <li>There are <b>{{quiz.numberOfQuestions}} questions</b> in this quiz.</li>
+                                <li>Each question caries <b>{{quiz.maxMarks / quiz.numberOfQuestions}} marks</b>. No negative marking for any wroung question.</li>
+                                <li>All questions are of MCQ type</li>
+                            </ul>
+                            <hr>
+                            <h1>Attempting Quiz</h1>
+                            <ul>
+                                <li>Click <b>Start Quiz</b> button to start the quiz.</li>
+                                <li>The time will start the moment when you click the <b>Start Quiz</b> button.</li>
+                                <li>Scroll down to move to the next question.</li>
+                                <li>Click on <b>Submit Quiz</b> button on completion of the quiz.</li>
+                                <li>Report of the test is automatically generated in the form of PDF copy.</li>
+                            </ul>
+                        </mat-card-content>
+                        <hr>
+                        <div class="text-center">
+                            <button
+                            (click)="startQuiz()"
+                            mat-raised-button color="accent">
+                                Start Quiz
+                            </button>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!quiz">
+    <div class="bootstrap-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-card class="shadow mb-2">
+                        <div class="text-center m-3">
+                            <mat-card-title class="text-color">Quiz for this Lecture is not available right now...</mat-card-title>
+                            <mat-card-subtitle>Please come back letter...</mat-card-subtitle>
+                        </div>
+                    </mat-card>
+                    <mat-card class="shadow p-4">
+                        <div class="text-center">
+                            <img src="assets/img/stockNotFound.png" class="img-fluid" style="max-width: 45%;">
+                            <h2 class="text-color">NOT FOUND</h2>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

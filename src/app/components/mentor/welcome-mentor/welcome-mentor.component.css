@@ -1,0 +1,30 @@
+.cardd{
+    border-radius: 10% / 90%;
+    overflow: hidden;
+}
+
+.header{
+    border-radius: 10% / 90%;
+}
+
+.bg-color1{
+    background-color: #85d0d0;
+    color: white;
+}
+.bg-color2{
+    background-color: #fa9cb0;
+    color: white;
+}
+.bg-color3{
+    background-color: #67ab66;
+    color: white;
+}
+.bg-color{
+    background-color:  #3b6b9b !important;
+}
+.bg-color4{
+    background-color:  #96bfe8 !important;
+}
+.text-color{
+    color:  #4860a3 !important;
+}

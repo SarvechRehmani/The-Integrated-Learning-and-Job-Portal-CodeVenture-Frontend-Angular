@@ -1,0 +1,87 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div
+        class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-8 offset-sm-2"
+      >
+        <mat-card class="p-3 shadow login-card" *ngIf="!clicked">
+          <div class="text-center">
+            <img
+              src="assets/img/logo.png"
+              class="img-fluid"
+              alt="logo"
+              style="max-width: 350px; max-height: 150px"
+            />
+            <h1>ENTER LOGIN DETAILS</h1>
+          </div>
+          <form (ngSubmit)="formSubmit()" class="p-3">
+            <!-- USERNAME -->
+            <mat-form-field class="max-width" appearance="fill">
+              <mat-label>Username</mat-label>
+              <input
+                [(ngModel)]="loginData.username"
+                name="username"
+                type="text"
+                matInput
+                placeholder="Enter username here"
+                required
+              />
+            </mat-form-field>
+            <!-- PASSWORD -->
+            <mat-form-field class="max-width" appearance="fill">
+              <mat-label>Password</mat-label>
+              <input
+                [(ngModel)]="loginData.password"
+                name="password"
+                type="password"
+                matInput
+                placeholder="Enter password here"
+                required
+              />
+            </mat-form-field>
+            <div class="text-center">
+              <button mat-raised-button color="accent" class="m-2">
+                LOGIN
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                class="m-2"
+                type="reset"
+              >
+                CLEAR
+              </button>
+            </div>
+            <div class="text-center mt-3">
+              <p>
+                if you don't have an account,
+                <a href="" class="text-color">SignUp</a> here.
+              </p>
+            </div>
+          </form>
+        </mat-card>
+        <mat-card
+          class="p-3 shadow login-card"
+          style="height: 538px"
+          *ngIf="clicked"
+        >
+          <div class="text-center">
+            <img
+              src="assets/img/logo.png"
+              class="img-fluid"
+              alt="logo"
+              style="max-width: 350px; max-height: 150px"
+            />
+            <h1>ENTER LOGIN DETAILS</h1>
+          </div>
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+            style="height: 338px"
+          >
+            <mat-spinner color="accent"></mat-spinner>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

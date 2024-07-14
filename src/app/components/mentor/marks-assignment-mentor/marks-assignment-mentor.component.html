@@ -1,0 +1,66 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">Submitted Assignment by {{username}}</mat-card-title>
+                        <mat-card-subtitle>Lecture No {{assignmentResult.assignment.lecture.lNo}} :
+                            {{assignmentResult.assignment.lecture.lTitle}}</mat-card-subtitle>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow">
+                    <mat-card-content>
+                        <div class="text-center text-color">
+                            <h1>ASSIGNMENT</h1>
+                        </div>
+                        <div class="p-4" [innerHTML]="assignmentResult.assignment.aContent"></div>
+                    </mat-card-content>
+                    <hr>
+                    <mat-card-content>
+                        <div class="text-center text-color">
+                            <h1>SUBMITTED ASSIGNMENT</h1>
+                        </div>
+                        <div class="p-4" [innerHTML]="assignmentResult.assignmentAnswer"></div>
+                    </mat-card-content>
+                    <hr>
+                    <mat-card-content *ngIf="assignmentResult.gotMarks==0">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <form action="" (ngSubmit)="submitMarks()">
+                                    <!-- ASSIGNMENT MARKS -->
+                                    {{marks | json}}
+                                    <mat-form-field class="max-width" appearance="fill">
+                                        <mat-label>Assignment Marks</mat-label>
+                                        <input [(ngModel)]="marks" name="maxMarks" type="number" matInput
+                                            placeholder="Enter Assignment Marks" required>
+                                    </mat-form-field>
+                                    <div class="text-center">
+                                        <button mat-raised-button color="accent">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-content *ngIf="assignmentResult.gotMarks!=0">
+                        <div class="text-center">
+                            <h2>Marks :
+                                <span class="text-color">{{assignmentResult.gotMarks}}</span> From
+                                {{assignmentResult.assignment.maxMarks}}
+                            </h2>
+                        </div>
+                    </mat-card-content>
+                    <pre>
+                    {{assignmentResult | json}}
+                   </pre>
+
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

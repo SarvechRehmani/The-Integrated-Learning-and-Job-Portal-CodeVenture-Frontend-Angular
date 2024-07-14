@@ -1,0 +1,121 @@
+<div *ngIf="labTask">
+    <!-- If Not Submited Assignment -->
+    <div class="bootstrap-wrapper" *ngIf="!result">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-card class="shadow mb-2">
+                        <div class="text-center m-3">
+                            <mat-card-title class="text-color">Lab Task of {{labTask.lecture.lTitle}} Lecture ( Course:
+                                {{labTask.lecture.course.cTitle}} )</mat-card-title>
+                            <mat-card-subtitle>Submit Your LabTask</mat-card-subtitle>
+                        </div>
+                    </mat-card>
+
+                    <mat-card>
+                        <mat-card-content [innerHTML]="labTask.labContent"></mat-card-content>
+                        <hr>
+                        <mat-card-content>
+                            <pre>
+                                {{labTask | json}}
+                            </pre>
+
+                            <form (ngSubmit)="submitLabTaskForm()" action="">
+                                <div class="row">
+                                    <div class="col-md-8 offset-md-2">
+                                        <!-- Assignment Answer -->
+                                        <ckeditor [editor]="Editor" [(ngModel)]="labTask.labAnswer" name="answer"
+                                            required [config]="{
+                                          placeholder:'Enter Lab Task Answer Here',
+                                          toolbar: [
+                                          '|','undo' , 'redo',
+                                          '|','heading',
+                                          '|', 'bold', 'italic', 'Link',
+                                          '|', 'bulletedList', 'numberedList',
+                                          '|', 'blockQuote',
+                                          '|', 'insertTable'
+                                          ]
+                                      }"></ckeditor>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button mat-raised-button class="m-2" color="accent">Submit</button>
+                                    <button type="reset" class="m-2" mat-raised-button color="primary">Clear</button>
+                                </div>
+                            </form>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- If Submited Assignment -->
+    <div class="bootstrap-wrapper" *ngIf="result">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-card class="shadow mb-2">
+                        <div class="text-center m-3">
+                            <mat-card-title class="text-color">LabTask of {{labTask.lecture.lTitle}} Lecture ( Course:
+                                {{labTask.lecture.course.cTitle}} )</mat-card-title>
+                            <mat-card-subtitle>Your submitted LabTask details</mat-card-subtitle>
+                        </div>
+                    </mat-card>
+                    <mat-card>
+                        <div class="row mt-4">
+
+                            <div class="col-md-10 offset-md-1">
+                                <div class="text-center text-color">
+                                    <h1>LABTASK QUESTION</h1>
+                                </div>
+                                <mat-card-content [innerHTML]="result.labTask.labContent"></mat-card-content>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-10 offset-md-1">
+                                <div class="text-center text-color">
+                                    <h1>SUBMITTED LABTASK ANSWER</h1>
+                                </div>
+                                <mat-card-content [innerHTML]="result.labTaskAnswer"></mat-card-content>
+                                <hr>
+                                <div class="text-center">
+                                    <h2>Marks :
+                                        <span class="text-color" *ngIf="result.gotMarks > 0">{{result.gotMarks}}</span>
+                                        <span class="text-color" *ngIf="result.gotMarks <= 0">Pending</span> From
+                                        {{result.labTask.maxMarks}}
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <div class="text-center m-3">
+                        <button mat-raised-button routerLink="/user/lectures" color="accent">Lectures</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!labTask">
+    <div class="bootstrap-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <mat-card class="shadow mb-2">
+                        <div class="text-center m-3">
+                            <mat-card-title class="text-color">Lab Task for this Lecture is not available right now...</mat-card-title>
+                            <mat-card-subtitle>Please come back letter...</mat-card-subtitle>
+                        </div>
+                    </mat-card>
+                    <mat-card class="shadow p-4">
+                        <div class="text-center">
+                            <img src="assets/img/stockNotFound.png" class="img-fluid" style="max-width: 45%;">
+                            <h2 class="text-color">NOT FOUND</h2>
+                        </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">{{lecture.lNo}}:- {{lecture.lTitle}}</mat-card-title>
+                        <mat-card-subtitle>
+                            <b>Course:</b> {{lecture.course.cTitle}}
+                            ||
+                            <b>Field:</b> {{lecture.course.field}}
+                        </mat-card-subtitle>
+                    </div>
+                </mat-card>
+                <mat-card class="shadow p-4">
+                    <mat-card-content>
+                        <div class="videoContainer">
+                            <iframe class="WnH" title="YouTube video player"
+                                [src]="video"></iframe>
+                        </div>
+                        <!-- width="70%" height="394" -->
+                        <hr>
+                        <div [innerHTML]="lecture.lDescription">
+                        </div>
+                    </mat-card-content>
+                    <div class="text-center">
+
+                        <button [routerLink]="'/mentor/quiz/'+lecture.lId" class="m-2" mat-stroked-button color="warn">Quiz</button>
+                        <button [routerLink]="'/mentor/assignment/'+lecture.lId" class="m-2" mat-stroked-button
+                            color="warn">Assignment</button>
+                        <button [routerLink]="'/mentor/labtask/'+lecture.lId" class="m-2" mat-stroked-button color="warn">Lab
+                            Task</button>
+
+                        <button [routerLink]="'/mentor/updatelecture/'+lecture.lId" class="m-2" mat-raised-button
+                            color="primary">Update</button>
+                        <button (click)="deleteLecture(lecture.lId)" class="m-2" mat-raised-button color="warn">Delete</button>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'emailgui';
+export class AppComponent implements OnInit{
+
+  constructor(
+    private _title:Title
+  ){}
+  ngOnInit(): void {
+    this._title.setTitle('Home | CodeVenture');
+  }
 }

@@ -1,0 +1,63 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title *ngIf="cId" class="text-color">Lectures of {{cTitle}} Course</mat-card-title>
+            <mat-card-title *ngIf="!cId" class="text-color">All Lectures</mat-card-title>
+            <mat-card-subtitle>List of Lecture</mat-card-subtitle>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row" *ngIf="lectures.length > 0">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-1" style="border-radius: 50px;" *ngFor="let l of lectures">
+          <mat-action-list >
+            <button style="border-radius: 50px;" mat-list-item [routerLink]="'/user/showlecture/'+l.lId">
+              <mat-card-header>
+                <div mat-card-avatar class="img"></div>
+                <mat-card-title class="text-color">{{l.lNo}}:- {{l.lTitle}}</mat-card-title>
+                <mat-card-subtitle>{{l.course.cTitle}} <span class="m-2">({{l.course.field}})</span></mat-card-subtitle>
+              </mat-card-header>
+            </button>
+          </mat-action-list>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row" *ngIf="lectures.length == 0">
+      <div class="col-md-12">
+        <mat-card class="d-flex justify-content-center align-items-center">
+          <img src="assets/img/stockNotFound.png" class="img-fluid" alt="Not Found">
+          <h1>Lectures are Not Available Now Please Come back letter..</h1>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- 
+<mat-card>
+    <div class="row" style="margin: 20px; border: 1px solid #ff4081; border-radius: 5px;" *ngFor="let l of lectures">
+            <div class="col-md-3" style="background-color: #ff4081; color: white; border-top-left-radius: 5px; border-bottom-left-radius: 5px; padding: 10px;">
+                <mat-card-subtitle style="color: white;">Course : {{l.course.cTitle}}</mat-card-subtitle>
+                <mat-card-title class=" text-center">Lecture No : {{l.lNo}}</mat-card-title>
+                <mat-card-title class=" text-center">{{l.lTitle}}</mat-card-title>
+            </div>
+
+            
+            <div class="col-md-8" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding: 10px;">
+                <p>{{l.lDescription}}</p>
+                <mat-card-actions align="end">
+                    <button mat-fab extended 
+                    [routerLink]="'/user/showlecture/'+l.lNo+'/'+l.course.cId"
+                    >Continue</button>
+                  </mat-card-actions>
+            </div>
+    </div>
+
+</mat-card> -->

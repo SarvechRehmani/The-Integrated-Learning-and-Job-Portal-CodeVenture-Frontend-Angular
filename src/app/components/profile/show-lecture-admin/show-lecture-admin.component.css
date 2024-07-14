@@ -1,0 +1,17 @@
+
+.videoContainer {
+    position: relative;
+    width: 70%;
+    padding-bottom: 38.25%;
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+.WnH {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

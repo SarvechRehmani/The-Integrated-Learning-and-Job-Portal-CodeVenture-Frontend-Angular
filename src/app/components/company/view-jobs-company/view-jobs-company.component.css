@@ -1,0 +1,11 @@
+.justifyPara{
+    text-align: justify;
+    text-justify: distribute-all-lines;
+}
+
+.tableDiv{
+    overflow-x: auto;
+}
+.text-color{
+    color:rgb(0, 94, 113) !important;
+}

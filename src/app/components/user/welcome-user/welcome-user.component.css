@@ -1,0 +1,27 @@
+.card {
+    border-radius: 30px / 70%;
+    overflow: hidden;
+}
+
+.card-header {
+    border-radius: 30px / 70%;
+
+}
+
+.shadow1 {
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+.bg-color1 {
+    background-color: #4bc0c0;
+    color: white;
+}
+
+.bg-color2 {
+    background-color: #ff6384;
+    color: white;
+}
+.bg-color3 {
+    background-color: #059103;
+    color: white;
+}

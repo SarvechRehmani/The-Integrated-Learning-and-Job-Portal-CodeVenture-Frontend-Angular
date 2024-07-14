@@ -1,0 +1,10 @@
+.tableDiv{
+    overflow-x: auto;
+}
+
+th,td{
+    padding: 20px;
+}
+td{
+   text-align: center;
+}

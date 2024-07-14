@@ -1,0 +1,60 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">Mentor's List</mat-card-title>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-md-12">
+        <mat-card class="shadow">
+          <mat-card-content>
+              <div class="container1 p-4">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Category</th>
+                        <th>Bio</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let mentor of mentors">
+                        <td>{{ mentor.id }}</td>
+                        <td>{{ mentor.username }}</td>
+                        <td>{{ mentor.firstName }}</td>
+                        <td>{{ mentor.lastName }}</td>
+                        <td>{{ mentor.phone }}</td>
+                        <td>{{ mentor.email }}</td>
+                        <td>{{ mentor.address }}</td>
+                        <td>{{ mentor.field }}</td>
+                        <td class="bio">{{ mentor.bio }}</td>
+                        <td class="action-buttons">
+                          <button
+                          [routerLink]="'/profile/updatementor/' + mentor.id"
+                          class="m-2 btn btn-outline-primary">Update</button>
+                          <button
+                            (click)="deleteMentor(mentor.id)"
+                            class="m-2 btn btn-outline-danger delete-button">Delete</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

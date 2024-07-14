@@ -1,0 +1,208 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">Add Job</mat-card-title>
+            <mat-card-subtitle>Add details of the Job</mat-card-subtitle>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-md-12">
+        <mat-card class="shadow">
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-8 offset-md-2">
+                <form (ngSubmit)="formSubmit()" class="p-5">
+                  <!-- JOB TITLE -->
+                  <div class="mb-3">
+                    <label for="jTitle" class="form-label">Job Title</label>
+                    <input
+                      [(ngModel)]="job.jTitle"
+                      name="jTitle"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Job Title"
+                      required
+                    />
+                  </div>
+                  <!-- JOB DESCRIPTION -->
+                  <div class="mb-3">
+                    <label for="jDescription" class="form-label"
+                      >Job Description</label
+                    >
+                    <textarea
+                      class="form-control"
+                      [(ngModel)]="job.jDescription"
+                      name="jDescription"
+                      placeholder="Enter Job Description"
+                      rows="5"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <!-- JOB TYPE -->
+                  <div class="mb-3">
+                    <label for="jType" class="form-label">Job Type</label>
+                    <select
+                      [(ngModel)]="job.jType"
+                      name="jType"
+                      class="form-select"
+                      id="jobType"
+                      required
+                    >
+                      <option value="" disabled selected>
+                        --Select Job Type--
+                      </option>
+                      <option value="Full-time">Full-time</option>
+                      <option value="Part-time">Part-time</option>
+                      <option value="Contract">Contract</option>
+                      <option value="Remote">Remote</option>
+                    </select>
+                  </div>
+
+                  <!-- LOCATION -->
+                  <div class="mb-3">
+                    <label for="jLocation" class="form-label">Location</label>
+                    <input
+                      [(ngModel)]="job.jLocation"
+                      name="jLocation"
+                      type="text"
+                      class="form-control"
+                      id="location"
+                      placeholder="Enter Job Location"
+                      required
+                    />
+                  </div>
+
+                  <!-- COMPANY NAME -->
+                  <div class="mb-3">
+                    <label for="jCompanyName" class="form-label"
+                      >Company Name</label
+                    >
+                    <input
+                      [(ngModel)]="job.jCompanyName"
+                      name="jCompanyName"
+                      type="text"
+                      class="form-control"
+                      disabled
+                      id="companyName"
+                      placeholder="Enter Company Name"
+                      required
+                    />
+                  </div>
+
+                  <!-- COMPANY DESCRIPTION -->
+                  <div class="mb-3">
+                    <label for="jCompanyDes" class="form-label"
+                      >Company Description</label
+                    >
+                    <textarea
+                      [(ngModel)]="job.jCompanyDes"
+                      name="jCompanyDes"
+                      class="form-control"
+                      disabled
+                      placeholder="Enter Company Description"
+                      rows="5"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <!-- CONTACT INFORMATION -->
+                  <div class="mb-3">
+                    <label for="jCompanyContact" class="form-label"
+                      >Contact Information</label
+                    >
+                    <input
+                      [(ngModel)]="job.jCompanyContact"
+                      name="jCompanyContact"
+                      type="text"
+                      class="form-control"
+                      disabled
+                      placeholder="Enter Contact Information"
+                      required
+                    />
+                  </div>
+
+                  <!-- APPLICATION DEADLINE -->
+                  <div class="mb-3">
+                    <label for="jDeadline" class="form-label"
+                      >Application Deadline</label
+                    >
+                    <input
+                      [(ngModel)]="job.jDeadline"
+                      name="jDeadline"
+                      type="date"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+
+                  <!-- EXPERIENCE LEVEL -->
+                  <div class="mb-3">
+                    <label for="jExperience" class="form-label"
+                      >Experience Level</label
+                    >
+                    <select
+                      [(ngModel)]="job.jExperience"
+                      name="jExperience"
+                      class="form-select"
+                      required
+                    >
+                      <option value="" disabled selected>
+                        Select Experience Level
+                      </option>
+                      <option value="Entry-level">Entry-level</option>
+                      <option value="Mid-level">Mid-level</option>
+                      <option value="Senior">Senior</option>
+                    </select>
+                  </div>
+
+                  <!-- EDUCATION REQUIREMENTS -->
+                  <div class="mb-3">
+                    <label for="jEducation" class="form-label"
+                      >Education Requirements</label
+                    >
+                    <input
+                      [(ngModel)]="job.jEducation"
+                      name="jEducation"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Education Requirements"
+                      required
+                    />
+                  </div>
+
+                  <!-- SKILLS REQUIRED -->
+                  <div class="mb-3">
+                    <label for="jSkills" class="form-label"
+                      >Skills Required</label
+                    >
+                    <input
+                      [(ngModel)]="job.jSkills"
+                      name="jSkills"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Skill Required"
+                      required
+                    />
+                  </div>
+
+                  <div class="text-center mt20">
+                    <button type="submit" class="m-2 btn btn-primary">
+                      ADD JOB
+                    </button>
+                    <button class="m-2 btn btn-secondary" type="reset">
+                      CLEAR
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">Show Jobs</mat-card-title>
+            <mat-card-subtitle>List of Jobs</mat-card-subtitle>
+          </div>
+        </mat-card>
+
+        <!-- Iterate over jobs -->
+        <div class="row">
+          <div class="col-md-12" *ngFor="let j of jobs">
+            <div class="card shadow* mb-3">
+              <div class="card-header p-3 text-center">
+                <h1 class="text-color fw-bold m-0">{{ j.jTitle }}</h1>
+                <h3 class="m-0">{{ j.jType }}</h3>
+              </div>
+              <div class="card-body m-1 p-3">
+                <div class="row">
+                  <div class="col-md-9">
+                    <p class="justifyPara">{{ j.jDescription }}</p>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="tableDiv">
+                      <table class="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <th class="text-color">Deadline</th>
+                            <td>{{ j.jDeadline }}</td>
+                          </tr>
+                          <tr>
+                            <th class="text-color">Skill</th>
+                            <td>{{ j.jSkills }}</td>
+                          </tr>
+                          <tr>
+                            <th class="text-color">Location</th>
+                            <td>{{ j.jLocation }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                    <button
+                      class="m-2 btn btn-danger"
+                      (click)="deleteJob(j.jId)"
+                    >
+                      Delete
+                    </button>
+                    <button class="btn btn-warning m-2">
+                      Experience Level: {{ j.jExperience }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

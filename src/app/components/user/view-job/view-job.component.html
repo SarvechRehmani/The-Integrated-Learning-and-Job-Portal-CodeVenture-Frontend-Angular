@@ -1,0 +1,339 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row" *ngIf="!isApply">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">Job Details</mat-card-title>
+            <mat-card-subtitle>{{ job.jTitle }}</mat-card-subtitle>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <mat-card-content class="p-5">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <tbody>
+                  <tr>
+                    <th>ID</th>
+                    <td>{{ job.jId }}</td>
+                  </tr>
+                  <tr>
+                    <th>Job Title</th>
+                    <td>{{ job.jTitle }}</td>
+                  </tr>
+                  <tr>
+                    <th>Job Description</th>
+                    <td class="justifyPara">{{ job.jDescription }}</td>
+                  </tr>
+                  <tr>
+                    <th>Skills Needed</th>
+                    <td>{{ job.jSkills }}</td>
+                  </tr>
+                  <tr>
+                    <th>Education Needed</th>
+                    <td>{{ job.jEducation }}</td>
+                  </tr>
+                  <tr>
+                    <th>Experience Needed</th>
+                    <td>{{ job.jExperience }}</td>
+                  </tr>
+                  <tr>
+                    <th>Job Location</th>
+                    <td>{{ job.jLocation }}</td>
+                  </tr>
+                  <tr>
+                    <th>Job Type</th>
+                    <td>{{ job.jType }}</td>
+                  </tr>
+                  <tr>
+                    <th>Deadline</th>
+                    <td>{{ job.jDeadline }}</td>
+                  </tr>
+                  <tr>
+                    <th>Company Name</th>
+                    <td>{{ job.jCompanyName }}</td>
+                  </tr>
+                  <tr>
+                    <th>Company Description</th>
+                    <td class="justifyPara">{{ job.jCompanyDec }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-center mt-4" *ngIf="!jobApplication">
+              <button
+                mat-raised-button
+                color="accent"
+                (click)="toggleIsApply()"
+              >
+                APPLY NOW
+              </button>
+            </div>
+
+            <div class="text-center mt-4" *ngIf="jobApplication">
+              <h3>You already applied for this job.</h3>
+              <h2>
+                Your Status :
+                <span [className]="className">{{ jobApplication.status }}</span>
+              </h2>
+              <a
+                mat-raised-button
+                color="accent"
+                [href]="
+                  'http://localhost:9191/file/resume/' + jobApplication.resume
+                "
+                >Download Resume</a
+              >
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row" *ngIf="isApply">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color"> Your Details </mat-card-title>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-md-12">
+        <mat-card class="shadow px-4">
+          <mat-card-content>
+            <div class="row">
+              <div
+                class="col-md-12 d-flex flex-column justify-content-center align-items-center mb-4"
+              >
+                <h2>Profile Picture</h2>
+                <div class="imgDiv">
+                  <img
+                    class="img"
+                    [src]="'http://localhost:9191/file/profile/' + user.profile"
+                    alt="Your profile picture.."
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <!-- FIRST NAME -->
+                <mat-form-field class="max-width" appearance="fill">
+                  <mat-label>First Name</mat-label>
+                  <input
+                    [(ngModel)]="user.firstName"
+                    name="firstName"
+                    type="text"
+                    matInput
+                    disabled
+                    placeholder="First Name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <!-- LAST NAME -->
+                <mat-form-field class="max-width" appearance="fill">
+                  <mat-label>Last Name</mat-label>
+                  <input
+                    [(ngModel)]="user.lastName"
+                    name="lastName"
+                    type="text"
+                    matInput
+                    disabled
+                    placeholder="Last Name"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <!-- USERNAME -->
+                <mat-form-field class="max-width" appearance="fill">
+                  <mat-label>Username</mat-label>
+                  <input
+                    [(ngModel)]="user.username"
+                    name="username"
+                    type="text"
+                    matInput
+                    disabled
+                    placeholder="Username"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <!-- EMAIL -->
+                <mat-form-field class="max-width" appearance="fill">
+                  <mat-label>Email address</mat-label>
+                  <input
+                    [(ngModel)]="user.email"
+                    name="email"
+                    type="email"
+                    matInput
+                    disabled
+                    placeholder="Email Address"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <!-- PHONE -->
+                <mat-form-field class="max-width" appearance="fill">
+                  <mat-label>Phone</mat-label>
+                  <input
+                    [(ngModel)]="user.phone"
+                    name="phone"
+                    type="number"
+                    matInput
+                    disabled
+                    placeholder="Phone"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <!-- EMAIL -->
+                <mat-form-field class="max-width" appearance="fill">
+                  <mat-label>Address</mat-label>
+                  <input
+                    [(ngModel)]="user.address"
+                    name="address"
+                    type="text"
+                    matInput
+                    disabled
+                    placeholder="Address"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-md-12">
+                <!-- EDUCATION -->
+                <mat-form-field class="max-width" appearance="fill">
+                  <mat-label>Your Education</mat-label>
+                  <input
+                    name="userEducation"
+                    type="text"
+                    matInput
+                    [(ngModel)]="ja.userEducation"
+                    placeholder="Enter your Education"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <!-- EXPERIENCE -->
+                <mat-form-field class="max-width" appearance="fill">
+                  <mat-label>Select Experience</mat-label>
+                  <mat-select
+                    name="experience"
+                    [(ngModel)]="ja.userExperience"
+                    required
+                  >
+                    <mat-option [value]=""> --Select Experience-- </mat-option>
+                    <mat-option value="Entry-level"> Entry-level </mat-option>
+                    <mat-option value="Mid-level"> Mid-level </mat-option>
+                    <mat-option value="Senior"> Senior </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <!-- SKILL -->
+                <mat-form-field class="max-width" appearance="fill">
+                  <mat-label>Your Skill</mat-label>
+                  <input
+                    name="userSkill"
+                    type="text"
+                    matInput
+                    [(ngModel)]="ja.userSkill"
+                    placeholder="Enter your Skill"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+              <pre>
+                                {{ ja | json }}
+                            </pre
+              >
+            </div>
+            <div class="row">
+              <div class="col-md-9">
+                <mat-form-field
+                  class="max-width"
+                  (click)="fileInput.click()"
+                  appearance="fill"
+                >
+                  <mat-label>Please Choose Your Resume</mat-label>
+                  <input
+                    name="resume"
+                    type="text"
+                    matInput
+                    [value]="selectedFile.name"
+                    placeholder="Please Choose PDF File<"
+                    required
+                    disabled
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-md-3 mt-2">
+                <mat-card>
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    (click)="fileInput.click()"
+                  >
+                    Choose File
+                  </button>
+
+                  <input
+                    hidden
+                    accept="application/pdf"
+                    (change)="onFileSelected($event)"
+                    #fileInput
+                    type="file"
+                  />
+                </mat-card>
+              </div>
+              <div class="text-center">
+                <p>
+                  File size must be less then
+                  <span class="text-color">10MB</span>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <button
+                  class="m-2"
+                  mat-raised-button
+                  color="primary"
+                  (click)="toggleIsApply()"
+                >
+                  Back
+                </button>
+                <button
+                  class="m-2"
+                  mat-raised-button
+                  color="accent"
+                  (click)="submitApplication()"
+                >
+                  Submit Application
+                </button>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.jobsCard {
+  border-radius: 15px;
+ transition: 0.3s ease-in-out;
+}
+
+.jobsCard:hover {
+  border: 1px solid #ff4081; 
+}
+
+.col1{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.imgDiv {
+  background-color: #f3eef0;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.para {
+  color: #666;
+  margin-top: -15px;
+}
+
+.justifyPara{
+  text-align: justify;
+  text-justify: distribute-all-lines;
+}
+
+
+

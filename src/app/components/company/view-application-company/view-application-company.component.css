@@ -1,0 +1,19 @@
+.justifyPara{
+    text-align: justify;
+    text-justify: distribute-all-lines;
+}
+
+.tableDiv{
+    overflow-x: auto;
+}
+
+.Accepted{
+ color: green;
+}
+
+.Rejected{
+    color: red;
+}
+.text-color{
+    color:rgb(0, 158, 190) !important;
+}

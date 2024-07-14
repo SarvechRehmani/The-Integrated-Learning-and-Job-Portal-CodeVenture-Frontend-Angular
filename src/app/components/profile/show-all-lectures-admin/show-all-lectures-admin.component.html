@@ -1,0 +1,39 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title *ngIf="cId" class="text-color">Lectures of {{cTitle}} Course</mat-card-title>
+                        <mat-card-title *ngIf="!cId" class="text-color">All Lectures</mat-card-title>
+                        <mat-card-subtitle>List of Lecture</mat-card-subtitle>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="row" *ngIf="lectures.length > 0">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-1" style="border-radius: 50px;" *ngFor="let l of lectures">
+                    <mat-action-list>
+                        <button style="border-radius: 50px;" mat-list-item [routerLink]="'/profile/lecture/'+l.lId">
+                            <mat-card-header>
+                                <div mat-card-avatar class="img"></div>
+                                <mat-card-title class="text-color">{{l.lNo}}:- {{l.lTitle}}</mat-card-title>
+                                <mat-card-subtitle>{{l.course.cTitle}} <span
+                                        class="m-2">({{l.course.field}})</span></mat-card-subtitle>
+                            </mat-card-header>
+                        </button>
+                    </mat-action-list>
+                </mat-card>
+            </div>
+        </div>
+        <div class="row" *ngIf="lectures.length == 0">
+            <div class="col-md-12">
+                <mat-card class="d-flex justify-content-center align-items-center">
+                    <img src="assets/img/stockNotFound.png" class="img-fluid" alt="Not Found">
+                    <h1>Lectures are Not Available Now Please Come back letter..</h1>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

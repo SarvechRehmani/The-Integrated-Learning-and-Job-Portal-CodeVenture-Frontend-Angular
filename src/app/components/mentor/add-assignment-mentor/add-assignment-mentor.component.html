@@ -1,0 +1,81 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">Add Assignment</mat-card-title>
+                        <mat-card-subtitle>Enter the details of Assignment</mat-card-subtitle>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow">
+                    <!-- {{assignment | json }} -->
+                    <mat-card-content>
+                        <form class="p-4" (ngSubmit)="addAssignments()">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- COURSE -->
+                                    <mat-form-field class="max-width" appearance="fill">
+                                        <mat-label>Select Course</mat-label>
+                                        <mat-select name="course" required>
+                                            <mat-option [value]="" (click)="loadLectures('')">--Select
+                                                Course--</mat-option>
+                                            <mat-option *ngFor="let c of courses" [value]="c.cId"
+                                                (click)="loadLectures(c.cId)">{{c.cTitle}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <!-- LECTURE -->
+                                    <mat-form-field class="max-width" appearance="fill">
+                                        <mat-label>Select Lecture</mat-label>
+                                        <mat-select [(ngModel)]="assignment.lecture.lId" name="lecture" required>
+                                            <mat-option [value]="">--Select Lecture--</mat-option>
+                                            <mat-option *ngFor="let l of lectures"
+                                                [value]="l.lId">{{l.lTitle}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-12">
+                                    <!-- LECTURE NUMBER -->
+                                    <mat-form-field class="max-width" appearance="fill">
+                                        <mat-label>Assignment Max Marks</mat-label>
+                                        <input [(ngModel)]="assignment.maxMarks" name="maxMarks" type="number" matInput
+                                            placeholder="Enter Lecture Number" required>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-md-12 mb-3">
+                                    <ckeditor [editor]="Editor" [(ngModel)]="assignment.aContent" name="description"
+                                        required [config]="{
+                                      placeholder:'Enter Lecture Content',
+                                      toolbar: [
+                                      '|','undo' , 'redo',
+                                      '|','heading',
+                                      '|', 'bold', 'italic', 'Link',
+                                      '|', 'bulletedList', 'numberedList',
+                                      '|', 'blockQuote',
+                                      '|', 'insertTable'
+                                      ]
+                                  }"></ckeditor>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt20">
+                                <button class="m-2" mat-raised-button color="accent">Add Assignment</button>
+                                <button class="m-2" mat-raised-button type="reset" color="primary">Clear</button>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

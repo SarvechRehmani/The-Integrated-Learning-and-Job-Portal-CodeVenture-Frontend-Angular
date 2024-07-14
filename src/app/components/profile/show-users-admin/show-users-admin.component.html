@@ -1,0 +1,62 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color"
+              >Normal Users's List</mat-card-title
+            >
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-md-12">
+        <mat-card class="shadow">
+          <mat-card-content>
+            <div class="container1 p-4">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Username</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Phone</th>
+                      <th>Email</th>
+
+                      <th>Category</th>
+
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of users">
+                      <td>{{ user.id }}</td>
+                      <td>{{ user.username }}</td>
+                      <td>{{ user.firstName }}</td>
+                      <td>{{ user.lastName }}</td>
+                      <td>{{ user.phone }}</td>
+                      <td>{{ user.email }}</td>
+
+                      <td>{{ user.field }}</td>
+
+                      <td class="action-buttons">
+                        <button
+                          (click)="deleteUser(user.id)"
+                          class="m-2 btn btn-outline-danger delete-button"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

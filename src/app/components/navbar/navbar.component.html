@@ -1,0 +1,87 @@
+<nav class="navbar shadow navbar-expand-lg bg-body-tertiary mb-4" id="navbar">
+  <div class="container-fluid">
+    <button
+      *ngIf="isLoggedIn"
+      mat-mini-fab
+      color="accent"
+      class="d-md-none"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#sidebar"
+      aria-controls="sidebar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div class="d-flex align-items-center mb-1" style="height: 80px">
+      <img src="assets/img/logoforweb2.png" class="custom-img img-fluid" />
+    </div>
+
+    <button
+      mat-icon-button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <!-- If not LogedIn -->
+        <li *ngIf="!isLoggedIn" class="nav-item">
+          <button
+            routerLink="/home"
+            class="m-button m-1"
+            [routerLinkActive]="'active'"
+            mat-button
+          >
+            <mat-icon>home</mat-icon> Home
+          </button>
+        </li>
+
+        <li *ngIf="!isLoggedIn" class="nav-item">
+          <button
+            routerLink="/login"
+            class="m-button m-1"
+            [routerLinkActive]="'active'"
+            mat-button
+          >
+            <mat-icon>login</mat-icon> Login
+          </button>
+        </li>
+
+        <li *ngIf="!isLoggedIn" class="nav-item">
+          <button
+            routerLink="/register"
+            class="m-button m-1"
+            [routerLinkActive]="'active'"
+            mat-button
+          >
+            <mat-icon>how_to_reg</mat-icon> Register
+          </button>
+        </li>
+
+        <!-- If LoggedIn -->
+        <li *ngIf="isLoggedIn && user" class="nav-item mr-20">
+          <button class="m-button m-1" mat-button>
+            <mat-icon>account_circle</mat-icon>
+            {{ user.firstName }} {{ user.lastName }}
+          </button>
+        </li>
+
+        <li *ngIf="isLoggedIn" class="nav-item mr-20">
+          <button class="m-button m-1" (click)="logout()" mat-button>
+            <mat-icon>logout</mat-icon> Logout
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

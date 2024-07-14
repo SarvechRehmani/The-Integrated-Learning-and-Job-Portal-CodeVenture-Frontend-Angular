@@ -1,0 +1,93 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">Add Company</mat-card-title>
+            <mat-card-subtitle>Enter the details of Company</mat-card-subtitle>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card>
+          <mat-card-content>
+            {{ user | json }}
+            <form (ngSubmit)="formSubmit()" class="p-5">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- FIRST NAME-->
+                    <mat-form-field appearance="fill" class="max-width" color="accent">
+                      <mat-label>Conpany Name</mat-label>
+                      <input [(ngModel)]="user.firstName" name="firstName" matInput placeholder="Enter Company's Name"
+                        required />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <!-- USERNAME-->
+                    <mat-form-field appearance="fill" class="max-width" color="accent">
+                      <mat-label>Username</mat-label>
+                      <input [(ngModel)]="user.username" name="username" matInput placeholder="Enter Company's Username"
+                        required />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <!-- PASSWORD-->
+                    <mat-form-field appearance="fill" class="max-width" color="accent">
+                      <mat-label>Password</mat-label>
+                      <input [(ngModel)]="user.password" name="password" matInput placeholder="Enter Company's Password"
+                        required />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <!-- PHONE -->
+                    <mat-form-field appearance="fill" class="max-width" color="accent">
+                      <mat-label>Contact No</mat-label>
+                      <input [(ngModel)]="user.phone" name="phone" matInput placeholder="Enter Company's Contact"
+                        required />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <!-- EMAIL ADDRESS-->
+                    <mat-form-field appearance="fill" class="max-width" color="accent">
+                      <mat-label>Email Address</mat-label>
+                      <input [(ngModel)]="user.email" name="email" matInput placeholder="Enter Company's Email"
+                        required />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12">
+                    <!-- ADRESS-->
+                    <mat-form-field appearance="fill" class="max-width" color="accent">
+                      <mat-label>Address</mat-label>
+                      <input [(ngModel)]="user.address" name="address" matInput placeholder="Enter Company's Address" />
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-12">
+                    <!-- BIO-->
+                    <mat-form-field appearance="fill" class="max-width" color="accent">
+                      <mat-label>About</mat-label>
+                      <textarea [(ngModel)]="user.bio" name="bio" matInput
+                        placeholder="Enter Company's About"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-12 text-center">
+                    <button mat-raised-button color="accent" class="m-2">
+                      ADD COMPANY
+                    </button>
+                    <button mat-raised-button color="primary" class="m-2" type="reset">
+                      CLEAR
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

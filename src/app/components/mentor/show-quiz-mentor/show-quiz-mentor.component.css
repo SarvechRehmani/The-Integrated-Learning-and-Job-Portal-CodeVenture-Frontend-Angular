@@ -1,0 +1,15 @@
+.example-header-image {
+    background-image: url('../../../../assets/img/quizlogo.png');
+    background-size: cover;
+  }
+
+  .m10{
+    margin: 10px;;
+  }
+  .ml10{
+    margin-left: 10px;;
+  }
+
+  .text-color{
+    color:#4860a3 !important;
+  }

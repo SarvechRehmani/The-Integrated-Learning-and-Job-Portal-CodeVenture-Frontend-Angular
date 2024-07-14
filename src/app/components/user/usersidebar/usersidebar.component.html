@@ -1,0 +1,55 @@
+<mat-card class="shadow mb-2">
+  <mat-card-header>
+    <div class="logo">
+      <img src="/assets/img/studentpanel.png" alt="Company Logo" />
+      <span>Student Panel</span>
+    </div>
+  </mat-card-header>
+
+  <mat-action-list>
+    <button mat-list-item routerLink="/user">
+      <mat-icon matListItemIcon>home</mat-icon>
+      <span>Home</span>
+    </button>
+
+    <button mat-list-item routerLink="/user/profile">
+      <mat-icon matListItemIcon>account_circle</mat-icon>
+      <span>Profile</span>
+    </button>
+
+    <button mat-list-item routerLink="/user/course">
+      <mat-icon matListItemIcon>school</mat-icon>
+      <span>Courses</span>
+    </button>
+
+    <button mat-list-item routerLink="/user/lectures">
+      <mat-icon matListItemIcon>subscriptions</mat-icon>
+      <span>Lectures</span>
+    </button>
+
+    <button mat-list-item routerLink="/user/quizess">
+      <mat-icon matListItemIcon>help</mat-icon>
+      <span>Quizzes</span>
+    </button>
+
+    <button mat-list-item routerLink="/user/assignments">
+      <mat-icon matListItemIcon>assignment</mat-icon>
+      <span>Assignment</span>
+    </button>
+
+    <button mat-list-item routerLink="/user/labtasks">
+      <mat-icon matListItemIcon>assignment_turned_in</mat-icon>
+      <span>LabTasks</span>
+    </button>
+
+    <button mat-list-item routerLink="/user/findjob">
+      <mat-icon matListItemIcon>work</mat-icon>
+      <span>Find Job</span>
+    </button>
+
+    <button mat-list-item (click)="logout()">
+      <mat-icon matListItemIcon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-action-list>
+</mat-card>

@@ -1,0 +1,76 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">Show Course</mat-card-title>
+            <mat-card-subtitle>List of Course</mat-card-subtitle>
+          </div>
+        </mat-card>
+
+        <mat-card class="shadow mb-2" *ngFor="let c of courses">
+          <mat-card-header>
+            <div mat-card-avatar class="img"></div>
+            <mat-card-title class="text-color">{{ c.cTitle }}</mat-card-title>
+            <mat-card-subtitle>{{ c.field }}</mat-card-subtitle>
+          </mat-card-header>
+          <hr class="mt-0 mb-3" />
+          <mat-card-content class="m-0 px-5">
+            <div>
+              <p class="justifyPara">{{ c.cDescription }}</p>
+            </div>
+          </mat-card-content>
+          <hr class="mt-4 mb-2" />
+          <mat-card-actions>
+            <div class="row">
+              <div class="col-md-12">
+                <button
+                  class="m-2"
+                  [routerLink]="'/mentor/lectures/' + c.cId + '/' + c.cTitle"
+                  mat-stroked-button
+                  color="primary"
+                >
+                  Lectures: {{ c.lectureLength }}
+                </button>
+
+                <button
+                  class="m-2"
+                  [routerLink]="'/mentor/updatecourse/' + c.cId"
+                  mat-flat-button
+                  color="primary"
+                >
+                  Update
+                </button>
+
+                <button
+                  class="m-2"
+                  (click)="deleteCourse(c.cId)"
+                  mat-flat-button
+                  color="warn"
+                >
+                  Delete
+                </button>
+
+                <button class="m-2" mat-button color="warn">
+                  Total Lectures: {{ c.totalLectures }}
+                </button>
+              </div>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+        <div class="text-center mb-1">
+          <button
+            class=""
+            routerLink="/mentor/addcourse"
+            mat-raised-button
+            color="accent"
+            class="mt-4"
+          >
+            Add New Course
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <h1 class="text-color fw-bold fs-3">JOB BOARD</h1>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-10" style="margin-bottom: -18px">
+                <mat-form-field appearance="outline" class="max-width">
+                  <mat-label>Search by Company, Job title, Keywords</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="searchQuery"
+                    (keyup.enter)="searchJobs()"
+                    name="searchQuery"
+                  />
+                  <mat-icon matPrefix (click)="searchJobs()">search</mat-icon>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-card style="border: none; margin-top: 8px">
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    (click)="searchJobs()"
+                  >
+                    <mat-icon>search</mat-icon>
+                    SEARCH
+                  </button>
+                </mat-card>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="mx-3 my-2">
+      <h3>
+        We've found
+        <span class="fw-bold text-color">{{ filteredJobs.length }}</span> jobs!
+      </h3>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="jobsCard shadow mb-2" *ngFor="let j of filteredJobs">
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-2 box">
+                <div class="imgDiv">
+                  <img
+                    src="assets/img/jobcard.jpg"
+                    class="img-fluid"
+                    style="width: 95%; height: 95%"
+                  />
+                </div>
+              </div>
+              <div class="col-md-8">
+                <h2 class="fw-bold">
+                  {{ j.jTitle }}
+                </h2>
+                <p class="para">
+                  <span class="fw-bold">Skill :</span> {{ j.jSkills }}
+                </p>
+                <p class="para justifyPara">
+                  <span class="fw-bold">Description :</span>
+                  {{ j.jDescription }}
+                </p>
+              </div>
+              <div class="col-md-2 box">
+                <button
+                  mat-fab
+                  extended
+                  style="background-color: grey"
+                  [routerLink]="'/user/viewjob/' + j.jId"
+                >
+                  VIEW JOB
+                </button>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="filteredJobs.length < jobs.length">
+      <div class="col-md-12">
+        <mat-card class="shadow text-center p-3">
+          <button mat-raised-button color="primary" (click)="loadMoreJobs()">
+            Show More Jobs
+          </button>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

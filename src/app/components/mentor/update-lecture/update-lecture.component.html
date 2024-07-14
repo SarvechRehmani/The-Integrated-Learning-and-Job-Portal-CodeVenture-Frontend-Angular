@@ -1,0 +1,80 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">Update Lecture</mat-card-title>
+                        <mat-card-subtitle>Enter the details of Lecture</mat-card-subtitle>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow" *ngIf="lecture.lId">
+                    <!-- {{lecture | json}} -->
+                    <mat-card-content>
+                        <form class="p-4" (ngSubmit)="formSubmit()">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <!-- LECTURE NUMBER -->
+                                    <mat-form-field class="max-width" appearance="fill">
+                                        <mat-label>Lecture Number</mat-label>
+                                        <input [(ngModel)]="lecture.lNo" name="lno" type="number" matInput
+                                            placeholder="Enter Lecture Number" required>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-9">
+                                    <!-- LECTURE TITLE -->
+                                    <mat-form-field class="max-width" appearance="fill">
+                                        <mat-label>Lecture Title</mat-label>
+                                        <input [(ngModel)]="lecture.lTitle" name="title" type="text" matInput
+                                            placeholder="Enter Lecture Title" required>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- LECTURE CONTENT -->
+
+                            <ckeditor [editor]="Editor" [(ngModel)]="lecture.lDescription" name="description" [config]="{
+                              placeholder:'Enter Lecture Content',
+                              toolbar: [
+                              '|','undo' , 'redo',
+                              '|','heading',
+                              '|', 'bold', 'italic', 'Link',
+                              '|', 'bulletedList', 'numberedList',
+                              '|', 'blockQuote',
+                              '|', 'insertTable'
+                              ]
+                          }"></ckeditor>
+
+                            <!-- LECTURE OF COURSE -->
+                            <mat-form-field class="max-width mt-4" appearance="fill">
+                                <mat-label>Select Course</mat-label>
+                                <mat-select [(ngModel)]="lecture.course.cId" name="course" required>
+                                    <mat-option [value]="">--Select Course--</mat-option>
+                                    <mat-option *ngFor="let c of courses" [value]="c.cId">{{c.cTitle}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <!-- VIDEO URL -->
+                            <mat-form-field class="max-width" appearance="fill">
+                                <mat-label>Video Url</mat-label>
+                                <input [(ngModel)]="lecture.lVideo" name="video" type="url" matInput
+                                    placeholder="Add Video Url here" required>
+                            </mat-form-field>
+
+                            <div class="text-center mt20">
+                                <button class="m-2" mat-raised-button color="accent">Update Lecture</button>
+                                <button class="m-2" mat-raised-button type="reset" color="primary">Clear</button>
+                            </div>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card *ngIf="!lecture.lId">
+                    <h1>Lecture Not Found</h1>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

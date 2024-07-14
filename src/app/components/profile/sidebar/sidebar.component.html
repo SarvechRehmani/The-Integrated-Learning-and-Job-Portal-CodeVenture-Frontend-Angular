@@ -1,0 +1,168 @@
+<!--<mat-card>
+  <mat-action-list>
+    <div mat-subheader>menu</div>
+    <button mat-list-item routerLink="/profile">
+      <img
+        src="assets/img/home.png"
+        style="max-width: 50px; max-height: 20px; margin-bottom: 9px"
+      />
+      Home
+    </button>
+    <button mat-list-item routerLink="/profile/profile">
+      <img
+        src="assets/img/user.png"
+        style="max-width: 50px; max-height: 20px; margin-bottom: 9px"
+      />
+      Profile
+    </button>
+    <button mat-list-item routerLink="/profile/addmentor">
+      <img
+        src="assets/img/add2.png"
+        style="max-width: 50px; max-height: 20px; margin-bottom: 7px"
+      />
+      Add Mentor
+    </button>
+    <button mat-list-item routerLink="/profile/addcompany">
+      <img
+        src="assets/img/add2.png"
+        style="max-width: 50px; max-height: 20px; margin-bottom: 7px"
+      />
+      Add Company
+    </button>
+    <button mat-list-item routerLink="/profile/showmentor">
+      <img
+        src="assets/img/mentor.png"
+        style="max-width: 50px; max-height: 20px; margin-bottom: 7px"
+      />
+      Show Mentors
+    </button>
+    <button mat-list-item (click)="logout()">
+      <img
+        src="assets/img/logout.png"
+        style="max-width: 50px; max-height: 20px; margin-bottom: 7px"
+      />
+      Logout
+    </button>
+  </mat-action-list>
+</mat-card>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="#" class="logo">
+          <img src="/assets/img/studentpanel.png" alt="" />
+          <span class="nav-item">Admin Panel</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <i class="fas fa-home"></i>
+          <span class="nav-item" routerLink="/profile">Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-user"></i>
+          <span class="nav-item" routerLink="/profile/Profile">Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-laptop-code"></i>
+          <span class="nav-item">Courses</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="#">
+          <i class="fas fa-film"></i>
+          <span class="nav-item">Lectures</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-comments"></i>
+          <span class="nav-item">Quizz</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class="fas fa-tasks"></i>
+          <span class="nav-item">Assignments</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span class="nav-item">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</body>-->
+<mat-card class="shadow mb-2">
+  <mat-card-header>
+    <div class="logo">
+      <img src="/assets/img/admin.png" alt="Company Logo" />
+      <span>Admin Panel</span>
+    </div>
+  </mat-card-header>
+
+  <mat-action-list>
+    <button mat-list-item routerLink="/profile">
+      <mat-icon matListItemIcon>home</mat-icon>
+      <span>Home</span>
+    </button>
+
+    <button mat-list-item routerLink="/profile/profile">
+      <mat-icon matListItemIcon>person</mat-icon>
+      <span>Profile</span>
+    </button>
+
+    <button mat-list-item routerLink="/profile/courses">
+      <mat-icon matListItemIcon>school</mat-icon>
+      <span>Courses</span>
+    </button>
+
+    <button mat-list-item routerLink="/profile/showusers">
+      <mat-icon matListItemIcon>supervisor_account</mat-icon>
+      <span>Show Users</span>
+    </button>
+
+    <button mat-list-item routerLink="/profile/addmentor">
+      <mat-icon matListItemIcon>person_add</mat-icon>
+      <span>Add Mentor</span>
+    </button>
+
+    <button mat-list-item routerLink="/profile/showmentor">
+      <mat-icon matListItemIcon>group</mat-icon>
+      <span>Show Mentors</span>
+    </button>
+
+    <button mat-list-item routerLink="/profile/addcompany">
+      <mat-icon matListItemIcon>add_business</mat-icon>
+      <span>Add Company</span>
+    </button>
+
+    <button mat-list-item routerLink="/profile/showcompanies">
+      <mat-icon matListItemIcon>apartment</mat-icon>
+      <span>Show Companies</span>
+    </button>
+
+    <button mat-list-item routerLink="/profile/showjobs">
+      <mat-icon matListItemIcon>work</mat-icon>
+      <span>Show jobs</span>
+    </button>
+
+    <button mat-list-item (click)="logout()">
+      <mat-icon matListItemIcon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-action-list>
+</mat-card>

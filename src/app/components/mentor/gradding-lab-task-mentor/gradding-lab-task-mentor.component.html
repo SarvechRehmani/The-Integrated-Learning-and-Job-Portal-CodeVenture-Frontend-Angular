@@ -1,0 +1,33 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">Gradding LabTasks</mat-card-title>
+                        <mat-card-subtitle>Select User for assign Marks of LabTask</mat-card-subtitle>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="row"*ngIf="labTasks.length > 0">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-1 mainCard"*ngFor="let l of labTasks; index as i" >
+                    <mat-action-list >
+                        <button [routerLink]="'/mentor/labtask/assign/'+l.labTask.labId+'/'+l.user.id" style="border-radius: 50px;" mat-list-item>
+                            <mat-card-header>
+                                <div mat-card-avatar class="imga" *ngIf="l.gotMarks"></div>
+                                <div mat-card-avatar class="imgn" *ngIf="!l.gotMarks"></div>
+                                <mat-card-title class="text-color">
+                                    {{i+1}} :- {{l.user.username}}
+                                </mat-card-title>
+                            <mat-card-subtitle *ngIf="!l.gotMarks">Marks Not Assigned</mat-card-subtitle>
+                            <mat-card-subtitle *ngIf="l.gotMarks">Marks Assigned</mat-card-subtitle>
+                        </mat-card-header>
+                        </button>
+                    </mat-action-list>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

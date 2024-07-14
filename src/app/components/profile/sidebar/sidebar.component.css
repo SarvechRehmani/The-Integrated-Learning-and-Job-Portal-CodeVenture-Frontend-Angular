@@ -1,0 +1,20 @@
+
+
+.logo{
+  text-align: center;
+    display: flex;
+    transition: all 0.5s ease;
+    margin: 10px 0 0 10px;
+  }
+  .logo img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .logo span{
+    margin-top: 13px;
+  font-weight: bold;
+  padding-left: 15px;
+  font-size: 18px;
+  text-transform: uppercase;
+  }

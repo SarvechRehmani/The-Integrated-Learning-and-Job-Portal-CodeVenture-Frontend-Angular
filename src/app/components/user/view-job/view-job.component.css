@@ -1,0 +1,40 @@
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+
+th {
+    background-color: #ff83ac;
+    color: #fff;
+    width: 150px;
+}
+
+.justifyPara{
+    text-align: justify;
+    text-justify: distribute-all-lines;
+}
+
+.imgDiv{
+    width: 200px;
+    height: 200px;
+    border: 2px solid #ff4081;
+    border-radius: 15%;
+    overflow: hidden;
+}
+
+.img{
+    width: 200px; 
+}
+
+.pending{
+    color: #0000FF;
+}
+
+.reject{
+    color: red;
+}
+
+.accept{
+    color: green;
+}

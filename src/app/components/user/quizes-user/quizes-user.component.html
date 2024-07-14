@@ -1,0 +1,70 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">All Quizzes</mat-card-title>
+            <mat-card-subtitle>List of Quizzes</mat-card-subtitle>
+          </div>
+        </mat-card>
+        <mat-card *ngFor="let q of quizess" class="shadow mb-1 mainCard">
+          <div class="row rowq">
+            <div class="col-md-4 col1">
+              <img
+                style="height: 100px; width: 100px"
+                src="assets/img/quiz2.png"
+              />
+              <div class="col3">
+                <mat-card-subtitle class="sub-title text-center">
+                  Course : {{ q.lecture.course.cTitle }}
+                </mat-card-subtitle>
+                <mat-card-title class="text-center"
+                  >Quiz No : {{ q.lecture.lNo }}</mat-card-title
+                >
+                <mat-card-title class="text-center">{{
+                  q.qTitle
+                }}</mat-card-title>
+              </div>
+            </div>
+            <div class="col-md-6 col2">
+              <p class="justifyPara m-2">{{ q.qDescription }}</p>
+            </div>
+            <div
+              class="col-md-2 d-flex justify-content-center align-items-center"
+            >
+              <mat-card-actions class="m-2">
+                <button
+                  mat-fab
+                  extended
+                  style="background-color: gray"
+                  [routerLink]="'/user/quiz/instructions/' + q.lecture.lId"
+                >
+                  Continue
+                </button>
+              </mat-card-actions>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+<mat-card>
+    <div class="row" style="margin: 20px; border: 1px solid #ff4081; border-radius: 5px;" *ngFor="let q of quizess">
+        <div class="col-md-3"
+            style="background-color: #ff4081; color: white; border-top-left-radius: 5px; border-bottom-left-radius: 5px; padding: 10px;">
+            <mat-card-subtitle style="color: white;">Course : {{q.course.cTitle}}</mat-card-subtitle>
+            <mat-card-title class=" text-center">Quize No : {{q.qNo}}</mat-card-title>
+            <mat-card-title class=" text-center">{{q.qTitle}}</mat-card-title>
+        </div>
+        <div class="col-md-8" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding: 10px;">
+            <p>{{q.qDescription}}</p>
+            <mat-card-actions align="end">
+                <button mat-fab extended [routerLink]="'/user/quiz/'+q.qId">Continue</button>
+            </mat-card-actions>
+        </div>
+    </div>
+
+</mat-card> -->

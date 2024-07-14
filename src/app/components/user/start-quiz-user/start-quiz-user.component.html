@@ -1,0 +1,128 @@
+<div class="bootstrap-wrapper" *ngIf="!result">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">
+                            Instructions
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                        </mat-card-subtitle>
+                    </div>
+                </mat-card>
+            </div>
+            <div class="col-md-8">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">
+                            On Going Quiz : Lecture # {{questions[0].quiz.lecture.lNo}}
+                        </mat-card-title>
+                        <mat-card-subtitle>{{questions[0].quiz.lecture.lTitle}}</mat-card-subtitle>
+                    </div>
+                </mat-card>
+                <mat-card class="mb-3 p-4 shadow" *ngFor="let q of questions; index as i">
+                    <!-- {{q | json}} -->
+                    <p><b>Q {{i+1}}</b> <span [innerHTML]="q.questionContent"></span></p>
+                    <hr>
+                    <mat-radio-group [(ngModel)]=" q.givenAnswer" aria-label="Select an option">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-radio-button [value]="q.option1">a) {{q.option1}}</mat-radio-button>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-radio-button [value]="q.option2">b) {{q.option2}}</mat-radio-button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-radio-button [value]="q.option3">c) {{q.option3}}</mat-radio-button>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-radio-button [value]="q.option4">d) {{q.option4}}</mat-radio-button>
+                            </div>
+                        </div>
+                    </mat-radio-group>
+                </mat-card>
+                <div class="text-center">
+                    <button mat-raised-button (click)="submitQuiz()" color="accent">Submit Quiz</button>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">
+                            Progress
+                        </mat-card-title>
+                        <mat-card-subtitle class="mb-5">
+                            Quiz will automatically submitted when timer reached <b>00:00</b>
+                        </mat-card-subtitle>
+                        <mat-spinner style="margin: auto;" color="accent" mode="determinate"
+                            [value]="(timer / (questions.length * 2 * 60)) * 100"></mat-spinner>
+                        <h1 class="mt-5">{{getFormattedTime()}}</h1>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Submit -->
+<div class="bootstrap-wrapper" *ngIf="result">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">
+                            Result of : Lecture # {{result.quiz.lecture.lNo}} Quiz
+                        </mat-card-title>
+                        <mat-card-subtitle>{{result.quiz.lecture.lTitle}}</mat-card-subtitle>
+                    </div>
+                </mat-card>
+                <mat-card class="mb-3 p-4 shadow">
+                    <div class="text-center text-color">
+                        <h1>Quiz Result</h1>
+                    </div>
+                    <div class="col-md-6 offset-md-3">
+                        <div class="tableDiv">
+                            <table class="table table-bordered table-striped">
+                              <tbody>
+                                <tr>
+                                  <th class="text-color">Correct Answers :</th>
+                                  <td>
+                                    {{result.correctAnswers}} out of
+                                    {{result.quiz.numberOfQuestions}}
+                                </td>
+                                </tr>
+                                <tr>
+                                  <th class="text-color">Attempted :</th>
+                                  <td>
+                                    {{result.attempted}} out of
+                                    {{result.quiz.numberOfQuestions}}
+                                </td>
+                                </tr>
+                                <tr>
+                                  <th class="text-color">Got Marks :</th>
+                                  <td>
+                                    {{result.gotMarks}} out of
+                                    {{result.quiz.maxMarks}}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                    </div>
+                    <div class="text-center">
+                        <button (click)="printResult()" mat-raised-button color="primary" class="m-2">
+                            <mat-icon matListItemIcon>print</mat-icon> Print</button>
+                        <button [routerLink]="'/user/showlecture/'+result.quiz.lecture.lId" mat-raised-button color="accent" class="m-2">
+                            <mat-icon matListItemIcon>library_books</mat-icon> Lectures</button>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

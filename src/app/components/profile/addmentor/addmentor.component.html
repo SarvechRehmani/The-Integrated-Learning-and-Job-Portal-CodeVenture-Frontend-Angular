@@ -1,0 +1,105 @@
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="shadow mb-2">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">Add Mentor</mat-card-title>
+            <mat-card-subtitle>Enter the details of mentor</mat-card-subtitle>
+          </div>
+        </mat-card>
+        <div class="col-md-12">
+          <mat-card class="shadow">
+            <mat-card-content>
+              {{user | json}}
+              <form (ngSubmit)="formSubmit()" class="p-5">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!-- USERNAME-->
+                      <mat-form-field appearance="fill" class="max-width">
+                        <mat-label>Username</mat-label>
+                        <input [(ngModel)]="user.username" name="username" matInput
+                          placeholder="Enter Mentor's Username" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <!-- PASSWORD-->
+                      <mat-form-field appearance="fill" class="max-width">
+                        <mat-label>Password</mat-label>
+                        <input [(ngModel)]="user.password" name="password" matInput
+                          placeholder="Enter Mentor's Password" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <!-- FIRST NAME-->
+                      <mat-form-field appearance="fill" class="max-width">
+                        <mat-label>First Name</mat-label>
+                        <input [(ngModel)]="user.firstName" name="firstName" matInput
+                          placeholder="Enter Mentor's First Name" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <!-- LAST NAME-->
+                      <mat-form-field appearance="fill" class="max-width">
+                        <mat-label>Last Name</mat-label>
+                        <input [(ngModel)]="user.lastName" name="lastName" matInput
+                          placeholder="Enter Mentor's Last Name" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <!-- PHONE -->
+                      <mat-form-field appearance="fill" class="max-width">
+                        <mat-label>Phone</mat-label>
+                        <input [(ngModel)]="user.phone" name="phone" matInput placeholder="Enter Mentor's Phone">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <!-- EMAIL ADDRESS-->
+                      <mat-form-field appearance="fill" class="max-width">
+                        <mat-label>Email Address</mat-label>
+                        <input [(ngModel)]="user.email" name="email" matInput placeholder="Enter Mentor's Email" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <!-- ADRESS-->
+                      <mat-form-field appearance="fill" class="max-width">
+                        <mat-label>Address</mat-label>
+                        <input [(ngModel)]="user.address" name="address" matInput placeholder="Enter Mentor's Address">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <!-- CATEGORY-->
+                      <mat-form-field appearance="fill" class="max-width">
+                        <mat-label>Select Category</mat-label>
+                        <mat-select [(ngModel)]="user.field" name="field" matNativeControl id="catSelect" required>
+                          <mat-option value="frontend">Frontend</mat-option>
+                          <mat-option value="backend">Backend</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                      <!-- BIO-->
+                      <mat-form-field appearance="fill" class="max-width">
+                        <mat-label>Bio</mat-label>
+                        <textarea [(ngModel)]="user.bio" name="bio" matInput
+                          placeholder="Enter Mentor's Bio"></textarea>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-12 text-center">
+                      <button mat-raised-button color="accent">Add Mentor</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .mw {
+      width: 100%;
+    }
+  </style>

@@ -1,0 +1,340 @@
+<div *ngIf="!updateDetailsFlag">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card class="shadow mb-2">
+        <div class="text-center m-3">
+          <mat-card-title class="text-color"
+            >Your Profile Details</mat-card-title
+          >
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <!-- If UpdateProfileFlag is FALSE -->
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card class="shadow" *ngIf="!updateProfileFlag">
+        <mat-card-content>
+          <div class="bootstrap-wrapper">
+            <div class="container">
+              <div class="row mb30">
+                <div class="col-md-8 offset-md-2">
+                  <div class="row col1">
+                    <div class="col-md-12 col-lg-4 col-sm-12 text-center col2">
+                      <div
+                        class="d-flex flex-column justify-content-center align-items-center my-2"
+                      >
+                        <div class="imgDiv mb-3">
+                          <img
+                            class="img"
+                            [src]="
+                              'http://localhost:9191/file/profile/' +
+                              user.profile
+                            "
+                            alt="Your profile picture.."
+                          />
+                        </div>
+
+                        <h1 class="text-color">
+                          <b>{{ user.firstName }}</b>
+                        </h1>
+                        <button
+                          mat-raised-button
+                          (click)="toggleUpdateProfileContainer()"
+                        >
+                          Update Profile
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-lg-8 col-sm-12 p-4">
+                      <div class="text-center">
+                        <h1>Profile Details</h1>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-7 offset-md-3">
+                          <h3><b>Username:</b> {{ user.username }}</h3>
+                        </div>
+
+                        <div class="col-md-7 offset-md-3">
+                          <h3><b>User Id:</b> {{ user.id }}</h3>
+                        </div>
+
+                        <div class="col-md-7 offset-md-3">
+                          <h3><b>User Email:</b> {{ user.email }}</h3>
+                        </div>
+
+                        <div class="col-md-7 offset-md-3">
+                          <h3><b>User Phone:</b> {{ user.phone }}</h3>
+                        </div>
+
+                        <div class="col-md-7 offset-md-3">
+                          <h3>
+                            <b>User Role:</b>
+                            {{ user.authorities[0].authority }}
+                          </h3>
+                        </div>
+
+                        <div class="col-md-7 offset-md-3">
+                          <h3><b>Address:</b> {{ user.address }}</h3>
+                        </div>
+
+                        <div class="col-md-7 offset-md-3">
+                          <h3>
+                            <b>Status:</b>
+                            {{ user.enabled ? "Active" : "InActive" }}
+                          </h3>
+                        </div>
+                        <div
+                          class="col-md-11 offset-md-2"
+                          *ngIf="!changePasswordFlag"
+                        >
+                          <div class="butn">
+                            <button
+                              mat-raised-button
+                              color="primary"
+                              (click)="toggleUpdateDetail()"
+                              class="m-2"
+                            >
+                              UPDATE
+                            </button>
+                            <button
+                              mat-raised-button
+                              color="warn"
+                              class="m-2"
+                              (click)="toggleChangePasswordFlag()"
+                            >
+                              Change Passowrd
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="shadow mt-2" *ngIf="changePasswordFlag">
+        <mat-card-content>
+          <mat-card-title class="text-center text-color"
+            >Update Password</mat-card-title
+          >
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <!-- OLD PASSWORD -->
+              <mat-form-field class="max-width" appearance="fill">
+                <mat-label>Old Password</mat-label>
+                <input
+                  [(ngModel)]="changePassword.oldPassword"
+                  name="oldPassword"
+                  type="text"
+                  matInput
+                  placeholder="Enter Old Passwoed here"
+                  required
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <!-- NEW PASSWORD -->
+              <mat-form-field class="max-width" appearance="fill">
+                <mat-label>New Password</mat-label>
+                <input
+                  [(ngModel)]="changePassword.newPassword"
+                  name="newPassword"
+                  type="text"
+                  matInput
+                  placeholder="Enter New Passwoed here"
+                  required
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 offset-md-4 text-center">
+              <button
+                mat-raised-button
+                color="accent"
+                class="m-2"
+                (click)="updatePassword()"
+              >
+                UPDATE
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                class="m-2"
+                (click)="toggleChangePasswordFlag()"
+              >
+                CANCEL
+              </button>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- If UpdateProfileFlag is TRUE -->
+      <div class="container" *ngIf="updateProfileFlag">
+        <div class="row">
+          <div class="col-md-6 offset-md-3 text-center">
+            <mat-card class="p-3 shadow" style="border-radius: 15px">
+              <h1 class="text-color">Update Profile Picture</h1>
+              <div class="m-5">
+                <img
+                  [src]="'http://localhost:9191/file/profile/' + user.profile"
+                  class="image2"
+                />
+              </div>
+              <button
+                mat-stroked-button
+                color="accent"
+                (click)="fileInput.click()"
+              >
+                Choose File
+              </button>
+              <input
+                hidden
+                accept="image/*"
+                (change)="onFileSelected($event)"
+                #fileInput
+                type="file"
+              />
+              <span class="file-name">{{ selectedFile?.name }}</span>
+              <div class="mt-2">
+                <button
+                  (click)="toggleUpdateProfileContainer()"
+                  mat-raised-button
+                  color="primary"
+                  class="m-2"
+                >
+                  BACK
+                </button>
+                <button
+                  (click)="updateProfile()"
+                  mat-raised-button
+                  color="accent"
+                  class="m-2"
+                >
+                  UPDATE
+                </button>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bootstrap-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="mb-2 shadow" *ngIf="updateDetailsFlag">
+          <div class="text-center m-3">
+            <mat-card-title class="text-color">
+              Update Profile Details
+            </mat-card-title>
+            <mat-card-subtitle> Enter Deatils for Update </mat-card-subtitle>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <mat-card class="shadow" *ngIf="updateDetailsFlag">
+      <mat-card-content>
+        <form action="" (ngSubmit)="updateDetails()">
+          <div class="row">
+            <div class="col-md-12">
+              <!-- FIRST NAME -->
+              <mat-form-field class="max-width" appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input
+                  [(ngModel)]="user.firstName"
+                  name="firstName"
+                  type="text"
+                  matInput
+                  placeholder="Enter first name here"
+                  required
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <!-- EMAIL -->
+              <mat-form-field class="max-width" appearance="fill">
+                <mat-label>Email Address</mat-label>
+                <input
+                  [(ngModel)]="user.email"
+                  name="email"
+                  type="email"
+                  matInput
+                  placeholder="Enter email here"
+                  required
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <!-- PHONE -->
+              <mat-form-field class="max-width" appearance="fill">
+                <mat-label>Phone</mat-label>
+                <input
+                  [(ngModel)]="user.phone"
+                  name="phone"
+                  type="number"
+                  matInput
+                  placeholder="Enter phone here"
+                  required
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <!-- ADDRESS -->
+              <mat-form-field class="max-width" appearance="fill">
+                <mat-label>Address</mat-label>
+                <input
+                  [(ngModel)]="user.address"
+                  name="address"
+                  type="text"
+                  matInput
+                  placeholder="Enter address here"
+                  required
+                />
+              </mat-form-field>
+              <hr />
+            </div>
+          </div>
+          <div class="row">
+            <!-- BIO -->
+            <mat-form-field class="max-width" appearance="fill">
+              <mat-label>Bio</mat-label>
+              <textarea
+                [(ngModel)]="user.bio"
+                name="bio"
+                matInput
+                placeholder="Enter Bio here"
+                rows="5"
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <div class="text-center">
+            <button
+              mat-raised-button
+              class="m-2"
+              (click)="toggleUpdateDetail()"
+              color="primary"
+            >
+              BACK
+            </button>
+            <button mat-raised-button class="m-2" color="accent">UPDATE</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

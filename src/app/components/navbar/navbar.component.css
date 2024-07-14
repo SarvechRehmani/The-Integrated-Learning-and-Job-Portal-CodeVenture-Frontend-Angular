@@ -1,0 +1,29 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+#navbar{
+  background-color: #f5f5f5!important;
+  margin-bottom: 20px!important;
+}
+
+.custom-img {
+
+  width: auto;
+  height: auto
+
+}
+
+
+.active {
+  color: #ff4081!important;
+  border-bottom: 2px solid #ff4081 !important; 
+}
+
+.m-button{
+font-size: 20px;
+}
+.m-button:hover{
+  color: #ff4081!important;
+}

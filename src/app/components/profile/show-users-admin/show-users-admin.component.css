@@ -1,0 +1,35 @@
+.container1 {
+    border: 1px solid grey;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    margin: 20px auto;
+}
+
+
+th {
+    background-color: #087ffd;
+    color: #fff;
+    text-align: center;
+}
+
+th,
+td {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 8px;
+}
+
+td .bio {
+    max-width: 300px;
+}
+
+td .action-buttons {
+    white-space: nowrap;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}

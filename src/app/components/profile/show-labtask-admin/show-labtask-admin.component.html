@@ -1,0 +1,47 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card *ngIf="labTask" class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">{{lecture.lNo}}:-
+                            {{lecture.lTitle}}</mat-card-title>
+                        <mat-card-subtitle>
+                            <b>Course:</b> {{course.cTitle}}
+                            ||
+                            <b>Field:</b> {{course.cField}}
+                        </mat-card-subtitle>
+                    </div>
+                </mat-card>
+                <mat-card *ngIf="labTask" class="shadow p-4">
+                    <div class="text-center">
+                        <mat-card-title>Lab Task: </mat-card-title>
+                    </div>
+                    <mat-card-content>
+                        <div [innerHTML]="labTask.labContent">
+                        </div>
+                    </mat-card-content>
+                    <div class="text-center">
+
+                        <button (click)="deleteAssignment(labTask.labId)" class="m-2" mat-raised-button color="warn">Delete</button>
+
+                    </div>
+                </mat-card>
+
+
+                <mat-card *ngIf="!labTask" class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">Lab Task for this Lecture is not available right now...</mat-card-title>
+                        <mat-card-subtitle>Please come back letter...</mat-card-subtitle>
+                    </div>
+                </mat-card>
+                <mat-card *ngIf="!labTask" class="shadow p-4">
+                    <div class="text-center">
+                        <img src="assets/img/stockNotFound.png" class="img-fluid" style="max-width: 45%;">
+                        <h2 class="text-color">NOT FOUND</h2>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

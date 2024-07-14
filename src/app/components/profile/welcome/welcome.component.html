@@ -1,0 +1,83 @@
+<div class="bootstrap-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-2">
+                    <div class="text-center m-3">
+                        <mat-card-title class="text-color">ADMIN DASHBOARD</mat-card-title>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card class="shadow mb-3">
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card shadow1 m-1 mt-2">
+                                    <div class="card-header p-3 bg-color">
+                                        <h2 class="text-center m-0">NORMAL USERS</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <h1 class="text-center fw-bold fs-1 text-color m-0">
+                                            {{totalUsers}}
+                                        </h1>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <button routerLink="/profile/showusers" mat-fab extended >
+                                            <mat-icon>visibility</mat-icon>
+                                            SHOW</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card shadow1 m-1 mt-2">
+                                    <div class="card-header p-3 bg-color">
+                                        <h2 class="text-center m-0">COMPANIES</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <h1 class="text-center fw-bold fs-1 text-color m-0">
+                                            {{totalCompanies}}
+                                        </h1>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <button routerLink="/profile/showcompanies" mat-fab extended >
+                                            <mat-icon>visibility</mat-icon>
+                                            SHOW</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="card shadow1 m-1 mt-2">
+                                    <div class="card-header p-3 bg-color">
+                                        <h2 class="text-center m-0">MENTORS</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <h1 class="text-center fw-bold fs-1 text-color m-0">
+                                            {{totalMentors}}
+                                        </h1>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <button routerLink="/profile/showmentor" mat-fab extended >
+                                            <mat-icon>visibility</mat-icon>
+                                           SHOW</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <mat-card>
+                    <mat-card-content>
+                        <canvas id="myChart" style="width: 100%;"></canvas>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

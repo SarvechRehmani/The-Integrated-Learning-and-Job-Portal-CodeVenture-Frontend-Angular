@@ -1,0 +1,49 @@
+.rowc {
+  padding: 0px;
+  margin: 20px;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.col1 {
+  background-color: #fa9b02;
+  color: rgb(251, 249, 249);
+  padding: 20px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  /* Initial border-radius settings */
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.col2{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+.text-color{
+  color: #fa9b02 !important;
+}
+@media screen and (max-width: 767px) {
+  /* Apply different border-radius for screens less than 768px wide (e.g., mobile devices) */
+  .col1 {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 0px;
+  }
+}
+
+.sub-title {
+  color: rgb(254, 252, 252);
+}
+
+.col2 {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 10px;
+}
+
