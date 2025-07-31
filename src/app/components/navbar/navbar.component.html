@@ -1,87 +1,188 @@
-<nav class="navbar shadow navbar-expand-lg bg-body-tertiary mb-4" id="navbar">
-  <div class="container-fluid">
-    <button
-      *ngIf="isLoggedIn"
-      mat-mini-fab
-      color="accent"
-      class="d-md-none"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#sidebar"
-      aria-controls="sidebar"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
+<nav class="bg-white dark:bg-gray-800 shadow-md transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Left side - only logo -->
+      <div class="flex items-center">
+        <!-- Sidebar toggle for mobile (only when logged in) -->
+        <button
+          *ngIf="isLoggedIn"
+          mat-icon-button
+          class="md:hidden text-gray-500 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100 mr-2"
+          aria-label="Toggle sidebar"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
 
-    <div class="d-flex align-items-center mb-1" style="height: 80px">
-      <img src="assets/img/logoforweb2.png" class="custom-img img-fluid" />
-    </div>
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <img
+            src="assets/img/logoforweb2.png"
+            class="h-10 w-auto"
+            alt="Logo"
+          />
+        </div>
+      </div>
 
-    <button
-      mat-icon-button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <mat-icon>more_vert</mat-icon>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <!-- If not LogedIn -->
-        <li *ngIf="!isLoggedIn" class="nav-item">
-          <button
+      <!-- Right side - all navigation links -->
+      <div class="flex items-center space-x-4">
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center space-x-2">
+          <!-- If not LoggedIn -->
+          <a
+            *ngIf="!isLoggedIn"
             routerLink="/home"
-            class="m-button m-1"
-            [routerLinkActive]="'active'"
-            mat-button
+            class="px-4 py-2 rounded-md text-sm font-medium flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+            [routerLinkActive]="[
+              'bg-gray-100',
+              'dark:bg-gray-700',
+              'text-gray-900',
+              'dark:text-white'
+            ]"
           >
-            <mat-icon>home</mat-icon> Home
-          </button>
-        </li>
+            <mat-icon class="mr-2 text-lg">home</mat-icon> Home
+          </a>
 
-        <li *ngIf="!isLoggedIn" class="nav-item">
-          <button
+          <a
+            *ngIf="!isLoggedIn"
             routerLink="/login"
-            class="m-button m-1"
-            [routerLinkActive]="'active'"
-            mat-button
+            class="px-4 py-2 rounded-md text-sm font-medium flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+            [routerLinkActive]="[
+              'bg-gray-100',
+              'dark:bg-gray-700',
+              'text-gray-900',
+              'dark:text-white'
+            ]"
           >
-            <mat-icon>login</mat-icon> Login
-          </button>
-        </li>
+            <mat-icon class="mr-2 text-lg">login</mat-icon> Login
+          </a>
 
-        <li *ngIf="!isLoggedIn" class="nav-item">
-          <button
+          <a
+            *ngIf="!isLoggedIn"
             routerLink="/register"
-            class="m-button m-1"
-            [routerLinkActive]="'active'"
-            mat-button
+            class="px-4 py-2 rounded-md text-sm font-medium flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+            [routerLinkActive]="[
+              'bg-gray-100',
+              'dark:bg-gray-700',
+              'text-gray-900',
+              'dark:text-white'
+            ]"
           >
-            <mat-icon>how_to_reg</mat-icon> Register
-          </button>
-        </li>
+            <mat-icon class="mr-2 text-lg">how_to_reg</mat-icon> Register
+          </a>
 
-        <!-- If LoggedIn -->
-        <li *ngIf="isLoggedIn && user" class="nav-item mr-20">
-          <button class="m-button m-1" mat-button>
-            <mat-icon>account_circle</mat-icon>
-            {{ user.firstName }} {{ user.lastName }}
-          </button>
-        </li>
+          <!-- If LoggedIn -->
+          <div *ngIf="isLoggedIn && user" class="flex items-center">
+            <button
+              mat-button
+              class="flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 px-3 py-2 rounded-md"
+            >
+              <mat-icon class="mr-2">account_circle</mat-icon>
+              <span class="font-medium"
+                >{{ user.firstName }} {{ user.lastName }}</span
+              >
+            </button>
+          </div>
 
-        <li *ngIf="isLoggedIn" class="nav-item mr-20">
-          <button class="m-button m-1" (click)="logout()" mat-button>
-            <mat-icon>logout</mat-icon> Logout
+          <div *ngIf="isLoggedIn" class="flex items-center">
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="logout()"
+              class="flex items-center"
+            >
+              <mat-icon class="mr-2">logout</mat-icon>
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Theme Toggle -->
+        <app-theme-toggle></app-theme-toggle>
+
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button
+            mat-icon-button
+            (click)="toggleMobileMenu()"
+            class="text-gray-500 dark:text-gray-300 hover:text-gray-600 dark:hover:text-gray-100"
+            aria-label="Toggle menu"
+          >
+            <mat-icon>{{ mobileMenuOpen ? "close" : "more_vert" }}</mat-icon>
           </button>
-        </li>
-      </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    class="md:hidden transition-all duration-300 overflow-hidden"
+    [class.max-h-0]="!mobileMenuOpen"
+    [class.max-h-screen]="mobileMenuOpen"
+  >
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <!-- If not LoggedIn -->
+      <a
+        *ngIf="!isLoggedIn"
+        routerLink="/home"
+        class="block px-3 py-2 rounded-md text-base font-medium flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+        [routerLinkActive]="[
+          'bg-gray-100',
+          'dark:bg-gray-700',
+          'text-gray-900',
+          'dark:text-white'
+        ]"
+        (click)="toggleMobileMenu()"
+      >
+        <mat-icon class="mr-2">home</mat-icon> Home
+      </a>
+
+      <a
+        *ngIf="!isLoggedIn"
+        routerLink="/login"
+        class="block px-3 py-2 rounded-md text-base font-medium flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+        [routerLinkActive]="[
+          'bg-gray-100',
+          'dark:bg-gray-700',
+          'text-gray-900',
+          'dark:text-white'
+        ]"
+        (click)="toggleMobileMenu()"
+      >
+        <mat-icon class="mr-2">login</mat-icon> Login
+      </a>
+
+      <a
+        *ngIf="!isLoggedIn"
+        routerLink="/register"
+        class="block px-3 py-2 rounded-md text-base font-medium flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+        [routerLinkActive]="[
+          'bg-gray-100',
+          'dark:bg-gray-700',
+          'text-gray-900',
+          'dark:text-white'
+        ]"
+        (click)="toggleMobileMenu()"
+      >
+        <mat-icon class="mr-2">how_to_reg</mat-icon> Register
+      </a>
+
+      <!-- If LoggedIn -->
+      <div
+        *ngIf="isLoggedIn && user"
+        class="block px-3 py-2 rounded-md text-base font-medium flex items-center text-gray-700 dark:text-gray-300"
+      >
+        <mat-icon class="mr-2">account_circle</mat-icon>
+        {{ user.firstName }} {{ user.lastName }}
+      </div>
+
+      <button
+        *ngIf="isLoggedIn"
+        (click)="logout(); toggleMobileMenu()"
+        class="w-full text-left px-3 py-2 rounded-md text-base font-medium flex items-center text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+      >
+        <mat-icon class="mr-2">logout</mat-icon> Logout
+      </button>
     </div>
   </div>
 </nav>

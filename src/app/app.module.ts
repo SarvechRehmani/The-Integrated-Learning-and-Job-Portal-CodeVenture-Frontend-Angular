@@ -13,7 +13,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -35,12 +35,10 @@ import { ShowAssignmentMentorComponent } from './components/mentor/show-assignme
 import { ProfileMentorComponent } from './components/mentor/profile-mentor/profile-mentor.component';
 import { WelcomeMentorComponent } from './components/mentor/welcome-mentor/welcome-mentor.component';
 
-
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AddQuestionMentorComponent } from './components/mentor/add-question-mentor/add-question-mentor.component';
 import { AddCourseMentorComponent } from './components/mentor/add-course-mentor/add-course-mentor.component';
@@ -105,7 +103,7 @@ import { ShowLabtaskAdminComponent } from './components/profile/show-labtask-adm
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ShowJobsComponent } from './components/profile/show-jobs/show-jobs.component';
-
+import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 
 @NgModule({
   declarations: [
@@ -188,9 +186,7 @@ import { ShowJobsComponent } from './components/profile/show-jobs/show-jobs.comp
     NotFoundPageComponent,
     AboutUsComponent,
     ShowJobsComponent,
-
-
-
+    ThemeToggleComponent,
   ],
   imports: [
     BrowserModule,
@@ -215,11 +211,10 @@ import { ShowJobsComponent } from './components/profile/show-jobs/show-jobs.comp
     NgxUiLoaderModule,
     NgChartsModule,
     NgxUiLoaderHttpModule.forRoot({
-      showForeground:true
+      showForeground: true,
     }),
-
   ],
   providers: [MatSnackBar, authInterceptorProviders],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,0 +1,10 @@
+<button
+  (click)="toggleTheme()"
+  class="p-2 rounded-full focus:outline-none"
+  aria-label="Toggle dark mode"
+>
+  <i *ngIf="isDark" class="fa-solid fa-moon"></i>
+  <i *ngIf="!isDark" class="fa-solid fa-sun"></i>
+  <!-- <mat-icon *ngIf="!isDark">dark_mode</mat-icon> -->
+  <!-- <mat-icon *ngIf="isDark">light_mode</mat-icon> -->
+</button>

@@ -1,74 +1,121 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html,
-body {
-    height: 100%;
+/* // styles.scss (or your main SCSS file) */
+
+/* Custom styles */
+.blob {
+  filter: blur(15px);
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob-1 {
+  animation: blob 7s infinite;
+}
+.animate-blob-2 {
+  animation: blob 9s infinite;
+}
+.animate-blob-3 {
+  animation: blob 11s infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 6s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Dark mode transitions */
+html {
+  @apply transition-colors duration-300;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+}
+/* html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .text-center {
-    align-items: center !important;
+  align-items: center !important;
 }
 
 .max-width {
-    width: 100%;
+  width: 100%;
 }
 
 .mt20 {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .mt30 {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .mt50 {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .ml10 {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .mb30 {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .text-color {
-    color: #ff4081 !important;
+  color: #ff4081 !important;
 }
 
 .text-white {
-    color: white;
+  color: white;
 }
 
 .bg-color {
-    background-color: #ff4081 !important;
-    color: white !important;
+  background-color: #ff4081 !important;
+  color: white !important;
 }
 
 .border {
-    border: 2px solid;
+  border: 2px solid;
 }
 
 .p3 {
-    padding: 30px !important;
+  padding: 30px !important;
 }
 
 .shadow {
-    box-shadow: rgba(17, 17, 26, 0.059) 0px 4px 16px, rgba(41, 41, 59, 0.055) 0px 8px 24px, rgba(17, 17, 26, 0.06) 0px 16px 56px !important;
-
+  box-shadow: rgba(17, 17, 26, 0.059) 0px 4px 16px,
+    rgba(41, 41, 59, 0.055) 0px 8px 24px, rgba(17, 17, 26, 0.06) 0px 16px 56px !important;
 }
 
 .shadow1 {
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
 }
 
 .justifyPara {
-    text-align: justify;
-    text-justify: distribute-all-lines;
-}
+  text-align: justify;
+  text-justify: distribute-all-lines;
+} */
