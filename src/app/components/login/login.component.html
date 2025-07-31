@@ -1,86 +1,146 @@
-<div class="bootstrap-wrapper">
-  <div class="container">
-    <div class="row">
-      <div
-        class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-8 offset-sm-2"
-      >
-        <mat-card class="p-3 shadow login-card" *ngIf="!clicked">
-          <div class="text-center">
-            <img
-              src="assets/img/logo.png"
-              class="img-fluid"
-              alt="logo"
-              style="max-width: 350px; max-height: 150px"
-            />
-            <h1>ENTER LOGIN DETAILS</h1>
-          </div>
-          <form (ngSubmit)="formSubmit()" class="p-3">
-            <!-- USERNAME -->
-            <mat-form-field class="max-width" appearance="fill">
-              <mat-label>Username</mat-label>
+<div
+  class="min-h-[80vh] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4"
+>
+  <div class="w-full max-w-md">
+    <!-- Login Card -->
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 transform hover:shadow-2xl"
+    >
+      <!-- Card Header with Gradient -->
+      <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-center">
+        <h1 class="text-2xl font-bold text-white">Welcome Back</h1>
+        <p class="text-blue-100">Sign in to continue your journey</p>
+      </div>
+
+      <!-- Card Body -->
+      <div class="p-8" *ngIf="!clicked">
+        <form (ngSubmit)="formSubmit()" class="space-y-6">
+          <!-- Username Field -->
+          <div class="space-y-2">
+            <label
+              for="username"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Username</label
+            >
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <svg
+                  class="h-5 w-5 text-gray-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
               <input
                 [(ngModel)]="loginData.username"
                 name="username"
+                id="username"
                 type="text"
-                matInput
-                placeholder="Enter username here"
                 required
+                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter your username"
               />
-            </mat-form-field>
-            <!-- PASSWORD -->
-            <mat-form-field class="max-width" appearance="fill">
-              <mat-label>Password</mat-label>
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="space-y-2">
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Password</label
+            >
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <svg
+                  class="h-5 w-5 text-gray-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
               <input
                 [(ngModel)]="loginData.password"
                 name="password"
+                id="password"
                 type="password"
-                matInput
-                placeholder="Enter password here"
                 required
+                class="block w-full pl-10 pr-3 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter your password"
               />
-            </mat-form-field>
-            <div class="text-center">
-              <button mat-raised-button color="accent" class="m-2">
-                LOGIN
-              </button>
-              <button
-                mat-raised-button
-                color="primary"
-                class="m-2"
-                type="reset"
+            </div>
+          </div>
+
+          <!-- Remember Me & Forgot Password -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded"
+              />
+              <label
+                for="remember-me"
+                class="ml-2 block text-sm text-gray-700 dark:text-gray-300"
+                >Remember me</label
               >
-                CLEAR
-              </button>
             </div>
-            <div class="text-center mt-3">
-              <p>
-                if you don't have an account,
-                <a href="" class="text-color">SignUp</a> here.
-              </p>
+            <div class="text-sm">
+              <a
+                href="#"
+                class="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500"
+                >Forgot password?</a
+              >
             </div>
-          </form>
-        </mat-card>
-        <mat-card
-          class="p-3 shadow login-card"
-          style="height: 538px"
-          *ngIf="clicked"
-        >
-          <div class="text-center">
-            <img
-              src="assets/img/logo.png"
-              class="img-fluid"
-              alt="logo"
-              style="max-width: 350px; max-height: 150px"
-            />
-            <h1>ENTER LOGIN DETAILS</h1>
           </div>
+
+          <!-- Submit Button -->
+          <div>
+            <button
+              type="submit"
+              class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300"
+            >
+              Sign in
+            </button>
+          </div>
+        </form>
+
+        <!-- Sign Up Link -->
+        <div class="mt-6 text-center">
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Don't have an account?
+            <a
+              routerLink="/register"
+              class="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500"
+              >Sign up</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="p-8" *ngIf="clicked">
+        <div class="flex flex-col items-center justify-center h-64">
           <div
-            class="d-flex flex-column justify-content-center align-items-center"
-            style="height: 338px"
-          >
-            <mat-spinner color="accent"></mat-spinner>
-          </div>
-        </mat-card>
+            class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple-600 mb-4"
+          ></div>
+          <p class="text-gray-600 dark:text-gray-400">Authenticating...</p>
+        </div>
       </div>
     </div>
   </div>
