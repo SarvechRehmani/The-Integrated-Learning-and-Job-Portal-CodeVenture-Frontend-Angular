@@ -1,47 +1,177 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow mb-2">
-                    <div class="text-center m-3">
-                        <mat-card-title class="text-color">Show All Quizzes</mat-card-title>
-                        <mat-card-subtitle>List of quizzes</mat-card-subtitle>
-                    </div>
-            </mat-card>
-                <mat-card class="shadow mb-3" *ngFor="let q of quizzes index as i">
-                    <mat-card-header>
-                        <div mat-card-avatar class="img"></div>
-                        <mat-card-title class="text-color">{{i+1}}:- {{q.qTitle}}</mat-card-title>
-                        <mat-card-subtitle>{{q.lecture.lTitle}} <span
-                                class="m-2">({{q.lecture.course.cTitle}})</span></mat-card-subtitle>
-                    </mat-card-header>
-                    <hr>
-                    <mat-card-content class="justifyPara">
-                        {{q.qDescription}}
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button mat-button color="warn">Max Marks :
-                            {{q.maxMarks}}</button>
-                        <button mat-button color="primary">Number of Questions :
-                            {{q.numberOfQuestions}}</button>
-                    </mat-card-actions>
-                    <hr>
-                    <div class="text-center pb-3">
-                        <button [routerLink]="'/mentor/addquestion/'+q.qId+'/'+q.qTitle" class="m-2" mat-raised-button color="primary">
-                            <mat-icon>add_circle</mat-icon>
-                            Add Question</button>
-                        <button [routerLink]="'/mentor/quiz/'+q.lecture.lId" class="m-2" mat-raised-button color="primary">
-                            <mat-icon>visibility</mat-icon>
-                            View</button>
-                        <button [routerLink]="'/mentor/updatequiz/'+q.qId" class="m-2" mat-raised-button color="accent">
-                            <mat-icon>update</mat-icon>
-                            Update</button>
-                        <button (click)="deleteQuiz(q.qId)" class="m-2" mat-raised-button color="warn">
-                            <mat-icon>delete</mat-icon>
-                            Delete</button>
-                        </div>
-                </mat-card>
-            </div>
-        </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Hero Header with Glass Morphism Effect -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-600/5 opacity-60"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 mb-3"
+      >
+        All Quizzes
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Manage and administer your course assessments
+      </p>
     </div>
+  </div>
+
+  <!-- Action Bar -->
+  <div
+    class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4"
+  >
+    <div class="relative w-full sm:w-auto">
+      <input
+        type="text"
+        placeholder="Search quizzes..."
+        class="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+      />
+      <i
+        class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+      ></i>
+    </div>
+
+    <button
+      routerLink="/mentor/addquiz"
+      class="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
+    >
+      <i class="fas fa-plus group-hover:scale-110 transition-transform"></i>
+      <span>New Quiz</span>
+    </button>
+  </div>
+
+  <!-- Quizzes Grid -->
+  <div
+    *ngIf="quizzes.length > 0"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
+  >
+    <div
+      *ngFor="let q of quizzes; index as i"
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 group overflow-hidden hover:border-emerald-300 dark:hover:border-emerald-500"
+    >
+      <!-- Quiz Header with Number Badge -->
+      <div class="relative">
+        <div
+          class="absolute -top-3 -right-3 w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-lg shadow-lg"
+        >
+          {{ i + 1 }}
+        </div>
+        <div class="p-6 pb-4">
+          <h3
+            class="text-xl font-bold text-gray-800 dark:text-white line-clamp-2"
+          >
+            {{ q.qTitle }}
+          </h3>
+          <p
+            class="text-sm text-gray-500 dark:text-gray-400 mt-1 flex items-center"
+          >
+            <span class="truncate">{{ q.lecture.lTitle }}</span>
+            <span class="mx-2">•</span>
+            <span class="text-emerald-500 dark:text-emerald-400">{{
+              q.lecture.course.cTitle
+            }}</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Quiz Description -->
+      <div class="px-6 py-2">
+        <p class="text-gray-600 dark:text-gray-300 line-clamp-3">
+          {{ q.qDescription }}
+        </p>
+      </div>
+
+      <!-- Quiz Metrics -->
+      <div class="px-6 py-2 flex justify-between">
+        <div
+          class="flex items-center bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-3"
+        >
+          <mat-icon class="text-emerald-600 dark:text-emerald-400 mr-2"
+            >score</mat-icon
+          >
+          <span class="font-medium">Max Marks: {{ q.maxMarks }}</span>
+        </div>
+        <div
+          class="flex items-center bg-teal-50 dark:bg-teal-900/20 rounded-lg p-3"
+        >
+          <mat-icon class="text-teal-600 dark:text-teal-400 mr-2"
+            >format_list_numbered</mat-icon
+          >
+          <span class="font-medium">Questions: {{ q.numberOfQuestions }}</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="p-6 pt-0 flex flex-wrap gap-2">
+        <div class="flex justify-around w-full">
+          <button
+            [routerLink]="'/mentor/addquestion/' + q.qId + '/' + q.qTitle"
+            class="flex items-center px-4 py-2 rounded-lg text-sm font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-emerald-100 dark:border-emerald-900/50"
+          >
+            <mat-icon class="mr-1 text-sm">add_circle</mat-icon>
+            Add Question
+          </button>
+        </div>
+
+        <div
+          class="w-full border-t border-gray-100 dark:border-gray-700 my-2"
+        ></div>
+        <div class="flex justify-around w-full mt-2">
+          <button
+            [routerLink]="'/mentor/quiz/' + q.lecture.lId"
+            class="flex items-center px-4 py-2 rounded-lg text-sm font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-emerald-100 dark:border-emerald-900/50"
+          >
+            <mat-icon class="mr-1 text-sm">visibility</mat-icon>
+            View
+          </button>
+          <button
+            [routerLink]="'/mentor/updatequiz/' + q.qId"
+            class="flex items-center px-4 py-2 rounded-lg text-sm font-medium bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/50 transition-colors border border-teal-100 dark:border-teal-900/50"
+          >
+            <mat-icon class="mr-1 text-sm">update</mat-icon>
+            Update
+          </button>
+          <button
+            (click)="deleteQuiz(q.qId)"
+            class="flex items-center px-4 py-2 rounded-lg text-sm font-medium bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors border border-red-100 dark:border-red-900/50"
+          >
+            <mat-icon class="mr-1 text-sm">delete</mat-icon>
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="quizzes.length == 0"
+    class="flex flex-col items-center justify-center py-16 px-4 text-center"
+  >
+    <div class="w-64 h-64 mb-6 relative">
+      <img
+        src="assets/img/NotFound/empty.png"
+        class="w-full h-full object-contain"
+        alt="No quizzes found"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-600/10 rounded-full blur-xl opacity-30"
+      ></div>
+    </div>
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">
+      No Quizzes Found
+    </h2>
+    <p class="text-gray-600 dark:text-gray-400 max-w-md mb-6">
+      Create your first quiz to assess student understanding
+    </p>
+    <button
+      routerLink="/mentor/addquiz"
+      class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+    >
+      <i class="fas fa-plus"></i>
+      Create First Quiz
+    </button>
+  </div>
 </div>
