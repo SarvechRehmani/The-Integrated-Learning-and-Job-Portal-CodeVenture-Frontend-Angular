@@ -9,7 +9,7 @@
     >
       <div class="p-8 text-center">
         <mat-card-title
-          class="!text-4xl !font-bold !bg-clip-text !text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-2"
+          class="!text-4xl !font-bold !bg-clip-text !text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 mb-2"
         >
           Add Lecture
         </mat-card-title>
@@ -23,8 +23,8 @@
   <!-- Form Section -->
   <div class="row">
     <div class="col-md-12">
-      <mat-card
-        class="bg-white dark:bg-gray-800 !rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl"
+      <div
+        class="bg-white dark:bg-gray-800 !rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-500"
       >
         <mat-card-content>
           <form (ngSubmit)="formSubmit()" class="p-6 sm:p-8">
@@ -46,7 +46,7 @@
                   />
                   <mat-icon
                     matPrefix
-                    class="text-gray-500 dark:text-gray-400 mr-2"
+                    class="text-emerald-600 dark:text-emerald-400 mr-2"
                     >numbers</mat-icon
                   >
                 </mat-form-field>
@@ -67,7 +67,7 @@
                   />
                   <mat-icon
                     matPrefix
-                    class="text-gray-500 dark:text-gray-400 mr-2"
+                    class="text-emerald-600 dark:text-emerald-400 mr-2"
                     >title</mat-icon
                   >
                 </mat-form-field>
@@ -81,7 +81,7 @@
                 >Lecture Content</label
               >
               <div
-                class="rounded-lg border dark:!text-gray-800 border-gray-200 dark:border-gray-600 overflow-hidden"
+                class="rounded-lg border dark:!text-gray-800 border-gray-200 dark:border-gray-600 overflow-hidden transition-all duration-300 hover:border-emerald-300 dark:hover:border-emerald-500"
               >
                 <ckeditor
                   [editor]="Editor"
@@ -128,7 +128,9 @@
                   c.cTitle
                 }}</mat-option>
               </mat-select>
-              <mat-icon matPrefix class="text-gray-500 dark:text-gray-400 mr-2"
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
                 >school</mat-icon
               >
             </mat-form-field>
@@ -147,7 +149,9 @@
                 required
                 class="dark:text-white"
               />
-              <mat-icon matPrefix class="text-gray-500 dark:text-gray-400 mr-2"
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
                 >videocam</mat-icon
               >
             </mat-form-field>
@@ -156,7 +160,7 @@
             <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
               <button
                 type="submit"
-                class="!bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white !rounded-xl !font-medium !px-8 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300 flex items-center justify-center"
+                class="!bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white !rounded-xl !font-medium !px-8 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300 flex items-center justify-center"
               >
                 <mat-icon class="mr-2">add_circle</mat-icon>
                 Add Lecture
@@ -171,7 +175,7 @@
             </div>
           </form>
         </mat-card-content>
-      </mat-card>
+      </div>
     </div>
   </div>
 </div>

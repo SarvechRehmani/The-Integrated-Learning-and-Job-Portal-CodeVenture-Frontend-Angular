@@ -1,80 +1,159 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow mb-2">
-                    <div class="text-center m-3">
-                        <mat-card-title class="text-color">Add Lab Task</mat-card-title>
-                        <mat-card-subtitle>Enter the details of Lab Task</mat-card-subtitle>
-                    </div>
-                </mat-card>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow">
-                    <!-- {{labTask | json }} -->
-                    <mat-card-content>
-                        <form class="p-4" (ngSubmit)="addLabTask()">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!-- COURSE -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Select Course</mat-label>
-                                        <mat-select name="course" required>
-                                            <mat-option [value]="" (click)="loadLectures('')">--Select
-                                                Course--</mat-option>
-                                            <mat-option *ngFor="let c of courses" [value]="c.cId"
-                                                (click)="loadLectures(c.cId)">{{c.cTitle}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <!-- LECTURE -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Select Lecture</mat-label>
-                                        <mat-select [(ngModel)]="labTask.lecture.lId" name="lecture" required>
-                                            <mat-option [value]="">--Select Lecture--</mat-option>
-                                            <mat-option *ngFor="let l of lectures"
-                                                [value]="l.lId">{{l.lTitle}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-12">
-                                    <!-- MAX MARKS -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>LabTask Max Marks</mat-label>
-                                        <input [(ngModel)]="labTask.maxMarks" name="maxMarks" type="number" matInput
-                                            placeholder="Enter Lecture Number" required>
-                                    </mat-form-field>
-                                </div>
-
-
-                                <div class="col-md-12 mb-3">
-                                    <ckeditor [editor]="Editor" [(ngModel)]="labTask.labContent" name="description"
-                                        required [config]="{
-                                        placeholder:'Enter Lecture Content',
-                                        toolbar: [
-                                        '|','undo' , 'redo',
-                                        '|','heading',
-                                        '|', 'bold', 'italic', 'Link',
-                                        '|', 'bulletedList', 'numberedList',
-                                        '|', 'blockQuote',
-                                        '|', 'insertTable'
-                                        ]
-                                    }"></ckeditor>
-                                </div>
-                            </div>
-
-                            <div class="text-center mt20">
-                                <button class="m-2" mat-raised-button color="accent">Add Lab Task</button>
-                                <button class="m-2" mat-raised-button type="reset" color="primary">Clear</button>
-                            </div>
-                        </form>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-        </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header Section with Glass Morphism Effect -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-600/5 opacity-60"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 mb-3"
+      >
+        Add Lab Task
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Define lab task details and requirements for your students
+      </p>
     </div>
+  </div>
+
+  <!-- Form Section -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-500"
+  >
+    <form (ngSubmit)="addLabTask()" class="p-6 sm:p-8">
+      <div class="space-y-6">
+        <!-- Course Selection -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Select Course</mat-label
+          >
+          <mat-select
+            name="course"
+            required
+            (selectionChange)="loadLectures($event.value)"
+            class="dark:text-white"
+          >
+            <mat-option [value]="">-- Select Course --</mat-option>
+            <mat-option *ngFor="let c of courses" [value]="c.cId">
+              {{ c.cTitle }}
+            </mat-option>
+          </mat-select>
+          <mat-icon
+            matPrefix
+            class="text-emerald-600 dark:text-emerald-400 mr-2"
+            >school</mat-icon
+          >
+        </mat-form-field>
+
+        <!-- Lecture Selection -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Select Lecture</mat-label
+          >
+          <mat-select
+            [(ngModel)]="labTask.lecture.lId"
+            name="lecture"
+            required
+            class="dark:text-white"
+          >
+            <mat-option [value]="">-- Select Lecture --</mat-option>
+            <mat-option *ngFor="let l of lectures" [value]="l.lId">
+              {{ l.lTitle }}
+            </mat-option>
+          </mat-select>
+          <mat-icon
+            matPrefix
+            class="text-emerald-600 dark:text-emerald-400 mr-2"
+            >menu_book</mat-icon
+          >
+        </mat-form-field>
+
+        <!-- Max Marks -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Lab Task Max Marks</mat-label
+          >
+          <input
+            [(ngModel)]="labTask.maxMarks"
+            name="maxMarks"
+            type="number"
+            matInput
+            placeholder="Enter maximum marks"
+            required
+            class="dark:text-white"
+          />
+          <mat-icon
+            matPrefix
+            class="text-emerald-600 dark:text-emerald-400 mr-2"
+            >score</mat-icon
+          >
+          <mat-hint class="text-gray-500 dark:text-gray-400"
+            >Enter the maximum score for this lab task</mat-hint
+          >
+        </mat-form-field>
+
+        <!-- Lab Task Content -->
+        <div class="space-y-2">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Lab Task Content</label
+          >
+          <div
+            class="rounded-lg border dark:!text-gray-800 border-gray-200 dark:border-gray-600 overflow-hidden transition-all duration-300 hover:border-emerald-300 dark:hover:border-emerald-500"
+          >
+            <ckeditor
+              [editor]="Editor"
+              [(ngModel)]="labTask.labContent"
+              name="description"
+              required
+              [config]="{
+                placeholder: 'Enter detailed lab task instructions...',
+                toolbar: [
+                  '|',
+                  'undo',
+                  'redo',
+                  '|',
+                  'heading',
+                  '|',
+                  'bold',
+                  'italic',
+                  'link',
+                  '|',
+                  'bulletedList',
+                  'numberedList',
+                  '|',
+                  'blockQuote',
+                  '|',
+                  'insertTable'
+                ]
+              }"
+            ></ckeditor>
+          </div>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            Provide clear instructions and requirements for the lab task
+          </p>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+        <button
+          type="submit"
+          class="!bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white !rounded-xl !font-medium !px-8 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300 flex items-center justify-center"
+        >
+          <mat-icon class="mr-2">science</mat-icon>
+          Add Lab Task
+        </button>
+        <button
+          type="reset"
+          class="!border-gray-300 !text-gray-700 dark:!text-gray-300 hover:!bg-gray-50 dark:hover:!bg-gray-700/20 !rounded-xl !font-medium !px-8 !py-3 transition-all duration-300 hover:shadow-md flex items-center justify-center"
+        >
+          <mat-icon class="mr-2">clear</mat-icon>
+          Clear Form
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
