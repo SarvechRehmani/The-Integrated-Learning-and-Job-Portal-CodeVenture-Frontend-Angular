@@ -1,45 +1,11 @@
-.box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Add this to your styles */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.jobsCard {
-  border-radius: 15px;
- transition: 0.3s ease-in-out;
+.hover-lift:hover {
+  transform: translateY(-2px);
 }
-
-.jobsCard:hover {
-  border: 1px solid #ff4081; 
+.mat-mdc-input-element {
+  @apply dark:text-gray-200;
 }
-
-.col1{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.imgDiv {
-  background-color: #f3eef0;
-  border-radius: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-
-.para {
-  color: #666;
-  margin-top: -15px;
-}
-
-.justifyPara{
-  text-align: justify;
-  text-justify: distribute-all-lines;
-}
-
-
-

@@ -1,27 +1,37 @@
-<div class="bootstrap-wrapper">
-    <div class="container-fluid">
-        <div class="row my-1">
-            <!-- Sidebar -->
-            <nav class="collapse col-md-4 col-lg-3 d-md-block" id="sidebar">
-                <user-sidebar></user-sidebar>
-            </nav>
-            <!-- Main Content -->
-            <main class="sidebar col-md-8 col-lg-9 ms-sm-auto px-md-4">
-                <router-outlet></router-outlet>
-            </main>
-        </div>
-    </div>
-</div>
+<div class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
+  <!-- Navbar (fixed at top) -->
+  <navbar
+    (sidebarToggle)="onSidebarToggle()"
+    class="fixed top-0 left-0 right-0 z-20"
+  ></navbar>
 
-<!-- <div class="bootstrap-wrapper">
-    <div class="container-fluid">
-        <div class="row">
-        <div class="col-md-3">
-         <usersidebar></usersidebar>
-        </div>
-        <div class="col-md-9">
-           <router-outlet></router-outlet>
-         </div>
-        </div>
+  <!-- Main Content Area -->
+  <div class="flex flex-1 pt-16">
+    <!-- Sidebar - Fixed on desktop, overlay on mobile -->
+    <div
+      class="fixed z-10 w-64 h-[calc(100vh-4rem)] transition-all duration-300"
+      *ngIf="sidebarOpen || !isMobile()"
+      [class.-translate-x-full]="!sidebarOpen"
+      [class.translate-x-0]="sidebarOpen"
+      [class.bg-gray-900]="sidebarOpen && isMobile()"
+    >
+      <div class="h-full w-64 bg-white dark:bg-gray-800">
+        <user-sidebar [isOpen]="sidebarOpen"></user-sidebar>
+      </div>
     </div>
-</div> -->
+
+    <!-- Click outside area for mobile -->
+    <div
+      class="fixed inset-0 z-[9] bg-black/50 md:hidden"
+      *ngIf="sidebarOpen && isMobile()"
+      (click)="onSidebarToggle()"
+    ></div>
+
+    <!-- Main Content -->
+    <main
+      class="flex-1 p-6 w-full md:w-[calc(100%-16rem)] ml-0 md:ml-64 transition-all duration-300"
+    >
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

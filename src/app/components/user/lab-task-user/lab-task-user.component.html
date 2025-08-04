@@ -1,49 +1,106 @@
-<div class="bootstrap-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <mat-card class="shadow mb-2">
-          <div class="text-center m-3">
-            <mat-card-title class="text-color">All Lab Tasks</mat-card-title>
-            <mat-card-subtitle>List of Lab Tasks</mat-card-subtitle>
-          </div>
-        </mat-card>
-        <mat-card *ngFor="let l of labTasks" class="shadow mb-1 mainCard">
-          <div class="row rowl">
-            <div class="col-md-8 col1">
-              <img
-                style="height: 90px; width: 140px"
-                src="assets/img/coding.png"
-              />
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header Section -->
+  <div class="mb-8 relative overflow-hidden rounded-2xl">
+    <div
+      class="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+    ></div>
 
-              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              <div class="colm">
-                <mat-card-subtitle class="sub-title text-center">
-                  Course : {{ l.lecture.course.cTitle }}
-                </mat-card-subtitle>
-                <mat-card-title class="text-center">
-                  LabTask No : {{ l.lecture.lNo }}
-                </mat-card-title>
-                <mat-card-title class="text-center">
-                  {{ l.lecture.lTitle }}
-                </mat-card-title>
+    <mat-card
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 relative z-10"
+    >
+      <div class="p-8 text-center">
+        <mat-card-title
+          class="!text-4xl !font-bold !bg-clip-text !text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-2"
+        >
+          All Lab Tasks
+        </mat-card-title>
+        <mat-card-subtitle class="!text-lg text-gray-600 dark:text-gray-300">
+          List of Lab Tasks
+        </mat-card-subtitle>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Lab Tasks List -->
+  <div *ngIf="labTasks.length > 0" class="grid grid-cols-1 gap-6">
+    <mat-card
+      *ngFor="let l of labTasks"
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500"
+    >
+      <div class="flex flex-col md:flex-row p-6 gap-6">
+        <!-- Lab Task Image -->
+        <div class="flex-shrink-0">
+          <img
+            src="assets/img/coding.png"
+            alt="Lab Task icon"
+            class="w-36 h-24 object-contain"
+          />
+        </div>
+
+        <!-- Lab Task Content -->
+        <div class="flex-grow">
+          <div class="flex flex-col h-full">
+            <!-- Lab Task Header -->
+            <div class="mb-4">
+              <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-1">
+                {{ l.lecture.lTitle }}
+              </h3>
+              <div
+                class="flex items-center text-sm text-gray-600 dark:text-gray-300 gap-2"
+              >
+                <span class="inline-flex items-center">
+                  <mat-icon
+                    class="text-blue-500 dark:text-blue-400 mr-1"
+                    style="font-size: 16px"
+                    >code</mat-icon
+                  >
+                  {{ l.lecture.course.cTitle }}
+                </span>
+                <span class="inline-flex items-center">
+                  <mat-icon
+                    class="text-purple-500 dark:text-purple-400 mr-1"
+                    style="font-size: 16px"
+                    >science</mat-icon
+                  >
+                  Lab Task {{ l.lecture.lNo }}
+                </span>
               </div>
             </div>
-            <div class="col-md-4 col2">
-              <mat-card-actions>
-                <button
-                  mat-fab
-                  extended
-                  style="background-color: grey"
-                  [routerLink]="'/user/labtask/' + l.lecture.lId"
-                >
-                  Continue
-                </button>
-              </mat-card-actions>
+
+            <!-- Lab Task Action -->
+            <div class="mt-auto">
+              <button
+                mat-raised-button
+                [routerLink]="'/user/labtask/' + l.lecture.lId"
+                class="!bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white !rounded-xl !font-medium !px-6 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300"
+              >
+                Continue
+                <mat-icon class="ml-1">arrow_forward</mat-icon>
+              </button>
             </div>
           </div>
-        </mat-card>
+        </div>
       </div>
+    </mat-card>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="labTasks.length === 0"
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center"
+  >
+    <div class="max-w-md mx-auto">
+      <img
+        src="assets/img/stockNotFound.png"
+        class="w-full h-auto max-h-64 object-contain mb-6"
+        alt="No lab tasks found"
+      />
+      <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        No Lab Tasks Available
+      </h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-6">
+        There are currently no lab tasks available. Please check back later.
+      </p>
     </div>
   </div>
 </div>

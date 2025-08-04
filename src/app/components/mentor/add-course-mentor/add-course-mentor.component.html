@@ -1,79 +1,117 @@
-<div class="bootstrap-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <mat-card class="shadow mb-2">
-          <div class="text-center m-3">
-            <mat-card-title class="text-color">Add Course</mat-card-title>
-            <mat-card-subtitle>Add details of the Course</mat-card-subtitle>
-          </div>
-        </mat-card>
-      </div>
-    </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header Section -->
+  <div class="mb-8 relative overflow-hidden !rounded-2xl">
+    <!-- Background elements -->
+    <div
+      class="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+    ></div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <mat-card class="shadow">
-          <mat-card-content>
-            <form (ngSubmit)="formSubmit()" class="p-5">
-              <!-- COURSE TITLE -->
-              <mat-form-field class="max-width" appearance="fill">
-                <mat-label>Course Title</mat-label>
-                <input
-                  [(ngModel)]="course.cTitle"
-                  name="title"
-                  type="text"
-                  matInput
-                  placeholder="Enter Course Title"
-                  required
-                />
-              </mat-form-field>
-
-              <!-- COURSE DESCRIPTION -->
-              <mat-form-field class="max-width" appearance="fill">
-                <mat-label>Course Description</mat-label>
-                <textarea
-                  [(ngModel)]="course.cDescription"
-                  name="description"
-                  matInput
-                  placeholder="Enter Course Description"
-                  rows="5"
-                ></textarea>
-              </mat-form-field>
-              <div class="row">
-                <div class="col-md-12">
-                  <!-- TOTAL LECTURES -->
-                  <mat-form-field class="max-width" appearance="fill">
-                    <mat-label>Total Course Lectures</mat-label>
-                    <input
-                      [(ngModel)]="course.totalLectures"
-                      name="totalLectures"
-                      type="number"
-                      matInput
-                      placeholder="Enter Total Lectures for Course"
-                      required
-                    />
-                  </mat-form-field>
-                </div>
-              </div>
-              <!-- {{course | json}} -->
-              <div class="text-center mt20">
-                <button class="m-2" mat-raised-button color="accent">
-                  Add Course
-                </button>
-                <button
-                  class="m-2"
-                  mat-raised-button
-                  type="reset"
-                  color="primary"
-                >
-                  Clear
-                </button>
-              </div>
-            </form>
-          </mat-card-content>
-        </mat-card>
+    <mat-card
+      class="bg-white dark:bg-gray-800 !rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 relative z-9"
+    >
+      <div class="p-8 text-center">
+        <mat-card-title
+          class="!text-4xl !font-bold !bg-clip-text !text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 mb-2"
+        >
+          Add Course
+        </mat-card-title>
+        <mat-card-subtitle class="!text-lg text-gray-600 dark:text-gray-300">
+          Add details of the Course
+        </mat-card-subtitle>
       </div>
+    </mat-card>
+  </div>
+
+  <!-- Form Section -->
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card
+        class="bg-white dark:bg-gray-800 !rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-500"
+      >
+        <mat-card-content>
+          <form (ngSubmit)="formSubmit()" class="p-6 sm:p-8">
+            <!-- COURSE TITLE -->
+            <mat-form-field appearance="outline" class="w-full mb-6">
+              <mat-label class="text-gray-700 dark:text-gray-300"
+                >Course Title</mat-label
+              >
+              <input
+                [(ngModel)]="course.cTitle"
+                name="title"
+                type="text"
+                matInput
+                placeholder="Enter Course Title"
+                required
+                class="dark:text-white"
+              />
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
+                >title</mat-icon
+              >
+            </mat-form-field>
+
+            <!-- COURSE DESCRIPTION -->
+            <mat-form-field appearance="outline" class="w-full mb-6">
+              <mat-label class="text-gray-700 dark:text-gray-300"
+                >Course Description</mat-label
+              >
+              <textarea
+                [(ngModel)]="course.cDescription"
+                name="description"
+                matInput
+                placeholder="Enter Course Description"
+                rows="5"
+                class="dark:text-white"
+              ></textarea>
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
+                >description</mat-icon
+              >
+            </mat-form-field>
+
+            <!-- TOTAL LECTURES -->
+            <mat-form-field appearance="outline" class="w-full mb-6">
+              <mat-label class="text-gray-700 dark:text-gray-300"
+                >Total Course Lectures</mat-label
+              >
+              <input
+                [(ngModel)]="course.totalLectures"
+                name="totalLectures"
+                type="number"
+                matInput
+                placeholder="Enter Total Lectures for Course"
+                required
+                class="dark:text-white"
+              />
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
+                >format_list_numbered</mat-icon
+              >
+            </mat-form-field>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <button
+                type="submit"
+                class="!bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white !rounded-xl !font-medium !px-8 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300 flex items-center justify-center"
+              >
+                <mat-icon class="mr-2">add_circle</mat-icon>
+                Add Course
+              </button>
+              <button
+                type="reset"
+                class="!border-gray-300 !text-gray-700 dark:!text-gray-300 hover:!bg-gray-50 dark:hover:!bg-gray-700/20 !rounded-xl !font-medium !px-8 !py-3 transition-all duration-300 hover:shadow-md flex items-center justify-center"
+              >
+                <mat-icon class="mr-2">clear</mat-icon>
+                Clear
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>

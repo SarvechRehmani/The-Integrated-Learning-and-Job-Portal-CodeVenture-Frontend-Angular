@@ -1,63 +1,121 @@
-<div class="bootstrap-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <mat-card class="shadow mb-2">
-          <div class="text-center m-3">
-            <mat-card-title *ngIf="cId" class="text-color">Lectures of {{cTitle}} Course</mat-card-title>
-            <mat-card-title *ngIf="!cId" class="text-color">All Lectures</mat-card-title>
-            <mat-card-subtitle>List of Lecture</mat-card-subtitle>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header Section -->
+  <div class="mb-8 relative overflow-hidden rounded-2xl">
+    <div
+      class="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+    ></div>
+
+    <mat-card
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 relative z-10"
+    >
+      <div class="p-8 text-center">
+        <mat-card-title
+          class="!text-4xl !font-bold !bg-clip-text !text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-2"
+        >
+          <span *ngIf="cId">Lectures of {{ cTitle }} Course</span>
+          <span *ngIf="!cId">All Lectures</span>
+        </mat-card-title>
+        <mat-card-subtitle class="!text-lg text-gray-600 dark:text-gray-300">
+          Browse available lecture materials
+        </mat-card-subtitle>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Lectures List -->
+  <div *ngIf="lectures.length > 0" class="grid grid-cols-1 gap-6">
+    <mat-card
+      *ngFor="let l of lectures"
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500"
+    >
+      <mat-action-list>
+        <button
+          mat-list-item
+          [routerLink]="'/user/showlecture/' + l.lId"
+          class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-300"
+        >
+          <div
+            class="flex flex-col md:flex-row w-full items-start md:items-center"
+          >
+            <!-- Lecture Number Badge -->
+            <div class="flex-shrink-0 mr-6 mb-4 md:mb-0">
+              <div
+                class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 flex items-center justify-center text-white text-xl font-bold shadow-md"
+              >
+                {{ l.lNo }}
+              </div>
+            </div>
+
+            <!-- Lecture Content -->
+            <div class="flex-grow">
+              <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-1">
+                {{ l.lTitle }}
+              </h3>
+              <div
+                class="flex flex-wrap items-center text-sm text-gray-600 dark:text-gray-300 gap-2"
+              >
+                <span class="inline-flex items-center">
+                  <mat-icon
+                    class="text-blue-500 dark:text-blue-400 mr-1"
+                    style="font-size: 16px; width: 16px; height: 16px"
+                    >book</mat-icon
+                  >
+                  {{ l.course.cTitle }}
+                </span>
+                <span class="inline-flex items-center">
+                  <mat-icon
+                    class="text-purple-500 dark:text-purple-400 mr-1"
+                    style="font-size: 16px; width: 16px; height: 16px"
+                    >category</mat-icon
+                  >
+                  {{ l.course.field }}
+                </span>
+              </div>
+              <p class="mt-2 text-gray-600 dark:text-gray-300 line-clamp-2">
+                {{ l.lDescription || "No description available" }}
+              </p>
+            </div>
+
+            <!-- Continue Button -->
+            <div class="flex-shrink-0 mt-4 md:mt-0 md:ml-auto">
+              <button
+                mat-raised-button
+                class="!bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white !rounded-xl !font-medium !px-6 !py-2 !shadow-lg hover:!shadow-xl transition-all duration-300"
+              >
+                Continue
+                <mat-icon class="ml-1">arrow_forward</mat-icon>
+              </button>
+            </div>
           </div>
-        </mat-card>
-      </div>
-    </div>
-    <div class="row" *ngIf="lectures.length > 0">
-      <div class="col-md-12">
-        <mat-card class="shadow mb-1" style="border-radius: 50px;" *ngFor="let l of lectures">
-          <mat-action-list >
-            <button style="border-radius: 50px;" mat-list-item [routerLink]="'/user/showlecture/'+l.lId">
-              <mat-card-header>
-                <div mat-card-avatar class="img"></div>
-                <mat-card-title class="text-color">{{l.lNo}}:- {{l.lTitle}}</mat-card-title>
-                <mat-card-subtitle>{{l.course.cTitle}} <span class="m-2">({{l.course.field}})</span></mat-card-subtitle>
-              </mat-card-header>
-            </button>
-          </mat-action-list>
-        </mat-card>
-      </div>
-    </div>
-    <div class="row" *ngIf="lectures.length == 0">
-      <div class="col-md-12">
-        <mat-card class="d-flex justify-content-center align-items-center">
-          <img src="assets/img/stockNotFound.png" class="img-fluid" alt="Not Found">
-          <h1>Lectures are Not Available Now Please Come back letter..</h1>
-        </mat-card>
-      </div>
+        </button>
+      </mat-action-list>
+    </mat-card>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="lectures.length == 0"
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center"
+  >
+    <div class="max-w-md mx-auto">
+      <img
+        src="assets/img/stockNotFound.png"
+        class="w-full h-auto max-h-64 object-contain mb-6"
+        alt="No lectures found"
+      />
+      <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        No Lectures Available
+      </h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-6">
+        There are currently no lectures available. Please check back later.
+      </p>
+      <button
+        mat-raised-button
+        routerLink="/user/courses"
+        class="!bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white !rounded-xl !font-medium !px-6 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300"
+      >
+        Browse Courses
+      </button>
     </div>
   </div>
 </div>
-
-
-
-
-<!-- 
-<mat-card>
-    <div class="row" style="margin: 20px; border: 1px solid #ff4081; border-radius: 5px;" *ngFor="let l of lectures">
-            <div class="col-md-3" style="background-color: #ff4081; color: white; border-top-left-radius: 5px; border-bottom-left-radius: 5px; padding: 10px;">
-                <mat-card-subtitle style="color: white;">Course : {{l.course.cTitle}}</mat-card-subtitle>
-                <mat-card-title class=" text-center">Lecture No : {{l.lNo}}</mat-card-title>
-                <mat-card-title class=" text-center">{{l.lTitle}}</mat-card-title>
-            </div>
-
-            
-            <div class="col-md-8" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding: 10px;">
-                <p>{{l.lDescription}}</p>
-                <mat-card-actions align="end">
-                    <button mat-fab extended 
-                    [routerLink]="'/user/showlecture/'+l.lNo+'/'+l.course.cId"
-                    >Continue</button>
-                  </mat-card-actions>
-            </div>
-    </div>
-
-</mat-card> -->

@@ -1,66 +1,134 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow mb-2">
-                    <div class="text-center m-2">
-                        <mat-card-title class="text-color">USER DASHBOARD</mat-card-title>
-                    </div>
-                </mat-card>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Enhanced Dashboard Header -->
+  <div class="mb-8 relative overflow-hidden rounded-2xl">
+    <!-- Background elements from Home -->
+    <div
+      class="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+    ></div>
+
+    <mat-card
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 relative z-9"
+    >
+      <div class="p-8 text-center">
+        <mat-card-title
+          class="!text-4xl !font-bold !bg-clip-text !text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-2"
+        >
+          USER DASHBOARD
+        </mat-card-title>
+        <mat-card-subtitle class="!text-lg text-gray-600 dark:text-gray-300">
+          Welcome back, {{ userName }}! Here's your learning progress.
+        </mat-card-subtitle>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="mb-8">
+    <mat-card
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 dark:border-gray-700"
+    >
+      <mat-card-content class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Submitted Assignments Card -->
+          <div
+            class="group relative bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500"
+          >
+            <div
+              class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="relative z-9 flex items-center">
+              <div
+                class="w-16 h-16 bg-blue-50 dark:bg-blue-900/50 rounded-xl flex items-center justify-center mr-6 group-hover:bg-blue-100 dark:group-hover:bg-blue-800 transition-colors duration-300"
+              >
+                <mat-icon class="text-blue-600 dark:text-blue-400"
+                  >assignment</mat-icon
+                >
+              </div>
+              <div>
+                <h2
+                  class="text-xl font-bold text-gray-900 dark:text-white mb-1"
+                >
+                  SUBMITTED ASSIGNMENTS
+                </h2>
+                <h3 class="text-4xl font-bold text-blue-600 dark:text-blue-400">
+                  {{ assignments.length }}
+                </h3>
+              </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow mb-2">
-                    <mat-card-content>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="card shadow1 m-1 mt-2">
-                                    <div class="card-header bg-color1 p-3">
-                                        <h2 class="text-center m-0">SUBMITTED ASSIGNMENTS</h2>
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="text-center fw-bold fs-1 ">{{assignments.length}}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="card shadow1 m-1 mt-2">
-                                    <div class="card-header bg-color2 p-3">
-                                        <h2 class="text-center m-0">SUBMITTED LABTASKS</h2>
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="text-center fw-bold fs-1">{{labTasks.length}}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="card shadow1 m-1 mt-2">
-                                    <div class="card-header bg-color3 p-3">
-                                        <h2 class="text-center m-0">ATTENTED QUIZZES</h2>
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="text-center fw-bold fs-1">{{quizzes.length}}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
+          </div>
+
+          <!-- Submitted LabTasks Card -->
+          <div
+            class="group relative bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-500"
+          >
+            <div
+              class="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="relative z-9 flex items-center">
+              <div
+                class="w-16 h-16 bg-indigo-50 dark:bg-indigo-900/50 rounded-xl flex items-center justify-center mr-6 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-800 transition-colors duration-300"
+              >
+                <mat-icon class="text-indigo-600 dark:text-indigo-400"
+                  >science</mat-icon
+                >
+              </div>
+              <div>
+                <h2
+                  class="text-xl font-bold text-gray-900 dark:text-white mb-1"
+                >
+                  SUBMITTED LABTASKS
+                </h2>
+                <h3
+                  class="text-4xl font-bold text-indigo-600 dark:text-indigo-400"
+                >
+                  {{ labTasks.length }}
+                </h3>
+              </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow">
-                    <mat-card-content>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <canvas id="myChart" style="width: 100%;"></canvas>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
+          </div>
+
+          <!-- Attended Quizzes Card -->
+          <div
+            class="group relative bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-500"
+          >
+            <div
+              class="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="relative z-9 flex items-center">
+              <div
+                class="w-16 h-16 bg-purple-50 dark:bg-purple-900/50 rounded-xl flex items-center justify-center mr-6 group-hover:bg-purple-100 dark:group-hover:bg-purple-800 transition-colors duration-300"
+              >
+                <mat-icon class="text-purple-600 dark:text-purple-400"
+                  >help</mat-icon
+                >
+              </div>
+              <div>
+                <h2
+                  class="text-xl font-bold text-gray-900 dark:text-white mb-1"
+                >
+                  ATTENDED QUIZZES
+                </h2>
+                <h3
+                  class="text-4xl font-bold text-purple-600 dark:text-purple-400"
+                >
+                  {{ quizzes.length }}
+                </h3>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Chart Section -->
+  <div>
+    <mat-card
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 dark:border-gray-700"
+    >
+      <mat-card-content class="p-6">
+        <canvas id="myChart" class="w-full h-[400px]"></canvas>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

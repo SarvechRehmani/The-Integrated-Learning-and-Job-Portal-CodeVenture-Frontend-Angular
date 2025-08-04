@@ -77,368 +77,328 @@ import { ShowLabtaskAdminComponent } from './components/profile/show-labtask-adm
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ShowJobsComponent } from './components/profile/show-jobs/show-jobs.component';
-
+import { PublicLayoutComponent } from './components/public-layout/public-layout.component';
 
 const routes: Routes = [
   {
-    path: "",
-    component: HomeComponent,
-    pathMatch: "full"
+    path: '',
+    component: PublicLayoutComponent,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'about', component: AboutUsComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ],
   },
-  {
-    path: "home",
-    component: HomeComponent,
-    pathMatch: "full"
-  },
-  {
-    path: "login",
-    component: LoginComponent,
-    pathMatch: "full"
-  },
-  {
-    path: "about",
-    component: AboutUsComponent,
-    pathMatch: "full"
-  },
-  {
-    path: "register",
-    component: RegisterComponent,
-    pathMatch: "full"
-  },
+
   // {
   //   path: "/**",
   //   component: NotFoundPageComponent,
   //   pathMatch: "full"
   // },
   {
-    path: "profile",
+    path: 'profile',
     component: ProfileComponent,
     canActivate: [ProfileGuard],
     children: [
       {
-        path: "",
-        component: WelcomeComponent
-      },
-      {
-        path: "profile",
-        component: AdminprofileComponent
-      },
-      {
-        path: "courses",
-        component: ViewCoursesAdminComponent
-      },
-      {
-        path: "lectures/:cId/:cTitle",
-        component: ShowAllLecturesAdminComponent
-      },
-      {
-        path: "lecture/:lId",
-        component: ShowLectureAdminComponent
-      },
-      {
-        path: "quiz/:lId",
-        component: ShowQuizAdminComponent
-      },
-      {
-        path: "assignment/:lId",
-        component: ShowAssignmentAdminComponent
-      },
-      {
-        path: "labtask/:lId",
-        component: ShowLabtaskAdminComponent
-      },
-      {
-        path: "showusers",
-        component: ShowUsersAdminComponent
-      },
-      {
-        path: "addcompany",
-        component: AddCompanyComponent
-      },
-      {
-        path: "addmentor",
-        component: AddmentorComponent
-      },
-      {
-        path: "showmentor",
-        component: ShowmentorComponent
-      },
-      {
-        path: "showcompanies",
-        component: ShowCompanyAdminComponent
-      },
-      {
-        path: "showjobs",
-        component: ShowJobsComponent
-      },
-      {
-        path: "updatementor/:id",
-        component: UpdateMentorComponent
-      },
-      {
-        path: "updatecompany/:id",
-        component: UpdateCompanyAdminComponent
-      },
-
-    ]
-  },
-  {
-    path: "mentor",
-    component: MentorComponent,
-    canActivate: [mentorGuard],
-    children: [
-      
-      {
         path: '',
-        component: WelcomeMentorComponent
-
+        component: WelcomeComponent,
       },
       {
         path: 'profile',
-        component: ProfileMentorComponent
-
-      },
-      {
-        path: 'addcourse',
-        component: AddCourseMentorComponent
-
-      },
-      {
-        path: 'updatecourse/:id',
-        component: UpdateCourseComponent
-
+        component: AdminprofileComponent,
       },
       {
         path: 'courses',
-        component: CoursesMentorComponent
-
-      },
-      {
-        path: 'addlecture',
-        component: AddLectureMentorComponent
-
-      },
-      {
-        path: 'updatelecture/:id',
-        component: UpdateLectureComponent
-
-      },
-      {
-        path: 'lectures',
-        component: ShowAllLecturesComponent
-
+        component: ViewCoursesAdminComponent,
       },
       {
         path: 'lectures/:cId/:cTitle',
-        component: ShowAllLecturesComponent
-
+        component: ShowAllLecturesAdminComponent,
+      },
+      {
+        path: 'lecture/:lId',
+        component: ShowLectureAdminComponent,
+      },
+      {
+        path: 'quiz/:lId',
+        component: ShowQuizAdminComponent,
+      },
+      {
+        path: 'assignment/:lId',
+        component: ShowAssignmentAdminComponent,
+      },
+      {
+        path: 'labtask/:lId',
+        component: ShowLabtaskAdminComponent,
+      },
+      {
+        path: 'showusers',
+        component: ShowUsersAdminComponent,
+      },
+      {
+        path: 'addcompany',
+        component: AddCompanyComponent,
+      },
+      {
+        path: 'addmentor',
+        component: AddmentorComponent,
+      },
+      {
+        path: 'showmentor',
+        component: ShowmentorComponent,
+      },
+      {
+        path: 'showcompanies',
+        component: ShowCompanyAdminComponent,
+      },
+      {
+        path: 'showjobs',
+        component: ShowJobsComponent,
+      },
+      {
+        path: 'updatementor/:id',
+        component: UpdateMentorComponent,
+      },
+      {
+        path: 'updatecompany/:id',
+        component: UpdateCompanyAdminComponent,
+      },
+    ],
+  },
+  {
+    path: 'mentor',
+    component: MentorComponent,
+    canActivate: [mentorGuard],
+    children: [
+      {
+        path: '',
+        component: WelcomeMentorComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileMentorComponent,
+      },
+      {
+        path: 'addcourse',
+        component: AddCourseMentorComponent,
+      },
+      {
+        path: 'updatecourse/:id',
+        component: UpdateCourseComponent,
+      },
+      {
+        path: 'courses',
+        component: CoursesMentorComponent,
+      },
+      {
+        path: 'addlecture',
+        component: AddLectureMentorComponent,
+      },
+      {
+        path: 'updatelecture/:id',
+        component: UpdateLectureComponent,
+      },
+      {
+        path: 'lectures',
+        component: ShowAllLecturesComponent,
+      },
+      {
+        path: 'lectures/:cId/:cTitle',
+        component: ShowAllLecturesComponent,
       },
       {
         path: 'lecture/:id',
-        component: ShowLectureMentorComponent
-
+        component: ShowLectureMentorComponent,
       },
       {
         path: 'addquiz',
-        component: AddQuizMentorComponent
-
+        component: AddQuizMentorComponent,
       },
       {
         path: 'updatequiz/:id',
-        component: UpdateQuizComponent
-
+        component: UpdateQuizComponent,
       },
       {
         path: 'quizzes',
-        component: ShowAllQuizComponent
+        component: ShowAllQuizComponent,
       },
       {
         path: 'quiz/:id',
-        component: ShowQuizMentorComponent
+        component: ShowQuizMentorComponent,
       },
       {
         path: 'gradding/assignment/:aId',
-        component: GraddingAssignmentMentorComponent
-
+        component: GraddingAssignmentMentorComponent,
       },
       {
         path: 'assignment/assign/:aId/:uId',
-        component: MarksAssignmentMentorComponent
-
+        component: MarksAssignmentMentorComponent,
       },
       {
         path: 'addassignment',
-        component: AddAssignmentMentorComponent
-
+        component: AddAssignmentMentorComponent,
       },
       {
         path: 'assignments',
-        component: ShowAllAssignmentsComponent
-
+        component: ShowAllAssignmentsComponent,
       },
       {
         path: 'assignment/:id',
-        component: ShowAssignmentMentorComponent
+        component: ShowAssignmentMentorComponent,
       },
       {
         path: 'updateassignment/:id',
-        component: UpdateAssignmentMentorComponent
+        component: UpdateAssignmentMentorComponent,
       },
       {
-        path:'addquestion/:qid/:qTitle',
-        component: AddQuestionMentorComponent
-      }, 
+        path: 'addquestion/:qid/:qTitle',
+        component: AddQuestionMentorComponent,
+      },
       {
-        path:'updatequestion/:qid',
-        component: UpdateQuestionMentorComponent
+        path: 'updatequestion/:qid',
+        component: UpdateQuestionMentorComponent,
       },
       {
         path: 'gradding/labtask/:lId',
-        component: GraddingLabTaskMentorComponent
-
+        component: GraddingLabTaskMentorComponent,
       },
       {
         path: 'labtask/assign/:lId/:uId',
-        component: MarksLabTaskMentorComponent
-
+        component: MarksLabTaskMentorComponent,
       },
       {
-        path:'addlabtask',
-        component: AddLabTaskMentorComponent
+        path: 'addlabtask',
+        component: AddLabTaskMentorComponent,
       },
       {
-        path:'labtasks',
-        component: ShowAllLabTaskMentorComponent
+        path: 'labtasks',
+        component: ShowAllLabTaskMentorComponent,
       },
       {
-        path:'labtask/:id',
-        component: ShowLabTaskMentorComponent
+        path: 'labtask/:id',
+        component: ShowLabTaskMentorComponent,
       },
       {
-        path:'updatelabtask/:id',
-        component: UpdateLabTaskMentorComponent
+        path: 'updatelabtask/:id',
+        component: UpdateLabTaskMentorComponent,
       },
-    ]
+    ],
   },
   {
-    path:"company",
-    component:CompanyComponent,
+    path: 'company',
+    component: CompanyComponent,
     canActivate: [companyGuard],
-    children:[
+    children: [
       {
-        path:"",
-        component:WelcomeCompanyComponent,
-     
+        path: '',
+        component: WelcomeCompanyComponent,
       },
       {
-        path:"profile",
-        component:CompanyProfileComponent,
-     
+        path: 'profile',
+        component: CompanyProfileComponent,
       },
       {
-        path:"addjob",
-        component:AddJobsCompanyComponent,
-     
+        path: 'addjob',
+        component: AddJobsCompanyComponent,
       },
       {
-        path:"viewjobs",
-        component:ViewJobsCompanyComponent,
-     
+        path: 'viewjobs',
+        component: ViewJobsCompanyComponent,
       },
       {
-        path:"applications",
-        component:ViewApplicationCompanyComponent,
-     
+        path: 'applications',
+        component: ViewApplicationCompanyComponent,
       },
       {
-        path:"applications/:jId",
-        component:ViewApplicationCompanyComponent,
-     
+        path: 'applications/:jId',
+        component: ViewApplicationCompanyComponent,
       },
       {
         path: 'updatejob/:jId',
         component: UpdateJobComponent,
-
       },
-    ]
+    ],
   },
   {
-    path: "user",
+    path: 'user',
     component: UserComponent,
     canActivate: [NormalGuard],
     children: [
       {
-        path: "",
-        component: WelcomeUserComponent
+        path: '',
+        component: WelcomeUserComponent,
       },
       {
-        path: "profile",
-        component: UserprofileComponent
+        path: 'dashboard',
+        component: WelcomeUserComponent,
       },
       {
-        path: "course",
+        path: 'profile',
+        component: UserprofileComponent,
+      },
+      {
+        path: 'course',
         component: UsercourseComponent,
-
       },
       {
-        path: "lectures/:cId/:cTitle",
+        path: 'lectures/:cId/:cTitle',
         component: ShowCourseUserComponent,
       },
       {
-        path: "lectures",
+        path: 'lectures',
         component: ShowCourseUserComponent,
       },
       {
-        path: "showlecture/:lId",
+        path: 'showlecture/:lId',
         component: ShowLectureUserComponent,
-
       },
       {
-        path: "assignments",
+        path: 'assignments',
         component: AssignmentsUserComponent,
-
       },
       {
-        path: "assignment/:lId",
+        path: 'assignment/:lId',
         component: SubmitAssignmentUserComponent,
       },
       {
-        path: "quizess",
+        path: 'quizess',
         component: QuizesUserComponent,
       },
       {
-        path: "quiz/instructions/:lId",
+        path: 'quiz/instructions/:lId',
         component: QuizInstructionsUserComponent,
       },
       {
-        path: "labtasks",
+        path: 'labtasks',
         component: LabTaskUserComponent,
       },
       {
-        path: "labtask/:lId",
+        path: 'labtask/:lId',
         component: SubmitLabTaskUserComponent,
       },
       {
-        path: "findjob",
-        component: FindJobUserComponent
+        path: 'findjob',
+        component: FindJobUserComponent,
       },
       {
-        path: "viewjob/:jId",
-        component: ViewJobComponent
+        path: 'viewjob/:jId',
+        component: ViewJobComponent,
       },
-    ]
+    ],
   },
   // it is separated because we dont want SIDEBAR.
   {
-    path: "quiz/start/:qId",
+    path: 'quiz/start/:qId',
     component: StartQuizUserComponent,
-    canActivate: [NormalGuard]
+    canActivate: [NormalGuard],
   },
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

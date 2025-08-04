@@ -104,6 +104,9 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ShowJobsComponent } from './components/profile/show-jobs/show-jobs.component';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { PublicLayoutComponent } from './components/public-layout/public-layout.component';
+import { TruncatePipe } from './pipe/TruncatePipe';
 
 @NgModule({
   declarations: [
@@ -187,6 +190,8 @@ import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.com
     AboutUsComponent,
     ShowJobsComponent,
     ThemeToggleComponent,
+    PublicLayoutComponent,
+    TruncatePipe,
   ],
   imports: [
     BrowserModule,
@@ -213,6 +218,7 @@ import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.com
     NgxUiLoaderHttpModule.forRoot({
       showForeground: true,
     }),
+    MatMenuModule,
   ],
   providers: [MatSnackBar, authInterceptorProviders],
   bootstrap: [AppComponent],

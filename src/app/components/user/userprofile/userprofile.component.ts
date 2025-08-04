@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
-  styleUrls: ['./userprofile.component.css']
+  styleUrls: ['./userprofile.component.css'],
 })
 export class UserprofileComponent implements OnInit {
   constructor(
@@ -17,8 +17,8 @@ export class UserprofileComponent implements OnInit {
     private login: LoginService,
     private _file: FileServiceService,
     private _user: UserService,
-    private _snack:MatSnackBar
-  ) { }
+    private _snack: MatSnackBar
+  ) {}
   user: any;
   ngOnInit(): void {
     this._title.setTitle('Profile | CodeVenture');
@@ -26,43 +26,43 @@ export class UserprofileComponent implements OnInit {
     console.log(this.user);
   }
   updateDetailsFlag = false;
-  toggleUpdateDetail() { 
+  toggleUpdateDetail() {
     this.updateDetailsFlag = !this.updateDetailsFlag;
   }
 
-// Updating User Details
-  updateDetails(){
+  // Updating User Details
+  updateDetails() {
     var updatedUser = this.user;
     delete updatedUser['authorities'];
     this._user.updateUser(updatedUser).subscribe(
-      (data:any) => {
-        Swal.fire('Updated.', 'Details is Successfully Uploaded..', 'success').then(
-          (e) => {
-            this._user.getUserById(updatedUser.id).subscribe(
-              (data) => {
-                this.login.setUser(data);
-                window.location.href = "/user/profile";
-              },
-              (error) => {
-                Swal.fire('Error','Error in Redirecting...','error');
-              }
-            );
-            this.toggleUpdateDetail();
-          }
-        );
+      (data: any) => {
+        Swal.fire(
+          'Updated.',
+          'Details is Successfully Uploaded..',
+          'success'
+        ).then((e) => {
+          this._user.getUserById(updatedUser.id).subscribe(
+            (data) => {
+              this.login.setUser(data);
+              window.location.href = '/user/profile';
+            },
+            (error) => {
+              Swal.fire('Error', 'Error in Redirecting...', 'error');
+            }
+          );
+          this.toggleUpdateDetail();
+        });
       },
       (error) => {
-        Swal.fire('Error', 'Error in Updating Details.', 'error').then(
-          (e) => {
-            this.toggleUpdateDetail();
-          }
-        );
+        Swal.fire('Error', 'Error in Updating Details.', 'error').then((e) => {
+          this.toggleUpdateDetail();
+        });
       }
     );
   }
   // toggle Update Profile Container
   updateProfileFlag = false;
-  toggleUpdateProfileContainer() { 
+  toggleUpdateProfileContainer() {
     this.updateProfileFlag = !this.updateProfileFlag;
   }
   // Updating Profile Picture
@@ -73,21 +73,23 @@ export class UserprofileComponent implements OnInit {
     this._file.uploadProfile(picture).subscribe(
       (data) => {
         console.log(data);
-        Swal.fire('Updated.', 'Profile is Successfully Uploaded..', 'success').then(
-          (e) => {
-            this._user.getUserById(this.user.id).subscribe(
-              (data) => {
-                this.login.setUser(data);
-                window.location.href = "/user/profile";
-              },
-              (error) => {
-                Swal.fire('Error','Error in Redirecting...','error');
-                this.toggleUpdateProfileContainer();
-              }
-            );
-            this.toggleUpdateProfileContainer();
-          }
-        );
+        Swal.fire(
+          'Updated.',
+          'Profile is Successfully Uploaded..',
+          'success'
+        ).then((e) => {
+          this._user.getUserById(this.user.id).subscribe(
+            (data) => {
+              this.login.setUser(data);
+              window.location.href = '/user/profile';
+            },
+            (error) => {
+              Swal.fire('Error', 'Error in Redirecting...', 'error');
+              this.toggleUpdateProfileContainer();
+            }
+          );
+          this.toggleUpdateProfileContainer();
+        });
       },
       (error) => {
         Swal.fire('Error', 'Error in uploading profile..', 'error').then(
@@ -100,54 +102,64 @@ export class UserprofileComponent implements OnInit {
   }
 
   changePasswordFlag = false;
-  toggleChangePasswordFlag(){
+  toggleChangePasswordFlag() {
     this.changePasswordFlag = !this.changePasswordFlag;
   }
-  changePassword:any = {
-    oldPassword:'',
-    newPassword:''
-  }
+  changePassword: any = {
+    oldPassword: '',
+    newPassword: '',
+  };
 
-  updatePassword(){
-    if(this.changePassword.oldPassword == '' || this.changePassword.oldPassword == null){
-      this._snack.open('Please write old password.','OK',{
-        duration:3000,
-        verticalPosition:'top'
+  updatePassword() {
+    if (
+      this.changePassword.oldPassword == '' ||
+      this.changePassword.oldPassword == null
+    ) {
+      this._snack.open('Please write old password.', 'OK', {
+        duration: 3000,
+        verticalPosition: 'top',
       });
       return;
     }
-    if(this.changePassword.newPassword == '' || this.changePassword.newPassword == null){
-      this._snack.open('Please write new password.','OK',{
-        duration:3000,
-        verticalPosition:'top'
+    if (
+      this.changePassword.newPassword == '' ||
+      this.changePassword.newPassword == null
+    ) {
+      this._snack.open('Please write new password.', 'OK', {
+        duration: 3000,
+        verticalPosition: 'top',
       });
       return;
     }
     Swal.fire({
       title: 'Are you sure?',
-      text: "You want to Update your Password.",
+      text: 'You want to Update your Password.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#673ab7',
-      cancelButtonText:'No',
-      confirmButtonText: 'Yes'
+      cancelButtonText: 'No',
+      confirmButtonText: 'Yes',
     }).then((result) => {
       if (result.isConfirmed) {
         this._user.updatePassword(this.changePassword).subscribe(
           (data) => {
-            Swal.fire('Updated', 'Your password is successfully updated..', 'success');
+            Swal.fire(
+              'Updated',
+              'Your password is successfully updated..',
+              'success'
+            );
             this.toggleChangePasswordFlag();
           },
           (error) => {
             this._snack.open(error.error.message, 'Ok', {
               duration: 3000,
-              verticalPosition: 'top'
+              verticalPosition: 'top',
             });
           }
         );
       }
-    })
+    });
   }
 
   // Selection of Image
@@ -155,6 +167,6 @@ export class UserprofileComponent implements OnInit {
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
     this.userFile = this.selectedFile;
-    console.log(this.selectedFile)
+    console.log(this.selectedFile);
   }
 }

@@ -1,357 +1,481 @@
-<div *ngIf="!updateDetailsFlag">
-  <!-- If UpdateProfileFlag is FALSE -->
-  <div class="bootstrap-wrapper">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <mat-card class="shadow mb-3">
-            <div class="text-center m-3">
-              <mat-card-title class="text-color">
-                Your Profile Details
-              </mat-card-title>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Profile View (Default State) -->
+  <div *ngIf="!updateDetailsFlag && !updateProfileFlag && !changePasswordFlag">
+    <!-- Header with gradient text -->
+    <div class="mb-8 relative overflow-hidden rounded-2xl">
+      <div
+        class="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+      ></div>
+      <mat-card
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 relative z-9"
+      >
+        <div class="p-8 text-center">
+          <mat-card-title
+            class="!text-4xl !font-bold !bg-clip-text !text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 mb-2"
+          >
+            Your Profile
+          </mat-card-title>
+          <mat-card-subtitle class="!text-lg text-gray-600 dark:text-gray-300">
+            Manage your account details and personal information
+          </mat-card-subtitle>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Left Column - Profile Picture -->
+      <div class="lg:col-span-4">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 flex flex-col items-center h-full transition-all duration-300 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-500"
+        >
+          <div class="relative mb-6 group">
+            <img
+              [src]="'http://localhost:9191/file/profile/' + user.profile"
+              alt="Profile picture"
+              class="w-48 h-48 rounded-full object-cover border-4 border-white dark:border-gray-700 shadow-lg transition-all duration-300 group-hover:border-emerald-200 dark:group-hover:border-emerald-400"
+            />
+            <div
+              class="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+            >
+              <mat-icon
+                class="text-white text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >edit</mat-icon
+              >
             </div>
-          </mat-card>
+          </div>
+
+          <h2
+            class="text-2xl font-bold text-gray-800 dark:text-white mb-2 text-center"
+          >
+            {{ user.firstName + " " + user.lastName }}
+          </h2>
+
+          <!-- User Status Badge -->
+          <div class="mb-4">
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
+              [class.bg-green-100]="user.enabled"
+              [class.text-green-800]="user.enabled"
+              [class.bg-red-100]="!user.enabled"
+              [class.text-red-800]="!user.enabled"
+              [class.dark:bg-green-900]="user.enabled"
+              [class.dark:text-green-300]="user.enabled"
+              [class.dark:bg-red-900]="!user.enabled"
+              [class.dark:text-red-300]="!user.enabled"
+            >
+              <span
+                class="w-2 h-2 mr-2 rounded-full"
+                [class.bg-green-500]="user.enabled"
+                [class.bg-red-500]="!user.enabled"
+              ></span>
+              {{ user.enabled ? "Active" : "Inactive" }}
+            </span>
+          </div>
+
+          <p class="text-emerald-600 dark:text-emerald-400 mb-6 text-center">
+            {{ user.authorities[0].authority }}
+          </p>
+
+          <div class="w-full space-y-4 mt-auto">
+            <button
+              (click)="updateProfileFlag = true"
+              class="w-full !bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white !rounded-xl !font-medium !px-6 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300"
+            >
+              Update Picture
+            </button>
+
+            <button
+              (click)="changePasswordFlag = true"
+              class="w-full !bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600 text-white !rounded-xl !font-medium !px-6 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300"
+            >
+              Change Password
+            </button>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-123">
-          <mat-card class="shadow" *ngIf="!updateProfileFlag">
-            <mat-card-content>
-              <div class="row mb30">
-                <div class="col-md-8 offset-md-2">
-                  <div class="row col1">
-                    <div class="col-md-12 col-lg-4 col-sm-12 text-center col2">
-                      <div
-                        class="d-flex flex-column justify-content-center align-items-center my-2"
-                      >
-                        <div class="imgDiv mb-3">
-                          <img
-                            class="img"
-                            [src]="
-                              'http://localhost:9191/file/profile/' +
-                              user.profile
-                            "
-                            alt="Your profile picture.."
-                          />
-                        </div>
 
-                        <h1 class="text-white">
-                          <b>{{ user.firstName + " " + user.lastName }}</b>
-                        </h1>
-                        <button
-                          mat-raised-button
-                          (click)="toggleUpdateProfileContainer()"
-                        >
-                          Update Profile
-                        </button>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-lg-8 col-sm-12 p-4">
-                      <div class="text-center">
-                        <h1>Profile Details</h1>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-7 offset-md-3">
-                          <h3><b>Username:</b> {{ user.username }}</h3>
-                        </div>
+      <!-- Right Column - Profile Details -->
+      <div class="lg:col-span-8">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-500"
+        >
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+              Personal Information
+            </h2>
+            <button
+              (click)="updateDetailsFlag = true"
+              class="!bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white !rounded-lg !font-medium !px-4 !py-2 !shadow hover:!shadow-md transition-all duration-300"
+            >
+              Edit Profile
+            </button>
+          </div>
 
-                        <div class="col-md-7 offset-md-3">
-                          <h3><b>User Id:</b> {{ user.id }}</h3>
-                        </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Personal Info Cards with Hover Effects -->
+            <div
+              class="bg-gray-50 dark:bg-gray-700/50 p-5 rounded-xl border border-gray-200 dark:border-gray-600 transition-all duration-300 hover:shadow-md hover:border-emerald-300 dark:hover:border-emerald-400"
+            >
+              <div class="flex items-center">
+                <mat-icon class="text-emerald-600 dark:text-emerald-400 mr-3"
+                  >alternate_email</mat-icon
+                >
+                <div>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                    Username
+                  </p>
+                  <p class="text-lg font-medium text-gray-800 dark:text-white">
+                    {{ user.username }}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-                        <div class="col-md-7 offset-md-3">
-                          <h3><b>User Email:</b> {{ user.email }}</h3>
-                        </div>
+            <div
+              class="bg-gray-50 dark:bg-gray-700/50 p-5 rounded-xl border border-gray-200 dark:border-gray-600 transition-all duration-300 hover:shadow-md hover:border-emerald-300 dark:hover:border-emerald-400"
+            >
+              <div class="flex items-center">
+                <mat-icon class="text-emerald-600 dark:text-emerald-400 mr-3"
+                  >email</mat-icon
+                >
+                <div>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
+                  <p class="text-lg font-medium text-gray-800 dark:text-white">
+                    {{ user.email }}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-                        <div class="col-md-7 offset-md-3">
-                          <h3><b>User Phone:</b> {{ user.phone }}</h3>
-                        </div>
+            <div
+              class="bg-gray-50 dark:bg-gray-700/50 p-5 rounded-xl border border-gray-200 dark:border-gray-600 transition-all duration-300 hover:shadow-md hover:border-emerald-300 dark:hover:border-emerald-400"
+            >
+              <div class="flex items-center">
+                <mat-icon class="text-emerald-600 dark:text-emerald-400 mr-3"
+                  >phone</mat-icon
+                >
+                <div>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">Phone</p>
+                  <p class="text-lg font-medium text-gray-800 dark:text-white">
+                    {{ user.phone || "Not provided" }}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-                        <div class="col-md-7 offset-md-3">
-                          <h3>
-                            <b>User Role:</b>
-                            {{ user.authorities[0].authority }}
-                          </h3>
-                        </div>
+            <div
+              class="bg-gray-50 dark:bg-gray-700/50 p-5 rounded-xl border border-gray-200 dark:border-gray-600 transition-all duration-300 hover:shadow-md hover:border-emerald-300 dark:hover:border-emerald-400"
+            >
+              <div class="flex items-center">
+                <mat-icon class="text-emerald-600 dark:text-emerald-400 mr-3"
+                  >badge</mat-icon
+                >
+                <div>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                    User ID
+                  </p>
+                  <p class="text-lg font-medium text-gray-800 dark:text-white">
+                    {{ user.id }}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-                        <div class="col-md-7 offset-md-3">
-                          <h3><b>Address:</b> {{ user.address }}</h3>
-                        </div>
-
-                        <div class="col-md-7 offset-md-3">
-                          <h3>
-                            <b>Status:</b>
-                            {{ user.enabled ? "Active" : "InActive" }}
-                          </h3>
-                        </div>
-                        <div
-                          class="col-md-11 offset-md-2"
-                          *ngIf="!changePasswordFlag"
-                        >
-                          <div class="butn">
-                            <button
-                              mat-raised-button
-                              color="primary"
-                              (click)="toggleUpdateDetail()"
-                              class="m-2"
-                            >
-                              UPDATE
-                            </button>
-                            <button
-                              mat-raised-button
-                              color="warn"
-                              class="m-2"
-                              (click)="toggleChangePasswordFlag()"
-                            >
-                              Change Passowrd
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+            <!-- Full width sections with Hover Effects -->
+            <div class="md:col-span-2">
+              <div
+                class="bg-gray-50 dark:bg-gray-700/50 p-5 rounded-xl border border-gray-200 dark:border-gray-600 transition-all duration-300 hover:shadow-md hover:border-emerald-300 dark:hover:border-emerald-400"
+              >
+                <div class="flex items-center">
+                  <mat-icon class="text-emerald-600 dark:text-emerald-400 mr-3"
+                    >home</mat-icon
+                  >
+                  <div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                      Address
+                    </p>
+                    <p class="text-gray-800 dark:text-white">
+                      {{ user.address || "Not provided" }}
+                    </p>
                   </div>
                 </div>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </div>
 
-          <mat-card class="shadow mt-2" *ngIf="changePasswordFlag">
-            <mat-card-content>
-              <mat-card-title class="text-center text-color"
-                >Update Password</mat-card-title
+            <div class="md:col-span-2" *ngIf="user.bio">
+              <div
+                class="bg-gray-50 dark:bg-gray-700/50 p-5 rounded-xl border border-gray-200 dark:border-gray-600 transition-all duration-300 hover:shadow-md hover:border-emerald-300 dark:hover:border-emerald-400"
               >
-              <div class="row">
-                <div class="col-md-6 offset-md-3">
-                  <!-- OLD PASSWORD -->
-                  <mat-form-field class="max-width" appearance="fill">
-                    <mat-label>Old Password</mat-label>
-                    <input
-                      [(ngModel)]="changePassword.oldPassword"
-                      name="oldPassword"
-                      type="text"
-                      matInput
-                      placeholder="Enter Old Passwoed here"
-                      required
-                    />
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 offset-md-3">
-                  <!-- NEW PASSWORD -->
-                  <mat-form-field class="max-width" appearance="fill">
-                    <mat-label>New Password</mat-label>
-                    <input
-                      [(ngModel)]="changePassword.newPassword"
-                      name="newPassword"
-                      type="text"
-                      matInput
-                      placeholder="Enter New Passwoed here"
-                      required
-                    />
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4 offset-md-4 text-center">
-                  <button
-                    mat-raised-button
-                    color="accent"
-                    class="m-2"
-                    (click)="updatePassword()"
+                <div class="flex items-center">
+                  <mat-icon class="text-emerald-600 dark:text-emerald-400 mr-3"
+                    >info</mat-icon
                   >
-                    UPDATE
-                  </button>
-                  <button
-                    mat-raised-button
-                    color="primary"
-                    class="m-2"
-                    (click)="toggleChangePasswordFlag()"
-                  >
-                    CANCEL
-                  </button>
+                  <div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                      About
+                    </p>
+                    <p
+                      class="text-gray-800 dark:text-white whitespace-pre-line"
+                    >
+                      {{ user.bio }}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- If UpdateProfileFlag is TRUE -->
-  <div class="container" *ngIf="updateProfileFlag">
-    <div class="row">
-      <div class="col-md-6 offset-md-3 text-center">
-        <mat-card class="p-3 shadow" style="border-radius: 15px">
-          <h1 class="text-color">Update Profile Picture</h1>
-          <div class="m-5">
-            <img
-              [src]="'http://localhost:9191/file/profile/' + user.profile"
-              class="image"
-            />
-          </div>
-          <button mat-stroked-button color="accent" (click)="fileInput.click()">
-            Choose File
-          </button>
+  <!-- Update Profile Picture Section -->
+  <div
+    *ngIf="updateProfileFlag"
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 max-w-md mx-auto mt-8 transition-all duration-300 hover:shadow-xl"
+  >
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+        Update Profile Picture
+      </h2>
+      <button
+        (click)="updateProfileFlag = false"
+        class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="flex flex-col items-center space-y-6">
+      <div class="relative group">
+        <img
+          [src]="'http://localhost:9191/file/profile/' + user.profile"
+          alt="Profile picture"
+          class="w-48 h-48 rounded-full object-cover border-4 border-white dark:border-gray-700 shadow-lg transition-all duration-300 group-hover:border-emerald-200 dark:group-hover:border-emerald-400"
+        />
+        <div
+          class="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        ></div>
+      </div>
+
+      <button
+        color="primary"
+        (click)="fileInput.click()"
+        class="w-full !border-emerald-500 !text-emerald-600 dark:!text-emerald-400 hover:!bg-emerald-50 dark:hover:!bg-emerald-900/20 !rounded-xl !font-medium !px-6 !py-3 transition-all duration-300 hover:shadow-md"
+      >
+        Choose File
+      </button>
+      <input
+        hidden
+        accept="image/*"
+        (change)="onFileSelected($event)"
+        #fileInput
+        type="file"
+      />
+
+      <p class="text-sm text-gray-500 dark:text-gray-400" *ngIf="selectedFile">
+        Selected: {{ selectedFile.name }}
+      </p>
+
+      <div class="flex gap-4 w-full">
+        <button
+          (click)="updateProfileFlag = false"
+          class="flex-1 !border-gray-300 !text-gray-700 dark:!text-gray-300 hover:!bg-gray-50 dark:hover:!bg-gray-700/20 !rounded-xl !font-medium !px-6 !py-3 transition-all duration-300 hover:shadow-md"
+        >
+          Cancel
+        </button>
+        <button
+          (click)="updateProfile()"
+          class="flex-1 !bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white !rounded-xl !font-medium !px-6 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300"
+          [disabled]="!selectedFile"
+        >
+          Update
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Password Section -->
+  <div
+    *ngIf="changePasswordFlag"
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 max-w-md mx-auto mt-8 transition-all duration-300 hover:shadow-xl"
+  >
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+        Change Password
+      </h2>
+      <button
+        (click)="changePasswordFlag = false"
+        class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <form (ngSubmit)="updatePassword()" class="space-y-6">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label class="text-gray-700 dark:text-gray-300"
+          >Current Password</mat-label
+        >
+        <input
+          [(ngModel)]="changePassword.oldPassword"
+          name="oldPassword"
+          type="password"
+          matInput
+          required
+          class="dark:text-white"
+        />
+        <mat-icon matSuffix class="text-gray-500 dark:text-gray-400"
+          >lock</mat-icon
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label class="text-gray-700 dark:text-gray-300"
+          >New Password</mat-label
+        >
+        <input
+          [(ngModel)]="changePassword.newPassword"
+          name="newPassword"
+          type="password"
+          matInput
+          required
+          class="dark:text-white"
+        />
+        <mat-icon matSuffix class="text-gray-500 dark:text-gray-400"
+          >lock</mat-icon
+        >
+      </mat-form-field>
+
+      <div class="flex gap-4">
+        <button
+          type="button"
+          (click)="changePasswordFlag = false"
+          class="flex-1 !border-gray-300 !text-gray-700 dark:!text-gray-300 hover:!bg-gray-50 dark:hover:!bg-gray-700/20 !rounded-xl !font-medium !px-6 !py-3 transition-all duration-300 hover:shadow-md"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="flex-1 !bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white !rounded-xl !font-medium !px-6 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300"
+        >
+          Update Password
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Update Profile Details Section -->
+  <div
+    *ngIf="updateDetailsFlag"
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 max-w-2xl mx-auto mt-8 transition-all duration-300 hover:shadow-xl"
+  >
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+        Update Profile Details
+      </h2>
+      <button
+        (click)="updateDetailsFlag = false"
+        class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <form (ngSubmit)="updateDetails()" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >First Name</mat-label
+          >
           <input
-            hidden
-            accept="image/*"
-            (change)="onFileSelected($event)"
-            #fileInput
-            type="file"
+            [(ngModel)]="user.firstName"
+            name="firstName"
+            type="text"
+            matInput
+            required
+            class="dark:text-white"
           />
-          <span class="file-name">{{ selectedFile?.name }}</span>
-          <div class="mt-2">
-            <button
-              (click)="toggleUpdateProfileContainer()"
-              mat-raised-button
-              color="primary"
-              class="m-2"
-            >
-              BACK
-            </button>
-            <button
-              (click)="updateProfile()"
-              mat-raised-button
-              color="accent"
-              class="m-2"
-            >
-              UPDATE
-            </button>
-          </div>
-        </mat-card>
-      </div>
-    </div>
-  </div>
-</div>
+        </mat-form-field>
 
-<div class="bootstrap-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <mat-card class="mb-2 shadow" *ngIf="updateDetailsFlag">
-          <div class="text-center m-3">
-            <mat-card-title class="text-color">
-              Update Profile Details
-            </mat-card-title>
-            <mat-card-subtitle> Enter Deatils for Update </mat-card-subtitle>
-          </div>
-        </mat-card>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Last Name</mat-label
+          >
+          <input
+            [(ngModel)]="user.lastName"
+            name="lastName"
+            type="text"
+            matInput
+            required
+            class="dark:text-white"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300">Email</mat-label>
+          <input
+            [(ngModel)]="user.email"
+            name="email"
+            type="email"
+            matInput
+            required
+            class="dark:text-white"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300">Phone</mat-label>
+          <input
+            [(ngModel)]="user.phone"
+            name="phone"
+            type="tel"
+            matInput
+            class="dark:text-white"
+          />
+        </mat-form-field>
       </div>
-    </div>
-    <mat-card *ngIf="updateDetailsFlag">
-      <mat-card-content>
-        <div class="bootstrap-wrapper">
-          <div class="container">
-            <form action="" (ngSubmit)="updateDetails()">
-              <div class="row">
-                <div class="col-md-6">
-                  <!-- FIRST NAME -->
-                  <mat-form-field class="max-width" appearance="fill">
-                    <mat-label>First Name</mat-label>
-                    <input
-                      [(ngModel)]="user.firstName"
-                      name="firstName"
-                      type="text"
-                      matInput
-                      placeholder="Enter first name here"
-                      required
-                    />
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <!-- LAST NAME -->
-                  <mat-form-field class="max-width" appearance="fill">
-                    <mat-label>Last Name</mat-label>
-                    <input
-                      [(ngModel)]="user.lastName"
-                      name="lastName"
-                      type="text"
-                      matInput
-                      placeholder="Enter last name here"
-                      required
-                    />
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <!-- EMAIL -->
-                  <mat-form-field class="max-width" appearance="fill">
-                    <mat-label>Email Address</mat-label>
-                    <input
-                      [(ngModel)]="user.email"
-                      name="email"
-                      type="email"
-                      matInput
-                      placeholder="Enter email here"
-                      required
-                    />
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6">
-                  <!-- PHONE -->
-                  <mat-form-field class="max-width" appearance="fill">
-                    <mat-label>Phone</mat-label>
-                    <input
-                      [(ngModel)]="user.phone"
-                      name="phone"
-                      type="number"
-                      matInput
-                      placeholder="Enter phone here"
-                      required
-                    />
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <!-- ADDRESS -->
-                  <mat-form-field class="max-width" appearance="fill">
-                    <mat-label>Address</mat-label>
-                    <input
-                      [(ngModel)]="user.address"
-                      name="address"
-                      type="text"
-                      matInput
-                      placeholder="Enter address here"
-                      required
-                    />
-                  </mat-form-field>
-                  <hr />
-                </div>
-              </div>
-              <div class="row">
-                <!-- BIO -->
-                <mat-form-field class="max-width" appearance="fill">
-                  <mat-label>Bio</mat-label>
-                  <textarea
-                    [(ngModel)]="user.bio"
-                    name="bio"
-                    matInput
-                    placeholder="Enter Bio here"
-                    rows="5"
-                  ></textarea>
-                </mat-form-field>
-              </div>
-              <div class="text-center">
-                <button
-                  mat-raised-button
-                  class="m-2"
-                  (click)="toggleUpdateDetail()"
-                  color="primary"
-                >
-                  BACK
-                </button>
-                <button mat-raised-button class="m-2" color="accent">
-                  UPDATE
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label class="text-gray-700 dark:text-gray-300">Address</mat-label>
+        <input
+          [(ngModel)]="user.address"
+          name="address"
+          type="text"
+          matInput
+          class="dark:text-white"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label class="text-gray-700 dark:text-gray-300"
+          >About You</mat-label
+        >
+        <textarea
+          [(ngModel)]="user.bio"
+          name="bio"
+          matInput
+          rows="3"
+          class="dark:text-white"
+        ></textarea>
+      </mat-form-field>
+
+      <div class="flex gap-4">
+        <button
+          type="button"
+          (click)="updateDetailsFlag = false"
+          class="flex-1 !border-gray-300 !text-gray-700 dark:!text-gray-300 hover:!bg-gray-50 dark:hover:!bg-gray-700/20 !rounded-xl !font-medium !px-6 !py-3 transition-all duration-300 hover:shadow-md"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="flex-1 !bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white !rounded-xl !font-medium !px-6 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300"
+        >
+          Save Changes
+        </button>
+      </div>
+    </form>
   </div>
 </div>

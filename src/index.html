@@ -6,61 +6,33 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
+    <link
+      rel="icon"
+      href="./assets/img/favicons/favicon.ico"
+      sizes="16x16 32x32"
+      type="image/x-icon"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="./assets/img/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/img/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./assets/img/favicons/favicon-16x16.png"
+    />
 
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
     />
-    <style>
-      /* ===== Scrollbar CSS ===== */
-      /* Firefox */
-      * {
-        scrollbar-width: thin;
-        scrollbar-color: #7c3aed #e9d5ff;
-      }
-
-      /* Chrome, Edge, and Safari */
-      *::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-      }
-
-      *::-webkit-scrollbar-track {
-        background: #e9d5ff;
-        border-radius: 5px;
-      }
-
-      *::-webkit-scrollbar-thumb {
-        background-color: #7c3aed;
-        border-radius: 5px;
-        border: 2px solid #e9d5ff;
-      }
-
-      *::-webkit-scrollbar-thumb:hover {
-        background-color: #6d28d9;
-      }
-
-      /* Dark mode scrollbar */
-      @media (prefers-color-scheme: dark) {
-        * {
-          scrollbar-color: #8b5cf6 #4c1d95;
-        }
-
-        *::-webkit-scrollbar-track {
-          background: #4c1d95;
-        }
-
-        *::-webkit-scrollbar-thumb {
-          background-color: #8b5cf6;
-          border-color: #4c1d95;
-        }
-
-        *::-webkit-scrollbar-thumb:hover {
-          background-color: #7c3aed;
-        }
-      }
-    </style>
   </head>
   <body>
     <app-root></app-root>

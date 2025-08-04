@@ -1,70 +1,111 @@
-<div class="bootstrap-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <mat-card class="shadow mb-2">
-          <div class="text-center m-3">
-            <mat-card-title class="text-color">All Quizzes</mat-card-title>
-            <mat-card-subtitle>List of Quizzes</mat-card-subtitle>
-          </div>
-        </mat-card>
-        <mat-card *ngFor="let q of quizess" class="shadow mb-1 mainCard">
-          <div class="row rowq">
-            <div class="col-md-4 col1">
-              <img
-                style="height: 100px; width: 100px"
-                src="assets/img/quiz2.png"
-              />
-              <div class="col3">
-                <mat-card-subtitle class="sub-title text-center">
-                  Course : {{ q.lecture.course.cTitle }}
-                </mat-card-subtitle>
-                <mat-card-title class="text-center"
-                  >Quiz No : {{ q.lecture.lNo }}</mat-card-title
-                >
-                <mat-card-title class="text-center">{{
-                  q.qTitle
-                }}</mat-card-title>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header Section -->
+  <div class="mb-8 relative overflow-hidden rounded-2xl">
+    <div
+      class="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+    ></div>
+
+    <mat-card
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 relative z-10"
+    >
+      <div class="p-8 text-center">
+        <mat-card-title
+          class="!text-4xl !font-bold !bg-clip-text !text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-2"
+        >
+          All Quizzes
+        </mat-card-title>
+        <mat-card-subtitle class="!text-lg text-gray-600 dark:text-gray-300">
+          Test your knowledge with these quizzes
+        </mat-card-subtitle>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Quizzes List -->
+  <div *ngIf="quizess.length > 0" class="grid grid-cols-1 gap-6">
+    <mat-card
+      *ngFor="let q of quizess"
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500"
+    >
+      <div class="flex flex-col md:flex-row p-6 gap-6">
+        <!-- Quiz Image -->
+        <div class="flex-shrink-0">
+          <img
+            src="assets/img/quiz2.png"
+            alt="Quiz icon"
+            class="w-24 h-24 object-contain"
+          />
+        </div>
+
+        <!-- Quiz Content -->
+        <div class="flex-grow">
+          <div class="flex flex-col h-full">
+            <!-- Quiz Header -->
+            <div class="mb-4">
+              <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-1">
+                {{ q.qTitle }}
+              </h3>
+              <div
+                class="flex items-center text-sm text-gray-600 dark:text-gray-300 gap-2"
+              >
+                <span class="inline-flex items-center">
+                  <mat-icon
+                    class="text-blue-500 dark:text-blue-400 mr-1"
+                    style="font-size: 16px"
+                    >book</mat-icon
+                  >
+                  {{ q.lecture.course.cTitle }}
+                </span>
+                <span class="inline-flex items-center">
+                  <mat-icon
+                    class="text-purple-500 dark:text-purple-400 mr-1"
+                    style="font-size: 16px"
+                    >assignment</mat-icon
+                  >
+                  Lecture {{ q.lecture.lNo }}
+                </span>
               </div>
             </div>
-            <div class="col-md-6 col2">
-              <p class="justifyPara m-2">{{ q.qDescription }}</p>
-            </div>
-            <div
-              class="col-md-2 d-flex justify-content-center align-items-center"
-            >
-              <mat-card-actions class="m-2">
-                <button
-                  mat-fab
-                  extended
-                  style="background-color: gray"
-                  [routerLink]="'/user/quiz/instructions/' + q.lecture.lId"
-                >
-                  Continue
-                </button>
-              </mat-card-actions>
+
+            <!-- Quiz Description -->
+            <p class="text-gray-600 dark:text-gray-300 mb-4 flex-grow">
+              {{ q.qDescription || "No description available" }}
+            </p>
+
+            <!-- Quiz Action -->
+            <div class="mt-auto">
+              <button
+                mat-raised-button
+                [routerLink]="'/user/quiz/instructions/' + q.lecture.lId"
+                class="!bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white !rounded-xl !font-medium !px-6 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300"
+              >
+                Start Quiz
+                <mat-icon class="ml-1">arrow_forward</mat-icon>
+              </button>
             </div>
           </div>
-        </mat-card>
+        </div>
       </div>
+    </mat-card>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="quizess.length === 0"
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center"
+  >
+    <div class="max-w-md mx-auto">
+      <img
+        src="assets/img/stockNotFound.png"
+        class="w-full h-auto max-h-64 object-contain mb-6"
+        alt="No quizzes found"
+      />
+      <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        No Quizzes Available
+      </h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-6">
+        There are currently no quizzes available. Please check back later.
+      </p>
     </div>
   </div>
 </div>
-<!-- 
-<mat-card>
-    <div class="row" style="margin: 20px; border: 1px solid #ff4081; border-radius: 5px;" *ngFor="let q of quizess">
-        <div class="col-md-3"
-            style="background-color: #ff4081; color: white; border-top-left-radius: 5px; border-bottom-left-radius: 5px; padding: 10px;">
-            <mat-card-subtitle style="color: white;">Course : {{q.course.cTitle}}</mat-card-subtitle>
-            <mat-card-title class=" text-center">Quize No : {{q.qNo}}</mat-card-title>
-            <mat-card-title class=" text-center">{{q.qTitle}}</mat-card-title>
-        </div>
-        <div class="col-md-8" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding: 10px;">
-            <p>{{q.qDescription}}</p>
-            <mat-card-actions align="end">
-                <button mat-fab extended [routerLink]="'/user/quiz/'+q.qId">Continue</button>
-            </mat-card-actions>
-        </div>
-    </div>
-
-</mat-card> -->

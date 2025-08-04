@@ -47,6 +47,116 @@ html {
 body {
   @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
 }
+.mdc-notched-outline__notch {
+  border-right: none !important;
+}
+.mat-mdc-input-element {
+  @apply dark:!text-gray-200;
+}
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__leading,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__notch,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled)
+  .mdc-notched-outline__trailing {
+  @apply dark:!border-gray-200;
+}
+
+/* Change the border hover color */
+.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
+    .mdc-text-field--focused
+  ):hover
+  .mdc-notched-outline
+  .mdc-notched-outline__leading,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
+    .mdc-text-field--focused
+  ):hover
+  .mdc-notched-outline
+  .mdc-notched-outline__notch,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled):not(
+    .mdc-text-field--focused
+  ):hover
+  .mdc-notched-outline
+  .mdc-notched-outline__trailing {
+  @apply dark:!border-gray-400 !border-gray-950;
+}
+
+/* Change the border focused color */
+.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
+  .mdc-notched-outline__leading,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
+  .mdc-notched-outline__notch,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
+  .mdc-notched-outline__trailing {
+  @apply dark:!border-white !border-black;
+}
+/* ::ng-deep .mat-form-field.mat-form-field-invalid .mat-mdc-form-field-outline {
+  color: #ff4081; // or any custom color
+  stroke: #ff4081;
+} */
+
+/* In your component's SCSS file or global styles */
+.mat-mdc-form-field.mat-form-field-appearance-outline.mat-form-field-invalid
+  .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-form-field-appearance-outline.mat-form-field-invalid
+  .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-form-field-appearance-outline.mat-form-field-invalid
+  .mdc-notched-outline__trailing {
+  @apply dark:!border-red-400;
+}
+
+/* For floating label/placeholder (when not focused) */
+input::placeholder,
+textarea::placeholder {
+  @apply dark:!text-gray-400;
+}
+
+/* ===== Universal Scrollbar ===== */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 120, 120, 0.4) rgba(120, 120, 120, 0.1);
+}
+
+/* Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(120, 120, 120, 0.1);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 120, 0.4);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.6);
+  background-clip: content-box;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  * {
+    scrollbar-color: rgba(180, 180, 180, 0.4) rgba(180, 180, 180, 0.1);
+  }
+  *::-webkit-scrollbar-track {
+    background: rgba(180, 180, 180, 0.1);
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgba(180, 180, 180, 0.4);
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: rgba(200, 200, 200, 0.6);
+  }
+}
 /* html,
 body {
   height: 100%;

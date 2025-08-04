@@ -1,7 +1,30 @@
 <div
-  class="min-h-[80vh] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4"
+  class="relative min-h-[80vh] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4"
 >
-  <div class="w-full max-w-md">
+  <!-- Blob Backgrounds -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <!-- Primary blob -->
+    <div
+      class="absolute blob top-20 -left-20 w-96 h-96 bg-blue-400 rounded-full opacity-60 dark:opacity-20 mix-blend-multiply dark:mix-blend-screen animate-blob-1"
+    ></div>
+
+    <!-- Secondary blob -->
+    <div
+      class="absolute blob top-1/2 right-0 w-64 h-64 bg-indigo-400 rounded-full opacity-60 dark:opacity-20 mix-blend-multiply dark:mix-blend-screen animate-blob-2"
+    ></div>
+
+    <!-- Purple blob -->
+    <div
+      class="absolute blob bottom-20 left-1/3 w-80 h-80 bg-purple-400 rounded-full opacity-60 dark:opacity-20 mix-blend-multiply dark:mix-blend-screen animate-blob-3"
+    ></div>
+  </div>
+
+  <!-- Grid Pattern -->
+  <div
+    class="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+  ></div>
+
+  <div class="w-full max-w-md relative z-10">
     <!-- Login Card -->
     <div
       class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 transform hover:shadow-2xl"

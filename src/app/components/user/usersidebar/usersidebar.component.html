@@ -1,55 +1,56 @@
-<mat-card class="shadow mb-2">
-  <mat-card-header>
-    <div class="logo">
-      <img src="/assets/img/studentpanel.png" alt="Company Logo" />
-      <span>Student Panel</span>
+<div
+  class="fixed inset-y-0 left-0 z-20 w-64 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out"
+  [class.translate-x-0]="isOpen"
+  [class.-translate-x-full]="!isOpen"
+  [class.md:translate-x-0]="true"
+>
+  <div class="flex flex-col h-full">
+    <!-- Sidebar Header -->
+    <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+      <div class="flex items-center space-x-3">
+        <img src="assets/img/logo.png" class="h-8 w-auto" alt="Logo" />
+        <span
+          class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500"
+        >
+          Student Panel
+        </span>
+      </div>
     </div>
-  </mat-card-header>
 
-  <mat-action-list>
-    <button mat-list-item routerLink="/user">
-      <mat-icon matListItemIcon>home</mat-icon>
-      <span>Home</span>
-    </button>
+    <!-- Sidebar Content -->
+    <nav class="flex-1 overflow-y-auto p-4 space-y-1">
+      <a
+        *ngFor="let link of sidebarLinks"
+        [routerLink]="link.path"
+        class="flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+        [routerLinkActive]="[
+          '!text-white',
+          '!bg-gradient-to-r',
+          'from-blue-600',
+          'to-purple-600',
+          'dark:from-blue-500',
+          'dark:to-purple-500'
+        ]"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon class="mr-3">{{ link.icon }}</mat-icon>
+        <span class="font-medium">{{ link.label }}</span>
+      </a>
 
-    <button mat-list-item routerLink="/user/profile">
-      <mat-icon matListItemIcon>account_circle</mat-icon>
-      <span>Profile</span>
-    </button>
+      <button
+        (click)="logout()"
+        class="w-full flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+      >
+        <mat-icon class="mr-3">logout</mat-icon>
+        <span class="font-medium">Logout</span>
+      </button>
+    </nav>
+  </div>
+</div>
 
-    <button mat-list-item routerLink="/user/course">
-      <mat-icon matListItemIcon>school</mat-icon>
-      <span>Courses</span>
-    </button>
-
-    <button mat-list-item routerLink="/user/lectures">
-      <mat-icon matListItemIcon>subscriptions</mat-icon>
-      <span>Lectures</span>
-    </button>
-
-    <button mat-list-item routerLink="/user/quizess">
-      <mat-icon matListItemIcon>help</mat-icon>
-      <span>Quizzes</span>
-    </button>
-
-    <button mat-list-item routerLink="/user/assignments">
-      <mat-icon matListItemIcon>assignment</mat-icon>
-      <span>Assignment</span>
-    </button>
-
-    <button mat-list-item routerLink="/user/labtasks">
-      <mat-icon matListItemIcon>assignment_turned_in</mat-icon>
-      <span>LabTasks</span>
-    </button>
-
-    <button mat-list-item routerLink="/user/findjob">
-      <mat-icon matListItemIcon>work</mat-icon>
-      <span>Find Job</span>
-    </button>
-
-    <button mat-list-item (click)="logout()">
-      <mat-icon matListItemIcon>logout</mat-icon>
-      <span>Logout</span>
-    </button>
-  </mat-action-list>
-</mat-card>
+<!-- Overlay for mobile -->
+<div
+  *ngIf="isOpen"
+  class="fixed inset-0 z-[9] bg-black bg-opacity-50 md:hidden"
+  (click)="toggle()"
+></div>

@@ -1,86 +1,92 @@
-<div class="bootstrap-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <mat-card class="shadow mb-2">
-          <div class="text-center m-3">
-            <mat-card-title class="text-color">All Courses</mat-card-title>
-            <mat-card-subtitle>List of Courses</mat-card-subtitle>
-          </div>
-        </mat-card>
-        <mat-card class="mb-1 shadow mainCard" *ngFor="let c of courses">
-          <div class="row rowc">
-            <div class="col-md-4 col1">
-              <img
-                style="height: 100px; width: 100px"
-                src="assets/img/coursesimg.png"
-              />
-              <div class="col2">
-                <mat-card-subtitle class="sub-title text-center">
-                  Field : {{ c.field }}
-                </mat-card-subtitle>
-                <mat-card-title class="text-center">{{
-                  c.cTitle
-                }}</mat-card-title>
-              </div>
-            </div>
-            <div class="col-md-6 col2">
-              <p class="justifyPara m-2">{{ c.cDescription }}</p>
-            </div>
-            <div
-              class="col-md-2 d-flex justify-content-center align-items-center"
-            >
-              <mat-card-actions class="m-2">
-                <button
-                  mat-fab
-                  style="background-color: grey"
-                  extended
-                  [routerLink]="'/user/lectures/' + c.cId + '/' + c.cTitle"
-                >
-                  Continue
-                </button>
-              </mat-card-actions>
-            </div>
-          </div>
-        </mat-card>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header Section -->
+  <div class="mb-8 relative overflow-hidden rounded-2xl">
+    <div
+      class="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+    ></div>
+
+    <mat-card
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 relative z-10"
+    >
+      <div class="p-8 text-center">
+        <mat-card-title
+          class="!text-4xl !font-bold !bg-clip-text !text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-2"
+        >
+          All Courses
+        </mat-card-title>
+        <mat-card-subtitle class="!text-lg text-gray-600 dark:text-gray-300">
+          Browse our comprehensive course catalog
+        </mat-card-subtitle>
       </div>
+    </mat-card>
+  </div>
+
+  <!-- Courses Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <mat-card
+      *ngFor="let c of courses"
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 flex flex-col h-full"
+    >
+      <!-- Course Image -->
+      <div class="relative h-48 overflow-hidden rounded-t-2xl">
+        <img
+          src="assets/img/coursesimg.png"
+          alt="{{ c.cTitle }}"
+          class="w-full h-full object-cover"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"
+        ></div>
+        <div class="absolute bottom-0 left-0 p-4">
+          <span
+            class="inline-block px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
+          >
+            {{ c.field }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Course Content -->
+      <mat-card-content class="p-6 flex-grow">
+        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">
+          {{ c.cTitle }}
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+          {{ c.cDescription }}
+        </p>
+      </mat-card-content>
+
+      <!-- Course Actions -->
+      <mat-card-actions class="p-4 mt-auto">
+        <button
+          mat-raised-button
+          [routerLink]="'/user/lectures/' + c.cId + '/' + c.cTitle"
+          class="w-full !bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white !rounded-xl !font-medium !px-6 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300"
+        >
+          View Lectures
+          <mat-icon class="ml-1">arrow_forward</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="courses.length === 0"
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 text-center"
+  >
+    <div class="max-w-md mx-auto">
+      <img
+        src="assets/img/stockNotFound.png"
+        class="w-full h-auto max-h-64 object-contain mb-6"
+        alt="No courses found"
+      />
+      <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+        No Courses Available
+      </h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-6">
+        There are currently no courses available. Please check back later.
+      </p>
     </div>
   </div>
 </div>
-
-<!-- <mat-card style="padding: 10px; width: 100%; background-color: rgb(255, 254, 252)">
-  <div
-    *ngFor="let c of courses"
-    class="card shadow-sm bg-light course-card"
-    style="width: 300px; height: 400px; margin: 10px"
-  >
-    <div
-      class="card-image"
-      [style.background-image]="'url(assets/img/laptop.jpg)'"
-    >
-
-
-      <div class="card-body">
-        <br /><br />
-        <br /><br />
-        <br /><br /><br /><br />
-        <h1 class="card-title">{{ c.cTitle }}</h1>
-        <h4 class="card-subtitle">{{ c.cField }}</h4>
-      </div>
-    </div>
-    <br />
-    <h2 class="card-title" style="text-align: left; padding: 10px">
-      {{ c.cDescription }}
-    </h2>
-    <br />
-    <div class="text-center">
-      <button
-        [routerLink]="'/user/showcourse/'+c.cId+'/'+c.cTitle"
-        mat-raised-button
-        style="background-color: rgb(247, 107, 26); color: white"
-      >
-        Show Course
-      </button>
-    </div>
-  </div>
-</mat-card> -->
