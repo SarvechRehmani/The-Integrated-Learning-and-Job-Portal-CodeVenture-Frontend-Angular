@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-assignment-mentor',
   templateUrl: './add-assignment-mentor.component.html',
-  styleUrls: ['./add-assignment-mentor.component.css']
+  styleUrls: ['./add-assignment-mentor.component.css'],
 })
 export class AddAssignmentMentorComponent {
   constructor(
@@ -19,7 +19,7 @@ export class AddAssignmentMentorComponent {
     private _lecture: LectureService,
     private _assignment: AssignmentService,
     private _snack: MatSnackBar
-  ) { }
+  ) {}
   public Editor = ClassicEditor;
 
   courses: any;
@@ -29,8 +29,8 @@ export class AddAssignmentMentorComponent {
     aContent: '',
     maxMarks: '',
     lecture: {
-      lId: ''
-    }
+      lId: '',
+    },
   };
 
   ngOnInit(): void {
@@ -56,48 +56,60 @@ export class AddAssignmentMentorComponent {
       },
       (error: any) => {
         Swal.fire('Error', 'Error in loading lectures', 'error');
-      });
+      }
+    );
   }
 
   addAssignments() {
-    if (this.assignment.lecture.lId == '' || this.assignment.lecture.lId == null) {
+    if (
+      this.assignment.lecture.lId == '' ||
+      this.assignment.lecture.lId == null
+    ) {
       this._snack.open('Please Select Lectures...', 'OK', {
         duration: 3000,
-        verticalPosition: 'top'
+        verticalPosition: 'top',
       });
       return;
     }
-    if (parseInt(this.assignment.maxMarks) <= 0 || this.assignment.maxMarks == '') {
+    if (
+      parseInt(this.assignment.maxMarks) <= 0 ||
+      this.assignment.maxMarks == ''
+    ) {
       this._snack.open('Please enter correct maximum marks...', 'OK', {
         duration: 3000,
-        verticalPosition: 'top'
+        verticalPosition: 'top',
       });
       return;
-    } else if (parseInt(this.assignment.maxMarks) < 10 || parseInt(this.assignment.maxMarks) > 100) {
+    } else if (
+      parseInt(this.assignment.maxMarks) < 10 ||
+      parseInt(this.assignment.maxMarks) > 100
+    ) {
       this._snack.open('Marks should be between 10 to 100..', 'OK', {
         duration: 3000,
-        verticalPosition: 'top'
+        verticalPosition: 'top',
       });
       return;
     }
 
     this._assignment.addAssignment(this.assignment).subscribe(
       (data) => {
-        Swal.fire('Added', 'Assignment is successfully added...', 'success').then(
-          (e) => {
-            this.lectures = [];
-            this.assignment = {
-              aContent: '',
-              maxMarks: '',
-              lecture: {
-                lId: ''
-              }
-            }
-          }
-        );
+        Swal.fire(
+          'Added',
+          'Assignment is successfully added...',
+          'success'
+        ).then((e) => {
+          this.lectures = [];
+          this.assignment = {
+            aContent: '',
+            maxMarks: '',
+            lecture: {
+              lId: '',
+            },
+          };
+        });
       },
       (error) => {
-        console.log(error)
+        console.log(error);
         Swal.fire('Error', 'Something went wroung...', 'error');
       }
     );
