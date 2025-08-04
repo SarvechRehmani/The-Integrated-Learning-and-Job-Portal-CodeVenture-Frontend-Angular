@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { QuestionService } from 'src/app/services/question.service';
@@ -8,61 +8,81 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-show-all-quiz',
   templateUrl: './show-all-quiz.component.html',
-  styleUrls: ['./show-all-quiz.component.css']
+  styleUrls: ['./show-all-quiz.component.css'],
 })
-export class ShowAllQuizComponent implements OnInit{
-
+export class ShowAllQuizComponent implements OnInit {
   constructor(
-    private _title:Title,  
-    private _quiz:QuizService,
-    private _snack:MatSnackBar,
-    private _question:QuestionService
-    ){}
+    private _title: Title,
+    private _quiz: QuizService,
+    private _snack: MatSnackBar,
+    private _question: QuestionService
+  ) {}
 
-  quizzes:any;
-
+  quizzes: any;
+  originalQuizes: any;
   ngOnInit(): void {
     this._title.setTitle('Quizzes | Mentor | CodeVenture');
     this._quiz.getQuizzesByUserCourse().subscribe(
       (data) => {
         this.quizzes = data;
+        this.originalQuizes = structuredClone(this.quizzes);
       },
       (error) => {
-        Swal.fire('Error','Error in loading quizzes..!','error');
+        Swal.fire('Error', 'Error in loading quizzes..!', 'error');
       }
     );
-
   }
 
-
-  deleteQuiz(id:any){
+  deleteQuiz(id: any) {
     Swal.fire({
       title: 'Are you sure?',
-      text: "You want to delete this Quiz",
+      text: 'You want to delete this Quiz',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#673ab7',
-      confirmButtonText: 'Delete'
+      confirmButtonText: 'Delete',
     }).then((result) => {
       if (result.isConfirmed) {
         this._quiz.deleteQuiz(id).subscribe(
           (success) => {
             this._snack.open('Quiz has been deleted..', 'Ok', {
               verticalPosition: 'top',
-              duration: 3000
+              duration: 3000,
             });
-            this.quizzes = this.quizzes.filter((quiz: any) => quiz.qId != id)
+            this.quizzes = this.quizzes.filter((quiz: any) => quiz.qId != id);
           },
           (error) => {
             this._snack.open('Something went wroung..', 'Ok', {
               verticalPosition: 'top',
-              duration: 3000
+              duration: 3000,
             });
           }
         );
       }
-    })
+    });
   }
+  searchQuery: string = '';
+  onSearchQuizes() {
+    if (this.searchQuery === '') {
+      // reload all lectures again
+      this.quizzes = this.originalQuizes;
+      return;
+    }
 
+    const filtered = this.originalQuizes.filter((assignment: any) =>
+      assignment.lecture.lTitle
+        .toLowerCase()
+        .includes(this.searchQuery.toLowerCase())
+    );
+
+    if (filtered.length === 0) {
+      this._snack.open('No Quiz found.', 'Ok', {
+        verticalPosition: 'top',
+        duration: 3000,
+      });
+    }
+
+    this.quizzes = filtered;
+  }
 }

@@ -1,107 +1,245 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow mb-2">
-                    <div class="text-center m-3">
-                        <mat-card-title class="text-color">Add Question to {{qTitle}}</mat-card-title>
-                        <mat-card-subtitle>Enter deatils of the Question</mat-card-subtitle>
-                    </div>
-                </mat-card>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow">
-                    <mat-card-content>
-                        <form (ngSubmit)="addQuestion()" class="p-5">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!-- QUESTION CONTENT -->
-                                    <div class="col-md-12 mb-3">
-                                        <ckeditor [editor]="Editor" [(ngModel)]="question.questionContent"
-                                            name="questionContent" required [config]="{
-                                          placeholder:'Enter Question Content',
-                                          toolbar: [
-                                          '|','undo' , 'redo',
-                                          '|','heading',
-                                          '|', 'bold', 'italic', 'Link',
-                                          '|', 'bulletedList', 'numberedList',
-                                          '|', 'blockQuote',
-                                          '|', 'insertTable'
-                                          ]
-                                      }"></ckeditor>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <!-- OPTION 1 -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Option 1</mat-label>
-                                        <input [(ngModel)]="question.option1" name="option1" type="text" matInput
-                                            placeholder="Enter Option 1" required>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <!-- OPTION 2 -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Option 2</mat-label>
-                                        <input [(ngModel)]="question.option2" name="option2" type="text" matInput
-                                            placeholder="Enter Option 2" required>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <!-- OPTION 3 -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Option 3</mat-label>
-                                        <input [(ngModel)]="question.option3" name="option3" type="text" matInput
-                                            placeholder="Enter Option 3" required>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-6">
-                                    <!-- OPTION 4 -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Option 4</mat-label>
-                                        <input [(ngModel)]="question.option4" name="option4" type="text" matInput
-                                            placeholder="Enter Option 4" required>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!-- ANSWER -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Select Answer</mat-label>
-                                        <mat-select [(ngModel)]="question.answer" name="answer" required>
-                                            <mat-option [value]="">
-                                                --Select Answer--
-                                            </mat-option>
-                                            <mat-option *ngIf="question.option1" [value]="question.option1">
-                                                {{question.option1}}
-                                            </mat-option>
-                                            <mat-option *ngIf="question.option2" [value]="question.option2">
-                                                {{question.option2}}
-                                            </mat-option>
-                                            <mat-option *ngIf="question.option3" [value]="question.option3">
-                                                {{question.option3}}
-                                            </mat-option>
-                                            <mat-option *ngIf="question.option4" [value]="question.option4">
-                                                {{question.option4}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!-- {{question | json}} -->
-                            <div class="text-center mt20">
-                                <button class="m-2" mat-raised-button color="accent">Add Question</button>
-                                <button class="m-2" mat-raised-button type="reset" color="primary">Clear</button>
-                            </div>
-                        </form>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-        </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Hero Header with Glass Morphism Effect -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-600/5 opacity-60"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 mb-3"
+      >
+        Add New Question
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Create assessment for:
+        <span class="font-medium text-emerald-600 dark:text-emerald-400">{{
+          qTitle
+        }}</span>
+      </p>
     </div>
+  </div>
+
+  <!-- Form Section -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-500"
+  >
+    <form (ngSubmit)="addQuestion()" class="p-6 sm:p-8">
+      <div class="space-y-6">
+        <!-- Question Content -->
+        <div class="space-y-2">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Question Content</label
+          >
+          <div
+            class="rounded-lg border dark:!text-gray-800 border-gray-200 dark:border-gray-600 overflow-hidden transition-all duration-300 hover:border-gray-300 dark:hover:border-gray-500 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-transparent"
+          >
+            <ckeditor
+              [editor]="Editor"
+              [(ngModel)]="question.questionContent"
+              name="questionContent"
+              required
+              [config]="{
+                placeholder: 'Enter the question text...',
+                toolbar: [
+                  '|',
+                  'undo',
+                  'redo',
+                  '|',
+                  'heading',
+                  '|',
+                  'bold',
+                  'italic',
+                  'link',
+                  '|',
+                  'bulletedList',
+                  'numberedList',
+                  '|',
+                  'blockQuote',
+                  '|',
+                  'insertTable'
+                ]
+              }"
+            ></ckeditor>
+          </div>
+        </div>
+
+        <!-- Options Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Option 1 -->
+          <div class="relative">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label class="text-gray-700 dark:text-gray-300"
+                >Option 1</mat-label
+              >
+              <input
+                [(ngModel)]="question.option1"
+                name="option1"
+                type="text"
+                matInput
+                placeholder="Enter first option"
+                required
+                class="dark:text-white"
+              />
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
+                >looks_one</mat-icon
+              >
+            </mat-form-field>
+            <div
+              class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-600 dark:text-emerald-400 text-xs font-bold"
+            >
+              1
+            </div>
+          </div>
+
+          <!-- Option 2 -->
+          <div class="relative">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label class="text-gray-700 dark:text-gray-300"
+                >Option 2</mat-label
+              >
+              <input
+                [(ngModel)]="question.option2"
+                name="option2"
+                type="text"
+                matInput
+                placeholder="Enter second option"
+                required
+                class="dark:text-white"
+              />
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
+                >looks_two</mat-icon
+              >
+            </mat-form-field>
+            <div
+              class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-600 dark:text-emerald-400 text-xs font-bold"
+            >
+              2
+            </div>
+          </div>
+
+          <!-- Option 3 -->
+          <div class="relative">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label class="text-gray-700 dark:text-gray-300"
+                >Option 3</mat-label
+              >
+              <input
+                [(ngModel)]="question.option3"
+                name="option3"
+                type="text"
+                matInput
+                placeholder="Enter third option"
+                required
+                class="dark:text-white"
+              />
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
+                >looks_3</mat-icon
+              >
+            </mat-form-field>
+            <div
+              class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-600 dark:text-emerald-400 text-xs font-bold"
+            >
+              3
+            </div>
+          </div>
+
+          <!-- Option 4 -->
+          <div class="relative">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label class="text-gray-700 dark:text-gray-300"
+                >Option 4</mat-label
+              >
+              <input
+                [(ngModel)]="question.option4"
+                name="option4"
+                type="text"
+                matInput
+                placeholder="Enter fourth option"
+                required
+                class="dark:text-white"
+              />
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
+                >looks_4</mat-icon
+              >
+            </mat-form-field>
+            <div
+              class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900 flex items-center justify-center text-emerald-600 dark:text-emerald-400 text-xs font-bold"
+            >
+              4
+            </div>
+          </div>
+        </div>
+
+        <!-- Correct Answer -->
+        <div class="relative">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Correct Answer</mat-label
+            >
+            <mat-select
+              [(ngModel)]="question.answer"
+              name="answer"
+              required
+              class="dark:text-white"
+            >
+              <mat-option [value]="">-- Select Correct Answer --</mat-option>
+              <mat-option *ngIf="question.option1" [value]="question.option1">
+                {{ question.option1 }}
+              </mat-option>
+              <mat-option *ngIf="question.option2" [value]="question.option2">
+                {{ question.option2 }}
+              </mat-option>
+              <mat-option *ngIf="question.option3" [value]="question.option3">
+                {{ question.option3 }}
+              </mat-option>
+              <mat-option *ngIf="question.option4" [value]="question.option4">
+                {{ question.option4 }}
+              </mat-option>
+            </mat-select>
+            <mat-icon
+              matPrefix
+              class="text-emerald-600 dark:text-emerald-400 mr-2"
+              >check_circle</mat-icon
+            >
+          </mat-form-field>
+          <div
+            class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-xs font-bold"
+          >
+            ✓
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+        <button
+          type="submit"
+          class="flex items-center justify-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <mat-icon class="group-hover:scale-110 transition-transform"
+            >add_circle</mat-icon
+          >
+          <span>Add Question</span>
+        </button>
+        <button
+          type="reset"
+          class="flex items-center justify-center gap-2 px-8 py-3 border border-gray-300 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/20 font-medium rounded-xl transition-all duration-300 hover:shadow-md"
+        >
+          <mat-icon>clear</mat-icon>
+          <span>Clear Form</span>
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

@@ -80,7 +80,7 @@ export class ShowAllLabTaskMentorComponent implements OnInit {
     );
 
     if (filtered.length === 0) {
-      this._snack.open('No assignments found.', 'Ok', {
+      this._snack.open('No Lab Task found.', 'Ok', {
         verticalPosition: 'top',
         duration: 3000,
       });

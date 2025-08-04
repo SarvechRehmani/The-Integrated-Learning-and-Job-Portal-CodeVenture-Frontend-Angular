@@ -1,42 +1,95 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow mb-2">
-                    <div class="text-center m-3">
-                        <mat-card-title class="text-color">{{lecture.lNo}}:- {{lecture.lTitle}}</mat-card-title>
-                        <mat-card-subtitle>
-                            <b>Course:</b> {{lecture.course.cTitle}}
-                            ||
-                            <b>Field:</b> {{lecture.course.field}}
-                        </mat-card-subtitle>
-                    </div>
-                </mat-card>
-                <mat-card class="shadow p-4">
-                    <mat-card-content>
-                        <div class="videoContainer">
-                            <iframe class="WnH" title="YouTube video player"
-                                [src]="video"></iframe>
-                        </div>
-                        <!-- width="70%" height="394" -->
-                        <hr>
-                        <div [innerHTML]="lecture.lDescription">
-                        </div>
-                    </mat-card-content>
-                    <div class="text-center">
-
-                        <button [routerLink]="'/mentor/quiz/'+lecture.lId" class="m-2" mat-stroked-button color="warn">Quiz</button>
-                        <button [routerLink]="'/mentor/assignment/'+lecture.lId" class="m-2" mat-stroked-button
-                            color="warn">Assignment</button>
-                        <button [routerLink]="'/mentor/labtask/'+lecture.lId" class="m-2" mat-stroked-button color="warn">Lab
-                            Task</button>
-
-                        <button [routerLink]="'/mentor/updatelecture/'+lecture.lId" class="m-2" mat-raised-button
-                            color="primary">Update</button>
-                        <button (click)="deleteLecture(lecture.lId)" class="m-2" mat-raised-button color="warn">Delete</button>
-                    </div>
-                </mat-card>
-            </div>
-        </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Lecture Header with Glass Morphism Effect -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-600/5 opacity-60"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 mb-2"
+      >
+        {{ lecture.lNo }}: {{ lecture.lTitle }}
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300">
+        <span class="font-medium">Course:</span>
+        <span class="text-emerald-600 dark:text-emerald-400">{{
+          lecture.course.cTitle
+        }}</span>
+        • <span class="font-medium">Field:</span> {{ lecture.course.field }}
+      </p>
     </div>
+  </div>
+
+  <!-- Lecture Content Section -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden"
+  >
+    <!-- Video Player -->
+    <div class="relative aspect-video w-full">
+      <iframe
+        class="absolute top-0 left-0 w-full h-full"
+        [src]="video"
+        title="Lecture Video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <!-- Lecture Content -->
+    <div class="p-6 sm:p-8">
+      <div
+        class="prose dark:prose-invert max-w-none"
+        [innerHTML]="lecture.lDescription"
+      ></div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="p-6 pt-0 flex flex-col items-center gap-4">
+      <!-- Learning Activities -->
+      <div class="flex flex-wrap justify-center gap-3 w-full">
+        <button
+          [routerLink]="'/mentor/quiz/' + lecture.lId"
+          class="flex items-center px-3 py-2 rounded-xl text-sm font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-emerald-100 dark:border-emerald-900/50"
+        >
+          <i class="fas fa-question-circle mr-1 text-sm"></i>
+          Quiz
+        </button>
+        <button
+          [routerLink]="'/mentor/assignment/' + lecture.lId"
+          class="flex items-center px-3 py-2 rounded-xl text-sm font-medium bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/50 transition-colors border border-teal-100 dark:border-teal-900/50"
+        >
+          <i class="fas fa-tasks mr-1 text-sm"></i>
+          Assignment
+        </button>
+        <button
+          [routerLink]="'/mentor/labtask/' + lecture.lId"
+          class="flex items-center px-3 py-2 rounded-xl text-sm font-medium bg-emerald-100/50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-200/50 dark:hover:bg-emerald-900/30 transition-colors border border-emerald-200 dark:border-emerald-900/40"
+        >
+          <i class="fas fa-flask mr-1 text-sm"></i>
+          Lab Task
+        </button>
+      </div>
+
+      <!-- Lecture Management -->
+      <div class="flex flex-wrap justify-center gap-3 w-full">
+        <button
+          [routerLink]="'/mentor/updatelecture/' + lecture.lId"
+          class="flex items-center px-3 py-2 rounded-xl text-sm font-medium bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 transition-colors"
+        >
+          <i class="fas fa-edit mr-1 text-sm"></i>
+          Update Lecture
+        </button>
+        <button
+          (click)="deleteLecture(lecture.lId)"
+          class="flex items-center px-3 py-2 rounded-xl text-sm font-medium bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors border border-red-100 dark:border-red-900/50"
+        >
+          <i class="fas fa-trash-alt mr-1 text-sm"></i>
+          Delete Lecture
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
