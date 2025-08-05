@@ -50,37 +50,63 @@ export class ShowAllLecturesComponent implements OnInit {
   }
 
   deleteLecture(id: any) {
+    const isDark = document.documentElement.classList.contains('dark');
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You want to delete this Lecture',
-      icon: 'warning',
+      title: 'Delete Lecture?',
+      text: 'This action cannot be undone',
+      icon: 'question',
+      background: isDark ? '#1f2937' : '#ffffff',
+      color: isDark ? '#f3f4f6' : '#1f2937',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#673ab7',
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#10b981',
       confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      backdrop: `
+        rgba(0,0,0,0.4)
+        center top
+        no-repeat
+      `,
+      showClass: {
+        popup: 'animate__animated animate__fadeIn animate__faster',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOut animate__faster',
+      },
+      customClass: {
+        popup: `!rounded-2xl !shadow-xl !border-8 ${
+          isDark ? '!border !border-emerald-600' : '!border !border-emerald-400'
+        }`,
+        confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        cancelButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        actions: '!gap-3',
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this._lecture.deleteLecture(id).subscribe(
           (success) => {
-            this._snack.open('Lecture has been deleted..', 'Ok', {
-              verticalPosition: 'top',
+            this._snack.open('Lecture deleted successfully', 'Close', {
               duration: 3000,
+              panelClass: ['success-mentor-snackbar'],
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
             });
             this.lectures = this.lectures.filter(
               (lecture: any) => lecture.lId != id
             );
           },
           (error) => {
-            this._snack.open('Error in deleting Lecture. try again..', 'Ok', {
-              verticalPosition: 'top',
+            this._snack.open('Failed to delete lecture', 'Close', {
               duration: 3000,
+              panelClass: ['error-snackbar'],
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
             });
           }
         );
       }
     });
   }
-
   onSearchLecture() {
     if (this.searchQuery === '') {
       // reload all lectures again

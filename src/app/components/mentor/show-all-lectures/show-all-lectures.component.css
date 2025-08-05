@@ -1,7 +1,21 @@
-.img {
-    background-image: url('../../../../assets/img/lecturePinc.png');
-    background-size: cover;
-  }
-  .text-color{
-    color:#4860a3 !important;
-  }
+/* Add to your global styles.css */
+.success-snackbar {
+  background: #10b981 !important;
+  color: white !important;
+  border-radius: 0.75rem !important;
+  border: 1px solid #059669 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.error-snackbar {
+  background: #ef4444 !important;
+  color: white !important;
+  border-radius: 0.75rem !important;
+  border: 1px solid #dc2626 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Animation support */
+@import "animate.css/animate.min.css";

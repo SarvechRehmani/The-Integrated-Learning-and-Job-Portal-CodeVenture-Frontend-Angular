@@ -36,30 +36,57 @@ export class CoursesMentorComponent implements OnInit {
   }
 
   deleteCourse(id: any) {
+    const isDark = document.documentElement.classList.contains('dark');
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You want to delete this Course',
+      title: 'Delete Course?',
+      text: 'All lectures and content will be permanently removed',
       icon: 'warning',
+      background: isDark ? '#1f2937' : '#ffffff',
+      color: isDark ? '#f3f4f6' : '#1f2937',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#673ab7',
+      confirmButtonColor: '#ef4444', // red-500
+      cancelButtonColor: '#10b981', // emerald-500
       confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      backdrop: `
+        rgba(0,0,0,0.4)
+        center top
+        no-repeat
+      `,
+      showClass: {
+        popup: 'animate__animated animate__fadeIn animate__faster',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOut animate__faster',
+      },
+      customClass: {
+        popup: `!rounded-2xl !shadow-xl !border-8 ${
+          isDark ? '!border !border-emerald-600' : '!border !border-emerald-400'
+        }`,
+        confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        cancelButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        actions: '!gap-3',
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         this._course.deleteCourse(id).subscribe(
           (success) => {
-            this._snack.open('Course has been deleted..', 'Ok', {
-              verticalPosition: 'top',
+            this._snack.open('Course deleted successfully', 'Close', {
               duration: 3000,
+              panelClass: ['success-mentor-snackbar'],
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
             });
             this.courses = this.courses.filter(
               (course: any) => course.cId != id
             );
           },
           (error) => {
-            this._snack.open('Something went wroung..', 'Ok', {
-              verticalPosition: 'top',
+            this._snack.open('Failed to delete course', 'Close', {
               duration: 3000,
+              panelClass: ['error-snackbar'],
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
             });
           }
         );

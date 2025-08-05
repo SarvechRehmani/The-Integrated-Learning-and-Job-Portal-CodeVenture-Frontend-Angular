@@ -1,80 +1,204 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow mb-2">
-                    <div class="text-center m-3">
-                        <mat-card-title class="text-color">Update Lecture</mat-card-title>
-                        <mat-card-subtitle>Enter the details of Lecture</mat-card-subtitle>
-                    </div>
-                </mat-card>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow" *ngIf="lecture.lId">
-                    <!-- {{lecture | json}} -->
-                    <mat-card-content>
-                        <form class="p-4" (ngSubmit)="formSubmit()">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <!-- LECTURE NUMBER -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Lecture Number</mat-label>
-                                        <input [(ngModel)]="lecture.lNo" name="lno" type="number" matInput
-                                            placeholder="Enter Lecture Number" required>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-9">
-                                    <!-- LECTURE TITLE -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Lecture Title</mat-label>
-                                        <input [(ngModel)]="lecture.lTitle" name="title" type="text" matInput
-                                            placeholder="Enter Lecture Title" required>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <!-- LECTURE CONTENT -->
-
-                            <ckeditor [editor]="Editor" [(ngModel)]="lecture.lDescription" name="description" [config]="{
-                              placeholder:'Enter Lecture Content',
-                              toolbar: [
-                              '|','undo' , 'redo',
-                              '|','heading',
-                              '|', 'bold', 'italic', 'Link',
-                              '|', 'bulletedList', 'numberedList',
-                              '|', 'blockQuote',
-                              '|', 'insertTable'
-                              ]
-                          }"></ckeditor>
-
-                            <!-- LECTURE OF COURSE -->
-                            <mat-form-field class="max-width mt-4" appearance="fill">
-                                <mat-label>Select Course</mat-label>
-                                <mat-select [(ngModel)]="lecture.course.cId" name="course" required>
-                                    <mat-option [value]="">--Select Course--</mat-option>
-                                    <mat-option *ngFor="let c of courses" [value]="c.cId">{{c.cTitle}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-
-                            <!-- VIDEO URL -->
-                            <mat-form-field class="max-width" appearance="fill">
-                                <mat-label>Video Url</mat-label>
-                                <input [(ngModel)]="lecture.lVideo" name="video" type="url" matInput
-                                    placeholder="Add Video Url here" required>
-                            </mat-form-field>
-
-                            <div class="text-center mt20">
-                                <button class="m-2" mat-raised-button color="accent">Update Lecture</button>
-                                <button class="m-2" mat-raised-button type="reset" color="primary">Clear</button>
-                            </div>
-                        </form>
-                    </mat-card-content>
-                </mat-card>
-                <mat-card *ngIf="!lecture.lId">
-                    <h1>Lecture Not Found</h1>
-                </mat-card>
-            </div>
-        </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Hero Header with Glass Morphism Effect -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-600/5 opacity-60"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 mb-3"
+      >
+        Update Lecture
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Modify the details of the lecture
+      </p>
     </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        *ngIf="lecture.lId"
+        class="bg-white dark:bg-gray-800 !rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-500"
+      >
+        <mat-card-content>
+          <form (ngSubmit)="formSubmit()" class="p-6 sm:p-8">
+            <!-- Lecture Number and Title -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+              <div class="md:col-span-1">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label class="text-gray-700 dark:text-gray-300"
+                    >Lecture Number</mat-label
+                  >
+                  <input
+                    [(ngModel)]="lecture.lNo"
+                    name="lno"
+                    type="number"
+                    matInput
+                    placeholder="e.g. 1"
+                    required
+                    class="dark:text-white"
+                  />
+                  <mat-icon
+                    matPrefix
+                    class="text-emerald-600 dark:text-emerald-400 mr-2"
+                    >format_list_numbered</mat-icon
+                  >
+                </mat-form-field>
+              </div>
+              <div class="md:col-span-3">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label class="text-gray-700 dark:text-gray-300"
+                    >Lecture Title</mat-label
+                  >
+                  <input
+                    [(ngModel)]="lecture.lTitle"
+                    name="title"
+                    type="text"
+                    matInput
+                    placeholder="Enter Lecture Title"
+                    required
+                    class="dark:text-white"
+                  />
+                  <mat-icon
+                    matPrefix
+                    class="text-emerald-600 dark:text-emerald-400 mr-2"
+                    >title</mat-icon
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Lecture Content Editor -->
+            <div class="mb-6">
+              <label
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                >Lecture Content</label
+              >
+              <div
+                class="rounded-lg border dark:!text-gray-800 border-gray-200 dark:border-gray-600 overflow-hidden transition-all duration-300 hover:border-gray-300 dark:hover:border-gray-500 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-transparent"
+              >
+                <ckeditor
+                  [editor]="Editor"
+                  [(ngModel)]="lecture.lDescription"
+                  name="description"
+                  [config]="{
+                    placeholder: 'Enter Lecture Content',
+                    toolbar: [
+                      '|',
+                      'undo',
+                      'redo',
+                      '|',
+                      'heading',
+                      '|',
+                      'bold',
+                      'italic',
+                      'Link',
+                      '|',
+                      'bulletedList',
+                      'numberedList',
+                      '|',
+                      'blockQuote',
+                      '|',
+                      'insertTable'
+                    ]
+                  }"
+                ></ckeditor>
+              </div>
+            </div>
+
+            <!-- Course Selection -->
+            <mat-form-field appearance="outline" class="w-full mb-6">
+              <mat-label class="text-gray-700 dark:text-gray-300"
+                >Select Course</mat-label
+              >
+              <mat-select
+                [(ngModel)]="lecture.course.cId"
+                name="course"
+                required
+                class="dark:text-white"
+              >
+                <mat-option [value]="">-- Select Course --</mat-option>
+                <mat-option *ngFor="let c of courses" [value]="c.cId">{{
+                  c.cTitle
+                }}</mat-option>
+              </mat-select>
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
+                >school</mat-icon
+              >
+            </mat-form-field>
+
+            <!-- Video URL -->
+            <mat-form-field appearance="outline" class="w-full mb-6">
+              <mat-label class="text-gray-700 dark:text-gray-300"
+                >Video URL</mat-label
+              >
+              <input
+                [(ngModel)]="lecture.lVideo"
+                name="video"
+                type="url"
+                matInput
+                placeholder="https://example.com/video"
+                required
+                class="dark:text-white"
+              />
+              <mat-icon
+                matPrefix
+                class="text-emerald-600 dark:text-emerald-400 mr-2"
+                >videocam</mat-icon
+              >
+            </mat-form-field>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <button
+                type="submit"
+                class="!bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white !rounded-xl !font-medium !px-8 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300 flex items-center justify-center"
+              >
+                <mat-icon class="mr-2">update</mat-icon>
+                Update Lecture
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </div>
+
+      <!-- Lecture Not Found Section -->
+      <div *ngIf="!lecture.lId" class="text-center py-16">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 max-w-2xl mx-auto"
+        >
+          <div class="w-48 h-48 mx-auto mb-6 relative">
+            <img
+              src="assets/img/NotFound/empty.png"
+              class="w-full h-full object-contain"
+              alt="Lecture not found"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-600/10 rounded-full blur-xl opacity-30"
+            ></div>
+          </div>
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">
+            Lecture Not Found
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">
+            The requested lecture could not be found or is no longer available.
+          </p>
+          <button
+            routerLink="/mentor/lectures"
+            class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+          >
+            <mat-icon class="mr-2">arrow_back</mat-icon>
+            Back to Lectures
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
