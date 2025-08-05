@@ -25,6 +25,73 @@ export class AddAssignmentMentorComponent {
   courses: any;
   lectures: any;
 
+  ngOnInit(): void {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    this._title.setTitle('Add Assignment | Mentor | CodeVenture');
+
+    this._course.getCoursesByUser().subscribe({
+      next: (data) => {
+        this.courses = data;
+      },
+      error: (error) => {
+        console.error('Error loading courses:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to load courses',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
+  }
+
+  loadLectures(id: any) {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    // Clear lectures if no course selected
+    if (!id) {
+      this.lectures = [];
+      return;
+    }
+    // Load lectures for selected course
+    this._lecture.getLectureByCourseWithoutAssignment(id).subscribe(
+      (data: any) => {
+        this.lectures = data;
+      },
+      (error: any) => {
+        console.error('Error loading lectures:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to load lectures',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      }
+    );
+  }
   assignment = {
     aContent: '',
     maxMarks: '',
@@ -32,85 +99,91 @@ export class AddAssignmentMentorComponent {
       lId: '',
     },
   };
-
-  ngOnInit(): void {
-    this._title.setTitle('Add Assignment | Mentor | CodeVenture');
-    this._course.getCoursesByUser().subscribe(
-      (data) => {
-        this.courses = data;
-      },
-      (error) => {
-        Swal.fire('Error', 'Error in loading Courses..!', 'error');
-      }
-    );
-  }
-
-  loadLectures(id: any) {
-    if (id == '' || id == null) {
-      this.lectures = [];
-      return;
-    }
-    this._lecture.getLectureByCourseWithoutAssignment(id).subscribe(
-      (data: any) => {
-        this.lectures = data;
-      },
-      (error: any) => {
-        Swal.fire('Error', 'Error in loading lectures', 'error');
-      }
-    );
-  }
-
   addAssignments() {
-    if (
-      this.assignment.lecture.lId == '' ||
-      this.assignment.lecture.lId == null
-    ) {
-      this._snack.open('Please Select Lectures...', 'OK', {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    // Validate Lecture Selection
+    if (!this.assignment.lecture?.lId) {
+      this._snack.open('Please select a lecture', 'Close', {
         duration: 3000,
+        panelClass: ['error-snackbar'],
         verticalPosition: 'top',
-      });
-      return;
-    }
-    if (
-      parseInt(this.assignment.maxMarks) <= 0 ||
-      this.assignment.maxMarks == ''
-    ) {
-      this._snack.open('Please enter correct maximum marks...', 'OK', {
-        duration: 3000,
-        verticalPosition: 'top',
-      });
-      return;
-    } else if (
-      parseInt(this.assignment.maxMarks) < 10 ||
-      parseInt(this.assignment.maxMarks) > 100
-    ) {
-      this._snack.open('Marks should be between 10 to 100..', 'OK', {
-        duration: 3000,
-        verticalPosition: 'top',
+        horizontalPosition: 'right',
       });
       return;
     }
 
+    // Validate Marks
+    const marks = parseInt(this.assignment.maxMarks);
+    if (isNaN(marks)) {
+      this._snack.open('Please enter valid maximum marks', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      return;
+    }
+
+    if (marks < 10 || marks > 100) {
+      this._snack.open('Marks must be between 10-100', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      return;
+    }
+
+    // Submit Assignment
     this._assignment.addAssignment(this.assignment).subscribe(
       (data) => {
-        Swal.fire(
-          'Added',
-          'Assignment is successfully added...',
-          'success'
-        ).then((e) => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Assignment has been added successfully',
+          icon: 'success',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#10b981',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark
+                ? '!border !border-emerald-600'
+                : '!border !border-emerald-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        }).then((e) => {
           this.lectures = [];
           this.assignment = {
             aContent: '',
             maxMarks: '',
-            lecture: {
-              lId: '',
-            },
+            lecture: { lId: '' },
           };
         });
       },
       (error) => {
-        console.log(error);
-        Swal.fire('Error', 'Something went wroung...', 'error');
+        console.error(error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to add assignment',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
       }
     );
   }
