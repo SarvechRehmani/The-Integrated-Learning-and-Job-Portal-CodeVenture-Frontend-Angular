@@ -10,116 +10,215 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-quiz-mentor',
   templateUrl: './add-quiz-mentor.component.html',
-  styleUrls: ['./add-quiz-mentor.component.css']
+  styleUrls: ['./add-quiz-mentor.component.css'],
 })
-export class AddQuizMentorComponent {  public Editor = ClassicEditor;
+export class AddQuizMentorComponent {
+  public Editor = ClassicEditor;
 
   constructor(
-    private _title:Title, 
-    private _lecture:LectureService,
-    private _course:CourseService, 
-    private _snack:MatSnackBar,
-    private _quiz:QuizService
-    ){ }
-  
-    courses: any;
-    lectures:any;
+    private _title: Title,
+    private _lecture: LectureService,
+    private _course: CourseService,
+    private _snack: MatSnackBar,
+    private _quiz: QuizService
+  ) {}
+
+  courses: any;
+  lectures: any;
 
   ngOnInit(): void {
-   this._title.setTitle('Add Quiz | Mentor | CodeVenture');
-    this._course.getCoursesByUser().subscribe(
-      (data) => {
+    const isDark = document.documentElement.classList.contains('dark');
+    this._title.setTitle('Add Quiz | Mentor | CodeVenture');
+
+    this._course.getCoursesByUser().subscribe({
+      next: (data) => {
         this.courses = data;
       },
-      (error) => {
-        Swal.fire('Error', 'Error in loading Courses..!', 'error');
-      }
-    );
+      error: (error) => {
+        console.error('Error loading courses:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to load available courses. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
 
-
   loadLectures(id: any) {
-    if (id == '' || id == null) {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    // Clear lectures if no valid course ID
+    if (!id) {
       this.lectures = [];
       return;
     }
-    this._lecture.getLectureByCourseWithoutQuiz(id).subscribe(
-      (data) => {
+
+    this._lecture.getLectureByCourseWithoutQuiz(id).subscribe({
+      next: (data) => {
         this.lectures = data;
       },
-      (error) => {
-        Swal.fire('Error', 'Error in loading lectures', 'error');
-      });
+      error: (error) => {
+        console.error('Error loading lectures:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load lectures for this course',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
 
-
   quiz = {
-    qTitle:'',
-    qDescription:'',
-    maxMarks:'',
-    numberOfQuestions:'',
-    lecture:{
-      lId:''
-    }
+    qTitle: '',
+    qDescription: '',
+    maxMarks: '',
+    numberOfQuestions: '',
+    lecture: {
+      lId: '',
+    },
   };
 
-  addQuiz(){
-    if(this.quiz.qTitle == '' || this.quiz.qTitle == null){
-      this._snack.open('Please Enter Quiz Title','OK',{
+  addQuiz() {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    // Validate Quiz Title
+    if (!this.quiz.qTitle?.trim()) {
+      this._snack.open('Quiz title is required', 'Close', {
         duration: 3000,
-        verticalPosition: 'top'
-      })
-      return;
-    }
-    if(parseInt(this.quiz.maxMarks) <=0 || this.quiz.maxMarks == ''){
-      this._snack.open('Please enter correct maximum marks...','OK',{
-        duration: 3000,
-        verticalPosition: 'top'
-      });
-      return;
-    }else if(parseInt(this.quiz.maxMarks) < 10 || parseInt(this.quiz.maxMarks) > 100){
-      this._snack.open('Marks should be between 10 to 100..','OK',{
-        duration: 3000,
-        verticalPosition: 'top'
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
       });
       return;
     }
 
-    if(parseInt(this.quiz.numberOfQuestions) <=0 || this.quiz.numberOfQuestions == ''){
-      this._snack.open('Please enter correct number of questions...','OK',{
+    // Validate Marks
+    const marks = parseInt(this.quiz.maxMarks);
+    if (isNaN(marks)) {
+      this._snack.open('Please enter valid maximum marks', 'Close', {
         duration: 3000,
-        verticalPosition: 'top'
-      });
-      return;
-    }else if(parseInt(this.quiz.numberOfQuestions) > 10){
-      this._snack.open('Number of questions should be between 1 to 10..','OK',{
-        duration: 3000,
-        verticalPosition: 'top'
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
       });
       return;
     }
 
-    this._quiz.addQuiz(this.quiz).subscribe(
-      (data) => {
-        Swal.fire('Added','Quiz is successfully added...','success').then(
-          (e)=> {
-            this.lectures = [];
-            this.quiz = {
-              qTitle:'',
-              qDescription:'',
-              maxMarks:'',
-              numberOfQuestions:'',
-              lecture:{
-                lId:''
-              }
-            };
-          }
-        );
+    if (marks < 10 || marks > 100) {
+      this._snack.open('Marks must be between 10-100', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      return;
+    }
+
+    // Validate Number of Questions
+    const numQuestions = parseInt(this.quiz.numberOfQuestions);
+    if (isNaN(numQuestions)) {
+      this._snack.open('Please enter valid number of questions', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      return;
+    }
+
+    if (numQuestions < 1 || numQuestions > 10) {
+      this._snack.open('Number of questions must be 1-10', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      return;
+    }
+
+    // Submit Quiz
+    this._quiz.addQuiz(this.quiz).subscribe({
+      next: (data) => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Quiz has been created successfully',
+          icon: 'success',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#10b981',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark
+                ? '!border !border-emerald-600'
+                : '!border !border-emerald-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        }).then(() => {
+          this.lectures = [];
+          this.quiz = {
+            qTitle: '',
+            qDescription: '',
+            maxMarks: '',
+            numberOfQuestions: '',
+            lecture: { lId: '' },
+          };
+        });
       },
-      (error) => {
-        console.log(error)
-        Swal.fire('Error','Something went wroung...','error');
-      }
-    );
+      error: (error) => {
+        console.error('Error adding quiz:', error);
+        this._snack.open('Failed to create quiz', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+        });
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to create quiz. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
 }

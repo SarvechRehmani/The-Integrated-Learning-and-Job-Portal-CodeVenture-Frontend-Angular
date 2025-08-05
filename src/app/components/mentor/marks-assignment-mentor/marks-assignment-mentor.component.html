@@ -1,66 +1,220 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow mb-2">
-                    <div class="text-center m-3">
-                        <mat-card-title class="text-color">Submitted Assignment by {{username}}</mat-card-title>
-                        <mat-card-subtitle>Lecture No {{assignmentResult.assignment.lecture.lNo}} :
-                            {{assignmentResult.assignment.lecture.lTitle}}</mat-card-subtitle>
-                    </div>
-                </mat-card>
-            </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header Section with Glass Morphism -->
+  <div class="mb-10">
+    <div
+      class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-500/10 to-emerald-600/10 backdrop-blur-lg border border-white/20 dark:border-gray-700/30 shadow-2xl"
+    >
+      <div class="p-8 md:p-10 relative z-10 text-center space-y-2">
+        <div
+          class="inline-flex items-center justify-center bg-white/80 dark:bg-gray-800/80 rounded-full px-6 py-2 shadow-sm mb-3"
+        >
+          <mat-icon class="text-teal-600 dark:text-teal-400 mr-2"
+            >assignment</mat-icon
+          >
+          <span class="text-sm font-medium text-teal-600 dark:text-teal-400"
+            >Assignment Submission</span
+          >
         </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow">
-                    <mat-card-content>
-                        <div class="text-center text-color">
-                            <h1>ASSIGNMENT</h1>
-                        </div>
-                        <div class="p-4" [innerHTML]="assignmentResult.assignment.aContent"></div>
-                    </mat-card-content>
-                    <hr>
-                    <mat-card-content>
-                        <div class="text-center text-color">
-                            <h1>SUBMITTED ASSIGNMENT</h1>
-                        </div>
-                        <div class="p-4" [innerHTML]="assignmentResult.assignmentAnswer"></div>
-                    </mat-card-content>
-                    <hr>
-                    <mat-card-content *ngIf="assignmentResult.gotMarks==0">
-                        <div class="row">
-                            <div class="col-md-6 offset-md-3">
-                                <form action="" (ngSubmit)="submitMarks()">
-                                    <!-- ASSIGNMENT MARKS -->
-                                    {{marks | json}}
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Assignment Marks</mat-label>
-                                        <input [(ngModel)]="marks" name="maxMarks" type="number" matInput
-                                            placeholder="Enter Assignment Marks" required>
-                                    </mat-form-field>
-                                    <div class="text-center">
-                                        <button mat-raised-button color="accent">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </mat-card-content>
-                    <mat-card-content *ngIf="assignmentResult.gotMarks!=0">
-                        <div class="text-center">
-                            <h2>Marks :
-                                <span class="text-color">{{assignmentResult.gotMarks}}</span> From
-                                {{assignmentResult.assignment.maxMarks}}
-                            </h2>
-                        </div>
-                    </mat-card-content>
-                    <pre>
-                    {{assignmentResult | json}}
-                   </pre>
-
-                </mat-card>
-            </div>
+        <h1
+          class="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-emerald-600 dark:from-teal-400 dark:to-emerald-400 mb-2"
+        >
+          {{ username }}'s Submission
+        </h1>
+        <div class="flex flex-wrap justify-center gap-3 mt-4">
+          <span
+            class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-200"
+          >
+            <mat-icon class="mr-1 text-sm">book</mat-icon>
+            Lecture {{ assignmentResult.assignment.lecture.lNo }}
+          </span>
+          <span
+            class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200"
+          >
+            <mat-icon class="mr-1 text-sm">title</mat-icon>
+            {{ assignmentResult.assignment.lecture.lTitle }}
+          </span>
         </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Original Assignment Card -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden transition-all hover:shadow-2xl hover:-translate-y-1 mb-9"
+  >
+    <div class="p-1 bg-gradient-to-r from-teal-500 to-emerald-600"></div>
+    <div class="p-6">
+      <div class="flex items-center mb-6">
+        <div
+          class="p-3 rounded-lg bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 mr-4"
+        >
+          <mat-icon>assignment</mat-icon>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+          Original Assignment
+        </h2>
+      </div>
+      <div
+        class="prose dark:prose-invert max-w-none p-6 bg-gray-50/50 dark:bg-gray-700/20 rounded-lg border border-gray-100 dark:border-gray-700"
+      >
+        <div [innerHTML]="assignmentResult.assignment.aContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submitted Assignment Card -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden transition-all hover:shadow-2xl hover:-translate-y-1 mb-9"
+  >
+    <div class="p-1 bg-gradient-to-r from-emerald-500 to-teal-600"></div>
+    <div class="p-6">
+      <div class="flex items-center mb-6">
+        <div
+          class="p-3 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 mr-4"
+        >
+          <mat-icon>send</mat-icon>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+          Student Submission
+        </h2>
+      </div>
+      <div
+        class="prose dark:prose-invert max-w-none p-6 bg-gray-50/50 dark:bg-gray-700/20 rounded-lg border border-gray-100 dark:border-gray-700"
+      >
+        <div [innerHTML]="assignmentResult.assignmentAnswer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grading Section - Full Width -->
+  <div class="lg:col-span-2">
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden"
+    >
+      <div class="p-1 bg-gradient-to-r from-teal-500 to-emerald-600"></div>
+      <div class="p-8">
+        <!-- Ungraded State -->
+        <div *ngIf="assignmentResult.gotMarks == 0" class="max-w-2xl mx-auto">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+              Evaluate Submission
+            </h3>
+            <p class="text-gray-500 dark:text-gray-400">
+              Provide feedback and assign marks for this assignment
+            </p>
+          </div>
+
+          <form (ngSubmit)="submitMarks()" class="space-y-6">
+            <div class="grid grid-cols-1 gap-6">
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label class="text-gray-700 dark:text-gray-300"
+                  >Assignment Marks</mat-label
+                >
+                <input
+                  [(ngModel)]="marks"
+                  name="maxMarks"
+                  type="number"
+                  matInput
+                  placeholder="0"
+                  required
+                  [max]="assignmentResult.assignment.maxMarks"
+                  min="0"
+                  class="!text-lg"
+                />
+                <mat-hint class="!text-sm">
+                  Maximum: {{ assignmentResult.assignment.maxMarks }} points
+                </mat-hint>
+              </mat-form-field>
+            </div>
+
+            <div class="flex justify-center gap-4 pt-4">
+              <button
+                color="primary"
+                class="!bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white !rounded-xl !font-medium !px-8 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300 flex items-center justify-center"
+              >
+                <mat-icon>done_all</mat-icon>
+                Submit Evaluation
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Graded State -->
+        <div *ngIf="assignmentResult.gotMarks != 0" class="max-w-3xl mx-auto">
+          <div class="text-center mb-8">
+            <div
+              class="inline-flex items-center justify-center bg-emerald-100 dark:bg-emerald-900/20 text-emerald-800 dark:text-emerald-200 px-6 py-2 rounded-full mb-4"
+            >
+              <mat-icon class="mr-2">verified</mat-icon>
+              Evaluation Completed
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+              Assignment Results
+            </h3>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Score Card -->
+            <div
+              class="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl p-6 shadow-inner text-center"
+            >
+              <div
+                class="text-5xl font-bold text-emerald-600 dark:text-emerald-400 mb-2"
+              >
+                {{ assignmentResult.gotMarks }}
+                <span class="text-2xl text-gray-500 dark:text-gray-400">
+                  /{{ assignmentResult.assignment.maxMarks }}
+                </span>
+              </div>
+              <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Points Achieved
+              </div>
+            </div>
+
+            <!-- Percentage Card -->
+            <div
+              class="bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-900/20 dark:to-emerald-900/20 rounded-xl p-6 shadow-inner text-center"
+            >
+              <div
+                class="text-5xl font-bold text-teal-600 dark:text-teal-400 mb-2"
+              >
+                {{
+                  (
+                    (assignmentResult.gotMarks /
+                      assignmentResult.assignment.maxMarks) *
+                    100
+                  ).toFixed(1)
+                }}%
+              </div>
+              <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Overall Score
+              </div>
+            </div>
+
+            <!-- Status Card -->
+            <div
+              class="bg-gradient-to-br from-teal-100 to-emerald-100 dark:from-teal-900/30 dark:to-emerald-900/30 rounded-xl p-6 shadow-inner text-center"
+            >
+              <div
+                class="text-3xl font-bold text-teal-700 dark:text-teal-300 mb-2"
+              >
+                {{
+                  assignmentResult.gotMarks >=
+                  assignmentResult.assignment.maxMarks * 0.7
+                    ? "Excellent"
+                    : assignmentResult.gotMarks >=
+                      assignmentResult.assignment.maxMarks * 0.5
+                    ? "Good"
+                    : "Needs Improvement"
+                }}
+              </div>
+              <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Performance
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

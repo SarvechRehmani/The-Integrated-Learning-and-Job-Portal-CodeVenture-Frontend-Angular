@@ -22,69 +22,125 @@ export class ShowAllAssignmentsComponent implements OnInit {
   orignalAssignments: any;
 
   ngOnInit(): void {
+    const isDark = document.documentElement.classList.contains('dark');
     this._title.setTitle('Assignments | Mentor | CodeVenture');
 
-    this._assignment.getAssignmentByUserCourse().subscribe(
-      (data: any) => {
+    this._assignment.getAssignmentByUserCourse().subscribe({
+      next: (data: any) => {
         this.assignments = data;
-        this.orignalAssignments = structuredClone(this.assignments);
+        this.orignalAssignments = structuredClone(data);
       },
-      (error) => {
-        Swal.fire('Error', 'Error in loading lectures..', 'error');
-      }
-    );
+      error: (error) => {
+        console.error('Error loading assignments:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load assignments. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
 
   deleteAssignment(id: any) {
+    const isDark = document.documentElement.classList.contains('dark');
+
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You want to delete this Assignment',
+      title: 'Delete Assignment?',
+      text: 'This will permanently remove the assignment and all its submissions',
       icon: 'warning',
+      background: isDark ? '#1f2937' : '#ffffff',
+      color: isDark ? '#f3f4f6' : '#1f2937',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#673ab7',
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#10b981',
       confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        popup: `!rounded-2xl !shadow-xl ${
+          isDark ? '!border !border-gray-700' : '!border !border-gray-200'
+        }`,
+        confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        cancelButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        actions: '!gap-3',
+      },
+      showClass: {
+        popup: 'animate__animated animate__fadeIn animate__faster',
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        this._assignment.deleteAssignment(id).subscribe(
-          (success) => {
-            Swal.fire(
-              'Deleted',
-              'Assignment is successfully deleted..',
-              'success'
-            );
+        this._assignment.deleteAssignment(id).subscribe({
+          next: (success) => {
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Assignment has been successfully removed',
+              icon: 'success',
+              background: isDark ? '#1f2937' : '#ffffff',
+              color: isDark ? '#f3f4f6' : '#1f2937',
+              confirmButtonColor: '#10b981',
+              customClass: {
+                popup: `!rounded-2xl !shadow-xl ${
+                  isDark
+                    ? '!border !border-emerald-600'
+                    : '!border !border-emerald-400'
+                }`,
+                confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+              },
+              showClass: {
+                popup: 'animate__animated animate__fadeIn animate__faster',
+              },
+            });
             this.assignments = this.assignments.filter(
               (assignment: any) => assignment.aId != id
             );
           },
-          (error) => {
-            this._snack.open('Something went wroung..', 'Ok', {
-              verticalPosition: 'top',
+          error: (error) => {
+            console.error('Error deleting assignment:', error);
+            this._snack.open('Failed to delete assignment', 'Close', {
               duration: 3000,
+              panelClass: ['error-snackbar'],
+              verticalPosition: 'top',
+              horizontalPosition: 'right',
             });
-          }
-        );
+          },
+        });
       }
     });
   }
   searchQuery: string = '';
   onSearchAssignment() {
-    if (this.searchQuery === '') {
-      // reload all lectures again
-      this.assignments = this.orignalAssignments;
+    // Reset if search query is empty
+    if (!this.searchQuery.trim()) {
+      this.assignments = [...this.orignalAssignments];
       return;
     }
 
-    const filtered = this.orignalAssignments.filter((assignment: any) =>
-      assignment.lecture.lTitle
-        .toLowerCase()
-        .includes(this.searchQuery.toLowerCase())
+    // Filter assignments
+    const searchTerm = this.searchQuery.toLowerCase();
+    const filtered = this.orignalAssignments.filter(
+      (assignment: any) =>
+        assignment.lecture.lTitle.toLowerCase().includes(searchTerm) ||
+        assignment.aContent.toLowerCase().includes(searchTerm)
     );
 
+    // Show feedback if no results
     if (filtered.length === 0) {
-      this._snack.open('No assignments found.', 'Ok', {
-        verticalPosition: 'top',
+      this._snack.open('No matching assignments found', 'Close', {
         duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
       });
     }
 

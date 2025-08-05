@@ -9,79 +9,151 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-update-course',
   templateUrl: './update-course.component.html',
-  styleUrls: ['./update-course.component.css']
+  styleUrls: ['./update-course.component.css'],
 })
 export class UpdateCourseComponent implements OnInit {
-
   constructor(
-    private _title:Title,
-    private _course: CourseService, 
-    private _rout: ActivatedRoute, 
+    private _title: Title,
+    private _course: CourseService,
+    private _rout: ActivatedRoute,
     private _router: Router,
-    private _snack:MatSnackBar
-    ) { }
+    private _snack: MatSnackBar
+  ) {}
 
   id = this._rout.snapshot.params['id'];
   course = {
-    cId:'',
-    cTitle:'',
-    cDescription:'',
-    field:'',
-    totalLectures:''
-  }
+    cId: '',
+    cTitle: '',
+    cDescription: '',
+    field: '',
+    totalLectures: '',
+  };
 
   ngOnInit(): void {
-    this._course.getSingleCourseUser(this.id).subscribe(
-      (data:any) => {
-        this.course.cId = data.cId;
-        this.course.cTitle = data.cTitle;
-        this.course.cDescription = data.cDescription;
-        this.course.field = data.field;
-        this.course.totalLectures = data.totalLectures;
+    const isDark = document.documentElement.classList.contains('dark');
 
-        
-        this._title.setTitle('Update '+this.course.cTitle+' Course | Mentor | CodeVenture');
-      },
-      (error) => {
-        Swal.fire('Error', 'Something went wroung..', 'error').then(
-          (e) => {
-            this._router.navigate(['/mentor/courses'])
-          }
+    this._course.getSingleCourseUser(this.id).subscribe({
+      next: (data: any) => {
+        this.course = {
+          cId: data.cId,
+          cTitle: data.cTitle,
+          cDescription: data.cDescription,
+          field: data.field,
+          totalLectures: data.totalLectures,
+        };
+
+        this._title.setTitle(
+          `Update ${this.course.cTitle} | Mentor | CodeVenture`
         );
-      }
-    );
+      },
+      error: (error) => {
+        console.error('Error loading course:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load course details. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        }).then(() => {
+          this._router.navigate(['/mentor/courses']);
+        });
+      },
+    });
   }
 
   formSubmit() {
-    if(this.course.cTitle == '' || this.course.cTitle == null){
-      this._snack.open('Course Title can not be blank..','OK',{
-        duration:3000,
-        verticalPosition:'top'
-      });
-      return;
-    }else if(this.course.totalLectures == '' || parseInt(this.course.totalLectures) == 0 || parseInt(this.course.totalLectures) < 0){
-      this._snack.open('Please enter a valid number of total lectures..','OK',{
-        duration:3000,
-        verticalPosition:'top'
+    const isDark = document.documentElement.classList.contains('dark');
+
+    // Validate Course Title
+    if (!this.course.cTitle?.trim()) {
+      this._snack.open('Course title is required', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
       });
       return;
     }
-    this._course.updateCourse(this.course).subscribe(
-      (data) => {
-        Swal.fire('Updated..','Course is successfully updated..','success').then(
-          (e)=>{
-            this._router.navigate(['/mentor/courses'])
-          }
-        );
-      },
-      (error) => {
-        Swal.fire('Error', 'Something went wroung..', 'error').then(
-          (e) => {
-            this._router.navigate(['/mentor/courses'])
-          }
-        );
-      }
-    );
-  }
 
+    // Validate Total Lectures
+    const totalLectures = parseInt(this.course.totalLectures);
+    if (isNaN(totalLectures)) {
+      this._snack.open('Please enter a valid number of lectures', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      return;
+    }
+
+    if (totalLectures <= 0) {
+      this._snack.open('Number of lectures must be greater than 0', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      return;
+    }
+
+    // Update Course
+    this._course.updateCourse(this.course).subscribe({
+      next: (data) => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Course has been updated successfully',
+          icon: 'success',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#10b981',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark
+                ? '!border !border-emerald-600'
+                : '!border !border-emerald-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        }).then(() => {
+          this._router.navigate(['/mentor/courses']);
+        });
+      },
+      error: (error) => {
+        console.error('Error updating course:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to update course. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        }).then(() => {
+          this._router.navigate(['/mentor/courses']);
+        });
+      },
+    });
+  }
 }
