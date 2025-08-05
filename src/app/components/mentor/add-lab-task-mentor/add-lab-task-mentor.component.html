@@ -8,7 +8,7 @@
     ></div>
     <div class="p-8 text-center relative z-10">
       <h1
-        class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 mb-3"
+        class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 mb-3"
       >
         Add Lab Task
       </h1>
@@ -23,7 +23,7 @@
     class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-500"
   >
     <form (ngSubmit)="addLabTask()" class="p-6 sm:p-8">
-      <div class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <!-- Course Selection -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label class="text-gray-700 dark:text-gray-300"
@@ -69,72 +69,69 @@
             >menu_book</mat-icon
           >
         </mat-form-field>
+      </div>
+      <!-- Max Marks -->
+      <mat-form-field appearance="outline" class="w-full mb-6">
+        <mat-label class="text-gray-700 dark:text-gray-300"
+          >Lab Task Max Marks</mat-label
+        >
+        <input
+          [(ngModel)]="labTask.maxMarks"
+          name="maxMarks"
+          type="number"
+          matInput
+          placeholder="Enter maximum marks"
+          required
+          class="dark:text-white"
+        />
+        <mat-icon matPrefix class="text-emerald-600 dark:text-emerald-400 mr-2"
+          >score</mat-icon
+        >
+        <mat-hint class="text-gray-500 dark:text-gray-400"
+          >Enter the maximum score for this lab task</mat-hint
+        >
+      </mat-form-field>
 
-        <!-- Max Marks -->
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label class="text-gray-700 dark:text-gray-300"
-            >Lab Task Max Marks</mat-label
-          >
-          <input
-            [(ngModel)]="labTask.maxMarks"
-            name="maxMarks"
-            type="number"
-            matInput
-            placeholder="Enter maximum marks"
+      <!-- Lab Task Content -->
+      <div class="mb-6">
+        <label
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >Lab Task Content</label
+        >
+        <div
+          class="rounded-lg border dark:!text-gray-800 border-gray-200 dark:border-gray-600 overflow-hidden transition-all duration-300 hover:border-gray-300 dark:hover:border-gray-500 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-transparent"
+        >
+          <ckeditor
+            [editor]="Editor"
+            [(ngModel)]="labTask.labContent"
+            name="description"
             required
-            class="dark:text-white"
-          />
-          <mat-icon
-            matPrefix
-            class="text-emerald-600 dark:text-emerald-400 mr-2"
-            >score</mat-icon
-          >
-          <mat-hint class="text-gray-500 dark:text-gray-400"
-            >Enter the maximum score for this lab task</mat-hint
-          >
-        </mat-form-field>
-
-        <!-- Lab Task Content -->
-        <div class="space-y-2">
-          <label
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-            >Lab Task Content</label
-          >
-          <div
-            class="rounded-lg border dark:!text-gray-800 border-gray-200 dark:border-gray-600 overflow-hidden transition-all duration-300 hover:border-gray-300 dark:hover:border-gray-500 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-transparent"
-          >
-            <ckeditor
-              [editor]="Editor"
-              [(ngModel)]="labTask.labContent"
-              name="description"
-              required
-              [config]="{
-                placeholder: 'Enter detailed lab task instructions...',
-                toolbar: [
-                  '|',
-                  'undo',
-                  'redo',
-                  '|',
-                  'heading',
-                  '|',
-                  'bold',
-                  'italic',
-                  'link',
-                  '|',
-                  'bulletedList',
-                  'numberedList',
-                  '|',
-                  'blockQuote',
-                  '|',
-                  'insertTable'
-                ]
-              }"
-            ></ckeditor>
-          </div>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-            Provide clear instructions and requirements for the lab task
-          </p>
+            [config]="{
+              placeholder: 'Enter detailed lab task instructions...',
+              toolbar: [
+                '|',
+                'undo',
+                'redo',
+                '|',
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                'link',
+                '|',
+                'bulletedList',
+                'numberedList',
+                '|',
+                'blockQuote',
+                '|',
+                'insertTable'
+              ]
+            }"
+          ></ckeditor>
         </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          Provide clear instructions and requirements for the lab task
+        </p>
       </div>
 
       <!-- Form Actions -->

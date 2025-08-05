@@ -1,82 +1,145 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow mb-2">
-                    <div class="text-center m-3">
-                        <mat-card-title class="text-color">Update Lab Task</mat-card-title>
-                        <mat-card-subtitle>Enter the details of Lab Task</mat-card-subtitle>
-                    </div>
-                </mat-card>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow">
-                    <pre>
-                    </pre>
-                    <mat-card-content>
-                        <form class="p-4" (ngSubmit)="updateLabTask()">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    {{labTask | json}}
-                                    <!-- COURSE -->
-                                    <mat-form-field class="max-width mt-4" appearance="fill">
-                                        <mat-label>Select Course</mat-label>
-                                        <mat-select [(ngModel)]="course.cId" name="course" required>
-                                            <mat-option [value]="" (click)="loadLectures('')">--Select
-                                                Course--</mat-option>
-                                            <mat-option *ngFor="let c of courses" [value]="c.cId"
-                                                (click)="loadLectures(c.cId)">{{c.cTitle}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <!-- LECTURE -->
-                                    <mat-form-field class="max-width mt-4" appearance="fill">
-                                        <mat-label>Select Lecture</mat-label>
-                                        <mat-select [(ngModel)]="labTask.lecture.lId" name="lecture" required>
-                                            <mat-option [value]="">--Select Lecture--</mat-option>
-                                            <mat-option *ngFor="let l of lectures"
-                                                [value]="l.lId">{{l.lTitle}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-12">
-                                    <!-- LECTURE NUMBER -->
-                                    <mat-form-field class="max-width" appearance="fill">
-                                        <mat-label>Assignment Max Marks</mat-label>
-                                        <input [(ngModel)]="labTask.maxMarks" name="maxMarks" type="number" matInput
-                                            placeholder="Enter Lecture Number" required>
-                                    </mat-form-field>
-                                </div>
-
-
-                                <div class="col-md-12 mb-3">
-                                    <ckeditor [editor]="Editor" [(ngModel)]="labTask.labContent" name="description"
-                                        required [config]="{
-                                        placeholder:'Enter Lecture Content',
-                                        toolbar: [
-                                        '|','undo' , 'redo',
-                                        '|','heading',
-                                        '|', 'bold', 'italic', 'Link',
-                                        '|', 'bulletedList', 'numberedList',
-                                        '|', 'blockQuote',
-                                        '|', 'insertTable'
-                                        ]
-                                    }"></ckeditor>
-                                </div>
-                            </div>
-
-                            <div class="text-center mt20">
-                                <button class="m-2" mat-raised-button color="accent">Update Lab Task</button>
-                                <button class="m-2" mat-raised-button type="reset" color="primary">Clear</button>
-                            </div>
-                        </form>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-        </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Hero Header with Glass Morphism Effect -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-emerald-600/5 opacity-60"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-emerald-600 dark:from-teal-400 dark:to-emerald-400 mb-3"
+      >
+        Update Lab Task
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Modify the details of your lab task
+      </p>
     </div>
+  </div>
+
+  <!-- Form Section -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-teal-300 dark:hover:border-emerald-500"
+  >
+    <form (ngSubmit)="updateLabTask()" class="p-6 sm:p-8">
+      <!-- Course and Lecture Selection -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Select Course</mat-label
+          >
+          <mat-select
+            [(ngModel)]="course.cId"
+            name="course"
+            required
+            class="dark:text-white"
+            (selectionChange)="loadLectures($event.value)"
+          >
+            <mat-option [value]="">-- Select Course --</mat-option>
+            <mat-option *ngFor="let c of courses" [value]="c.cId">
+              {{ c.cTitle }}
+            </mat-option>
+          </mat-select>
+          <mat-icon
+            matPrefix
+            class="text-emerald-600 dark:text-emerald-400 mr-2"
+            >school</mat-icon
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Select Lecture</mat-label
+          >
+          <mat-select
+            [(ngModel)]="labTask.lecture.lId"
+            name="lecture"
+            class="dark:text-white"
+            required
+          >
+            <mat-option [value]="">-- Select Lecture --</mat-option>
+            <mat-option *ngFor="let l of lectures" [value]="l.lId">
+              {{ l.lNo }}: {{ l.lTitle }}
+            </mat-option>
+          </mat-select>
+          <mat-icon
+            matPrefix
+            class="text-emerald-600 dark:text-emerald-400 mr-2"
+            >menu_book</mat-icon
+          >
+        </mat-form-field>
+      </div>
+
+      <!-- Max Marks -->
+      <mat-form-field appearance="outline" class="w-full mb-6">
+        <mat-label class="text-gray-700 dark:text-gray-300"
+          >Lab Task Max Marks</mat-label
+        >
+        <input
+          [(ngModel)]="labTask.maxMarks"
+          name="maxMarks"
+          type="number"
+          matInput
+          placeholder="Enter maximum marks"
+          required
+          class="dark:text-white"
+        />
+        <mat-icon matPrefix class="text-emerald-600 dark:text-emerald-400 mr-2"
+          >score</mat-icon
+        >
+      </mat-form-field>
+
+      <!-- Lab Task Content Editor -->
+      <div class="mb-6">
+        <label
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        >
+          Lab Task Content
+        </label>
+        <div
+          class="rounded-lg border dark:!text-gray-800 border-gray-200 dark:border-gray-600 overflow-hidden transition-all duration-300 hover:border-gray-300 dark:hover:border-gray-500 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-transparent"
+        >
+          <ckeditor
+            [editor]="Editor"
+            [(ngModel)]="labTask.labContent"
+            name="description"
+            required
+            [config]="{
+              placeholder: 'Enter Lab Task Content',
+              toolbar: [
+                '|',
+                'undo',
+                'redo',
+                '|',
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                'Link',
+                '|',
+                'bulletedList',
+                'numberedList',
+                '|',
+                'blockQuote',
+                '|',
+                'insertTable'
+              ]
+            }"
+          ></ckeditor>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <button
+          type="submit"
+          class="!bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white !rounded-xl !font-medium !px-8 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300 flex items-center justify-center"
+        >
+          <mat-icon class="mr-2">update</mat-icon>
+          Update Lab Task
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

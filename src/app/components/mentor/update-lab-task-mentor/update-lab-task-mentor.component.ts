@@ -11,21 +11,20 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-update-lab-task-mentor',
   templateUrl: './update-lab-task-mentor.component.html',
-  styleUrls: ['./update-lab-task-mentor.component.css']
+  styleUrls: ['./update-lab-task-mentor.component.css'],
 })
-export class UpdateLabTaskMentorComponent implements OnInit{
+export class UpdateLabTaskMentorComponent implements OnInit {
   public Editor = ClassicEditor;
 
   constructor(
-    private _title:Title,
+    private _title: Title,
     private _rout: ActivatedRoute,
     private _course: CourseService,
     private _lecture: LectureService,
     private _labTask: LabTaskService,
     private _snack: MatSnackBar,
     private _router: Router
-
-  ) { }
+  ) {}
   id = this._rout.snapshot.params['id'];
   courses: any;
   lectures: any;
@@ -36,94 +35,210 @@ export class UpdateLabTaskMentorComponent implements OnInit{
     lecture: {
       lId: '',
       course: {
-        cId: ''
-      }
-    }
+        cId: '',
+      },
+    },
   };
   course = {
-    cId: ''
-  }
+    cId: '',
+  };
   ngOnInit(): void {
-    
+    const isDark = document.documentElement.classList.contains('dark');
     this._title.setTitle('Update LabTask | Mentor | CodeVenture');
+
     this.loadCourses();
-    this._labTask.getSingleLabTaskUser(this.id).subscribe(
-      (data:any) => {
-        this.labTask.labId = data.labId;
-        this.labTask.labContent = data.labContent;
-        this.labTask.maxMarks = data.maxMarks;
-        this.labTask.lecture.lId = data.lecture.lId;
-        this.labTask.lecture.course.cId = data.lecture.course.cId;
-        this.course.cId =  this.labTask.lecture.course.cId 
+
+    this._labTask.getSingleLabTaskUser(this.id).subscribe({
+      next: (data: any) => {
+        this.labTask = {
+          labId: data.labId,
+          labContent: data.labContent,
+          maxMarks: data.maxMarks,
+          lecture: {
+            lId: data.lecture.lId,
+            course: {
+              cId: data.lecture.course.cId,
+            },
+          },
+        };
+        this.course = { cId: data.lecture.course.cId };
         this.loadLectures(this.course.cId);
       },
-      (error) => {
-        Swal.fire('Error','Error in loading Lab Task..!','error');
-      }
-    );
+      error: (error) => {
+        console.error('Error loading lab task:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load lab task details. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
-
-
 
   loadCourses() {
-    this._course.getCoursesByUser().subscribe(
-      (data) => {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    this._course.getCoursesByUser().subscribe({
+      next: (data) => {
         this.courses = data;
       },
-      (error) => {
-        Swal.fire('Error', 'Error in loading Courses..!', 'error');
-      }
-    );
+      error: (error) => {
+        console.error('Error loading courses:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load your courses. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
   loadLectures(id: any) {
-    if (id == '' || id == null) {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    // Clear lectures if no valid course ID
+    if (!id) {
       this.lectures = [];
       return;
     }
-    this._lecture.getLectureByCourse(id).subscribe(
-      (data) => {
+
+    this._lecture.getLectureByCourse(id).subscribe({
+      next: (data) => {
         this.lectures = data;
       },
-      (error) => {
-        Swal.fire('Error', 'Error in loading lectures...', 'error');
-      });
+      error: (error) => {
+        console.error('Error loading lectures:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load lectures for this course',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
 
-
   updateLabTask() {
-    if(this.labTask.lecture.lId == '' || this.labTask.lecture.lId == null){
-      this._snack.open('Please Select Lectures...','OK',{
+    const isDark = document.documentElement.classList.contains('dark');
+
+    // Validate Lecture Selection
+    if (!this.labTask.lecture?.lId) {
+      this._snack.open('Please select a lecture', 'Close', {
         duration: 3000,
-        verticalPosition: 'top'
-      });
-      return;
-    } 
-    if(parseInt(this.labTask.maxMarks) <=0 || this.labTask.maxMarks == ''){
-      this._snack.open('Please enter correct maximum marks...','OK',{
-        duration: 3000,
-        verticalPosition: 'top'
-      });
-      return;
-    }else if(parseInt(this.labTask.maxMarks) < 10 || parseInt(this.labTask.maxMarks) > 100){
-      this._snack.open('Marks should be between 10 to 100..','OK',{
-        duration: 3000,
-        verticalPosition: 'top'
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
       });
       return;
     }
 
-    this._labTask.updateLabTask(this.labTask).subscribe(
-      (data) => {
-        Swal.fire('Updated','Lab Task is successfully updated...','success').then(
-          (e) => {
-            this._router.navigate(['/mentor/labtasks'])
-          }
-        );
-      },
-      (error) => {
-        Swal.fire('Error','Something went wroung...','error');
-      }
-    );
-  }
+    // Validate Marks
+    const marks = parseInt(this.labTask.maxMarks);
+    if (isNaN(marks)) {
+      this._snack.open('Please enter valid maximum marks', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      return;
+    }
 
+    if (marks < 10 || marks > 100) {
+      this._snack.open('Marks must be between 10-100', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      return;
+    }
+
+    // Update Lab Task
+    this._labTask.updateLabTask(this.labTask).subscribe({
+      next: (data) => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Lab task has been updated successfully',
+          icon: 'success',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#10b981',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark
+                ? '!border !border-emerald-600'
+                : '!border !border-emerald-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        }).then(() => {
+          this._router.navigate(['/mentor/labtasks']);
+        });
+      },
+      error: (error) => {
+        console.error('Error updating lab task:', error);
+        this._snack.open('Failed to update lab task', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+        });
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to update lab task. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
+  }
 }
