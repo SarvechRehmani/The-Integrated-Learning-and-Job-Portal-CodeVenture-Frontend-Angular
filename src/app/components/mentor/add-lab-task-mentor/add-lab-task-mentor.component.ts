@@ -43,16 +43,6 @@ export class AddLabTaskMentorComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading courses:', error);
-
-        // Show snackbar notification
-        this._snack.open('Failed to load courses', 'Close', {
-          duration: 3000,
-          panelClass: ['error-snackbar'],
-          verticalPosition: 'top',
-          horizontalPosition: 'right',
-        });
-
-        // Show detailed error dialog
         Swal.fire({
           title: 'Error',
           text: 'Could not load course list. Please try again later.',

@@ -21,18 +21,36 @@ export class CoursesMentorComponent implements OnInit {
   courses: any;
 
   ngOnInit(): void {
+    const isDark = document.documentElement.classList.contains('dark');
     this._title.setTitle('Courses | Mentor | CodeVenture');
 
-    this._course.getCoursesByUser().subscribe(
-      (data) => {
+    this._course.getCoursesByUser().subscribe({
+      next: (data) => {
         this.courses = data;
-        console.log(data);
+        console.log('Courses loaded:', data);
         this.loadLectureLength();
       },
-      (error) => {
-        Swal.fire('Error', 'Something went wroung..', 'error');
-      }
-    );
+      error: (error) => {
+        console.error('Error loading courses:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load courses. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
 
   deleteCourse(id: any) {

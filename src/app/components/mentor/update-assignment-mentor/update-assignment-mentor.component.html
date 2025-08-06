@@ -23,18 +23,18 @@
     class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-emerald-300 dark:hover:border-emerald-500"
   >
     <form (ngSubmit)="updateAssignment()" class="p-6 sm:p-8">
-      <div class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <!-- Course Selection -->
         <mat-form-field appearance="outline" class="w-full">
           <mat-label class="text-gray-700 dark:text-gray-300"
             >Select Course</mat-label
           >
           <mat-select
-            color="primary"
             name="course"
             required
             (selectionChange)="loadLectures($event.value)"
             class="dark:text-white"
+            [(ngModel)]="course.cId"
           >
             <mat-option [value]="">-- Select Course --</mat-option>
             <mat-option *ngFor="let c of courses" [value]="c.cId">
@@ -64,7 +64,7 @@
           >
             <mat-option [value]="">-- Select Lecture --</mat-option>
             <mat-option *ngFor="let l of lectures" [value]="l.lId">
-              {{ l.lTitle }} (Lecture {{ l.lNo }})
+              {{ l.lNo }}: {{ l.lTitle }}
             </mat-option>
           </mat-select>
           <mat-icon
@@ -76,74 +76,71 @@
             >Select the lecture this assignment belongs to</mat-hint
           >
         </mat-form-field>
+      </div>
+      <!-- Max Marks -->
+      <mat-form-field appearance="outline" class="w-full mb-6">
+        <mat-label class="text-gray-700 dark:text-gray-300"
+          >Maximum Marks</mat-label
+        >
+        <input
+          [(ngModel)]="assignment.maxMarks"
+          name="maxMarks"
+          type="number"
+          matInput
+          placeholder="e.g. 100"
+          required
+          min="10"
+          max="100"
+          class="dark:text-white"
+        />
+        <mat-icon matPrefix class="text-emerald-600 dark:text-emerald-400 mr-2"
+          >score</mat-icon
+        >
+        <mat-hint class="text-gray-500 dark:text-gray-400"
+          >Must be between 10-100 marks</mat-hint
+        >
+      </mat-form-field>
 
-        <!-- Max Marks -->
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label class="text-gray-700 dark:text-gray-300"
-            >Maximum Marks</mat-label
-          >
-          <input
-            [(ngModel)]="assignment.maxMarks"
-            name="maxMarks"
-            type="number"
-            matInput
-            placeholder="e.g. 100"
+      <!-- Assignment Content -->
+      <div class="mb-6">
+        <label
+          class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >Assignment Content</label
+        >
+        <div
+          class="rounded-lg border dark:!text-gray-800 border-gray-200 dark:border-gray-600 overflow-hidden transition-all duration-300 hover:border-gray-300 dark:hover:border-gray-500 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-transparent"
+        >
+          <ckeditor
+            [editor]="Editor"
+            [(ngModel)]="assignment.aContent"
+            name="description"
             required
-            min="10"
-            max="100"
-            class="dark:text-white"
-          />
-          <mat-icon
-            matPrefix
-            class="text-emerald-600 dark:text-emerald-400 mr-2"
-            >score</mat-icon
-          >
-          <mat-hint class="text-gray-500 dark:text-gray-400"
-            >Must be between 10-100 marks</mat-hint
-          >
-        </mat-form-field>
-
-        <!-- Assignment Content -->
-        <div class="space-y-2">
-          <label
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-            >Assignment Content</label
-          >
-          <div
-            class="rounded-lg border dark:!text-gray-800 border-gray-200 dark:border-gray-600 overflow-hidden transition-all duration-300 hover:border-gray-300 dark:hover:border-gray-500 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-transparent"
-          >
-            <ckeditor
-              [editor]="Editor"
-              [(ngModel)]="assignment.aContent"
-              name="description"
-              required
-              [config]="{
-                placeholder: 'Enter detailed assignment instructions...',
-                toolbar: [
-                  '|',
-                  'undo',
-                  'redo',
-                  '|',
-                  'heading',
-                  '|',
-                  'bold',
-                  'italic',
-                  'link',
-                  '|',
-                  'bulletedList',
-                  'numberedList',
-                  '|',
-                  'blockQuote',
-                  '|',
-                  'insertTable'
-                ]
-              }"
-            ></ckeditor>
-          </div>
-          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-            Update the instructions and requirements for the assignment
-          </p>
+            [config]="{
+              placeholder: 'Enter detailed assignment instructions...',
+              toolbar: [
+                '|',
+                'undo',
+                'redo',
+                '|',
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                'link',
+                '|',
+                'bulletedList',
+                'numberedList',
+                '|',
+                'blockQuote',
+                '|',
+                'insertTable'
+              ]
+            }"
+          ></ckeditor>
         </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          Update the instructions and requirements for the assignment
+        </p>
       </div>
 
       <!-- Form Actions with Enhanced Buttons -->

@@ -102,56 +102,62 @@
               required
               class="dark:text-white"
             />
-            <mat-icon matPrefix class="text-teal-600 dark:text-teal-400 mr-2"
+            <mat-icon
+              matPrefix
+              class="text-emerald-600 dark:text-emerald-400 mr-2"
               >format_list_numbered</mat-icon
             >
           </mat-form-field>
         </div>
 
         <!-- Course Selection -->
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label class="text-gray-700 dark:text-gray-300"
-            >Select Course</mat-label
-          >
-          <mat-select
-            [(ngModel)]="course.cId"
-            name="course"
-            required
-            (selectionChange)="loadLectures($event.value)"
-            class="dark:text-white"
-          >
-            <mat-option [value]="">-- Select Course --</mat-option>
-            <mat-option *ngFor="let c of courses" [value]="c.cId">
-              {{ c.cTitle }}
-            </mat-option>
-          </mat-select>
-          <mat-icon
-            matPrefix
-            class="text-emerald-600 dark:text-emerald-400 mr-2"
-            >school</mat-icon
-          >
-        </mat-form-field>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Select Course</mat-label
+            >
+            <mat-select
+              [(ngModel)]="course.cId"
+              name="course"
+              required
+              (selectionChange)="loadLectures($event.value)"
+              class="dark:text-white"
+            >
+              <mat-option [value]="">-- Select Course --</mat-option>
+              <mat-option *ngFor="let c of courses" [value]="c.cId">
+                {{ c.cTitle }}
+              </mat-option>
+            </mat-select>
+            <mat-icon
+              matPrefix
+              class="text-emerald-600 dark:text-emerald-400 mr-2"
+              >school</mat-icon
+            >
+          </mat-form-field>
 
-        <!-- Lecture Selection -->
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-label class="text-gray-700 dark:text-gray-300"
-            >Select Lecture</mat-label
-          >
-          <mat-select
-            [(ngModel)]="quiz.lecture.lId"
-            name="lecture"
-            required
-            class="dark:text-white"
-          >
-            <mat-option [value]="">-- Select Lecture --</mat-option>
-            <mat-option *ngFor="let l of lectures" [value]="l.lId">
-              {{ l.lTitle }}
-            </mat-option>
-          </mat-select>
-          <mat-icon matPrefix class="text-teal-600 dark:text-teal-400 mr-2"
-            >menu_book</mat-icon
-          >
-        </mat-form-field>
+          <!-- Lecture Selection -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Select Lecture</mat-label
+            >
+            <mat-select
+              [(ngModel)]="quiz.lecture.lId"
+              name="lecture"
+              required
+              class="dark:text-white"
+            >
+              <mat-option [value]="">-- Select Lecture --</mat-option>
+              <mat-option *ngFor="let l of lectures" [value]="l.lId">
+                {{ l.lNo }}: {{ l.lTitle }}
+              </mat-option>
+            </mat-select>
+            <mat-icon
+              matPrefix
+              class="text-emerald-600 dark:text-emerald-400 mr-2"
+              >menu_book</mat-icon
+            >
+          </mat-form-field>
+        </div>
       </div>
 
       <!-- Form Actions -->

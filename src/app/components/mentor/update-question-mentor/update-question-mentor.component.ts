@@ -9,22 +9,21 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-update-question-mentor',
   templateUrl: './update-question-mentor.component.html',
-  styleUrls: ['./update-question-mentor.component.css']
+  styleUrls: ['./update-question-mentor.component.css'],
 })
 export class UpdateQuestionMentorComponent implements OnInit {
-
   constructor(
-    private _title:Title,
+    private _title: Title,
     private _rout: ActivatedRoute,
     private _snack: MatSnackBar,
     private _question: QuestionService,
-    private _router:Router
-  ) { }
+    private _router: Router
+  ) {}
   public Editor = ClassicEditor;
 
   id = this._rout.snapshot.params['qid'];
   question = {
-    questionId:'',
+    questionId: '',
     questionContent: '',
     option1: '',
     option2: '',
@@ -32,78 +31,148 @@ export class UpdateQuestionMentorComponent implements OnInit {
     option4: '',
     answer: '',
     quiz: {
-      qId: this.id
-    }
+      qId: this.id,
+    },
   };
 
-
   ngOnInit(): void {
-    this._question.getSingleQuestionUser(this.id).subscribe(
-      (data:any) => {
-        this.question.questionId = data.questionId;
-        this.question.questionContent = data.questionContent;
-        this.question.option1 = data.option1;
-        this.question.option2 = data.option2;
-        this.question.option3 = data.option3;
-        this.question.option4 = data.option4;
-        this.question.answer = data.answer;
-        this.question.quiz.qId = data.quiz.qId;
+    const isDark = document.documentElement.classList.contains('dark');
 
-        
+    this._question.getSingleQuestionUser(this.id).subscribe({
+      next: (data: any) => {
+        // Update question data using object assignment
+        this.question = {
+          questionId: data.questionId,
+          questionContent: data.questionContent,
+          option1: data.option1,
+          option2: data.option2,
+          option3: data.option3,
+          option4: data.option4,
+          answer: data.answer,
+          quiz: {
+            qId: data.quiz.qId,
+          },
+        };
+
+        // Set page title
         this._title.setTitle('Update Question | Mentor | CodeVenture');
       },
-      (error) => {
-        Swal.fire('Error','Error in loading question.','error');
-      }
-    )
+      error: (error) => {
+        console.error('Error loading question:', error);
+
+        // Show snackbar notification
+        this._snack.open('Failed to load question data', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+        });
+
+        // Show error dialog
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load question. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
 
+  updateQuestion(): void {
+    const isDark = document.documentElement.classList.contains('dark');
 
-  updateQuestion() {
-    if (this.question.questionContent == '' || this.question.questionContent == null) {
-      this._snack.open('Question content can not be blank..', 'OK', {
+    // Validate question content
+    if (!this.question.questionContent?.trim()) {
+      this._snack.open('Question content cannot be blank', 'Close', {
         duration: 3000,
-        verticalPosition: 'top'
-      })
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
       return;
     }
+
+    // Validate all options
     if (
-      this.question.option1 == '' ||
-      this.question.option2 == '' ||
-      this.question.option2 == null ||
-      this.question.option3 == '' ||
-      this.question.option3 == null ||
-      this.question.option4 == '' ||
-      this.question.option4 == null
+      !this.question.option1?.trim() ||
+      !this.question.option2?.trim() ||
+      !this.question.option3?.trim() ||
+      !this.question.option4?.trim()
     ) {
-      this._snack.open('Options can not be blank..', 'OK', {
+      this._snack.open('All options must be filled', 'Close', {
         duration: 3000,
-        verticalPosition: 'top'
-      })
-      return;
-    }
-    if (this.question.answer == '' || this.question.answer == null) {
-      this._snack.open('Answer can not be blank..', 'OK', {
-        duration: 3000,
-        verticalPosition: 'top'
-      })
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
       return;
     }
 
-    this._question.addQuestion(this.question).subscribe(
-      (data:any) => {
-        Swal.fire('Updated..', 'Question is successful updated', 'success')
-        .then(
-          (e) => {
-            this._router.navigate(['/mentor//quiz/'+data.quiz.lecture.lId])
-          }
-        );
+    // Validate answer
+    if (!this.question.answer?.trim()) {
+      this._snack.open('Please select an answer', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      return;
+    }
+
+    this._question.addQuestion(this.question).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          title: 'Updated!',
+          text: 'Question has been successfully updated',
+          icon: 'success',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#10b981',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-green-600' : '!border !border-green-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        }).then(() => {
+          this._router.navigate([`/mentor/quiz/${data.quiz.lecture.lId}`]);
+        });
       },
-      (error) => {
-        console.log(error)
-        Swal.fire('Error', error.error.message, 'error')
-      }
-    );
-
+      error: (error) => {
+        console.error('Error updating question:', error);
+        Swal.fire({
+          title: 'Error',
+          text: error.error.message || 'Failed to update question',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
 }

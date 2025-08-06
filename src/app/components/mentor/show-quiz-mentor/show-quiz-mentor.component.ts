@@ -24,28 +24,82 @@ export class ShowQuizMentorComponent implements OnInit {
   quiz: any;
   questions: any;
   ngOnInit(): void {
-    this._quiz.getQuizByLecture(this.id).subscribe(
-      (data: any) => {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    this._quiz.getQuizByLecture(this.id).subscribe({
+      next: (data: any) => {
         this.quiz = data;
         this.loadQuestionsOfQuiz(data.qId);
 
-        this._title.setTitle(this.quiz.qTitle + ' Quiz | Mentor | CodeVenture');
+        // Set dynamic page title
+        this._title.setTitle(`${data.qTitle} Quiz | Mentor | CodeVenture`);
       },
-      (error) => {
-        Swal.fire('Error', 'Error in loading quiz..!', 'error');
-      }
-    );
+      error: (error) => {
+        console.error('Error loading quiz:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load quiz details. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
 
-  loadQuestionsOfQuiz(qId: any) {
-    this._question.getQuestionsByQuizOfUser(qId).subscribe(
-      (data) => {
+  loadQuestionsOfQuiz(qId: any): void {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    // Validate quiz ID
+    if (!qId) {
+      this._snack.open('Invalid quiz ID provided', 'Close', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+      });
+      this.questions = []; // Clear existing questions
+      return;
+    }
+
+    this._question.getQuestionsByQuizOfUser(qId).subscribe({
+      next: (data) => {
         this.questions = data;
       },
-      (error) => {
-        Swal.fire('Error', 'Error in loading quiz..!', 'error');
-      }
-    );
+      error: (error) => {
+        console.error('Error loading questions for quiz:', qId, error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load quiz questions. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+
+        // Clear questions on error
+        this.questions = [];
+      },
+    });
   }
 
   deleteQuestion(questionId: any) {

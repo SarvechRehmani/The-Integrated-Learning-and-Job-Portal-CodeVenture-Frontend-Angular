@@ -66,11 +66,11 @@ export class AddAssignmentMentorComponent {
       return;
     }
     // Load lectures for selected course
-    this._lecture.getLectureByCourseWithoutAssignment(id).subscribe(
-      (data: any) => {
+    this._lecture.getLectureByCourseWithoutAssignment(id).subscribe({
+      next: (data: any) => {
         this.lectures = data;
       },
-      (error: any) => {
+      error: (error: any) => {
         console.error('Error loading lectures:', error);
         Swal.fire({
           title: 'Error',
@@ -89,8 +89,8 @@ export class AddAssignmentMentorComponent {
             popup: 'animate__animated animate__fadeIn animate__faster',
           },
         });
-      }
-    );
+      },
+    });
   }
   assignment = {
     aContent: '',
@@ -136,8 +136,8 @@ export class AddAssignmentMentorComponent {
     }
 
     // Submit Assignment
-    this._assignment.addAssignment(this.assignment).subscribe(
-      (data) => {
+    this._assignment.addAssignment(this.assignment).subscribe({
+      next: (data) => {
         Swal.fire({
           title: 'Success!',
           text: 'Assignment has been added successfully',
@@ -165,7 +165,7 @@ export class AddAssignmentMentorComponent {
           };
         });
       },
-      (error) => {
+      error: (error) => {
         console.error(error);
         Swal.fire({
           title: 'Error',
@@ -184,7 +184,7 @@ export class AddAssignmentMentorComponent {
             popup: 'animate__animated animate__fadeIn animate__faster',
           },
         });
-      }
-    );
+      },
+    });
   }
 }

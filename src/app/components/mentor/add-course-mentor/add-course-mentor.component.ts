@@ -61,8 +61,8 @@ export class AddCourseMentorComponent {
     }
 
     // Submit form
-    this._course.addCourse(this.course).subscribe(
-      (data: any) => {
+    this._course.addCourse(this.course).subscribe({
+      next: (data: any) => {
         Swal.fire({
           title: 'Course Added!',
           text: 'The course has been successfully created',
@@ -83,7 +83,7 @@ export class AddCourseMentorComponent {
           },
         });
       },
-      (error: any) => {
+      error: (error: any) => {
         this._snack.open(
           'Failed to create course. Please try again.',
           'Close',
@@ -94,7 +94,7 @@ export class AddCourseMentorComponent {
             horizontalPosition: 'right',
           }
         );
-      }
-    );
+      },
+    });
   }
 }

@@ -29,9 +29,11 @@ export class WelcomeMentorComponent implements OnInit {
         this.loadSubmittedTasks();
       },
       (error) => {
-        this._snack.open('Error in loading Details of Courses.', 'OK', {
+        this._snack.open('Error in loading Details of Courses.', 'Close', {
           duration: 3000,
+          panelClass: ['error-snackbar'],
           verticalPosition: 'top',
+          horizontalPosition: 'right',
         });
       }
     );
@@ -46,9 +48,11 @@ export class WelcomeMentorComponent implements OnInit {
         this.loadGraph();
       },
       (error) => {
-        this._snack.open('Error in loading Submitted Tasks.', 'OK', {
+        this._snack.open('Error in loading Submitted Tasks.', 'Close', {
           duration: 3000,
+          panelClass: ['error-snackbar'],
           verticalPosition: 'top',
+          horizontalPosition: 'right',
         });
       }
     );

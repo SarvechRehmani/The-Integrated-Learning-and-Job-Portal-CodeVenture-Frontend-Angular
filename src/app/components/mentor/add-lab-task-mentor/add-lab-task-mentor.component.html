@@ -60,7 +60,7 @@
           >
             <mat-option [value]="">-- Select Lecture --</mat-option>
             <mat-option *ngFor="let l of lectures" [value]="l.lId">
-              {{ l.lTitle }}
+              {{ l.lNo }}: {{ l.lTitle }}
             </mat-option>
           </mat-select>
           <mat-icon

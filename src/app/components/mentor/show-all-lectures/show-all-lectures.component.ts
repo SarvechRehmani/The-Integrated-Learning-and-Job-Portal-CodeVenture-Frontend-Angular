@@ -25,27 +25,45 @@ export class ShowAllLecturesComponent implements OnInit {
   searchQuery: string = '';
 
   ngOnInit(): void {
+    const isDark = document.documentElement.classList.contains('dark');
     this._title.setTitle('Lectures | Mentor | CodeVenture');
+
+    const handleSuccess = (data: any) => {
+      this.originalLectures = data;
+      this.lectures = structuredClone(data);
+    };
+
+    const handleError = (error: any) => {
+      console.error('Error loading lectures:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Could not load lectures. Please try again.',
+        icon: 'error',
+        background: isDark ? '#1f2937' : '#ffffff',
+        color: isDark ? '#f3f4f6' : '#1f2937',
+        confirmButtonColor: '#ef4444',
+        customClass: {
+          popup: `!rounded-2xl !shadow-xl ${
+            isDark ? '!border !border-red-600' : '!border !border-red-400'
+          }`,
+          confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        },
+        showClass: {
+          popup: 'animate__animated animate__fadeIn animate__faster',
+        },
+      });
+    };
+
     if (this.cId) {
-      this._lecture.getAllLecturesByUserOfUser(this.cId).subscribe(
-        (data) => {
-          this.originalLectures = data;
-          this.lectures = structuredClone(this.originalLectures);
-        },
-        (error) => {
-          Swal.fire('Error', 'Error in Loading Lectures', 'error');
-        }
-      );
+      this._lecture.getAllLecturesByUserOfUser(this.cId).subscribe({
+        next: handleSuccess,
+        error: handleError,
+      });
     } else {
-      this._lecture.getAllLecturesByUser().subscribe(
-        (data) => {
-          this.originalLectures = data;
-          this.lectures = structuredClone(this.originalLectures);
-        },
-        (error) => {
-          Swal.fire('Error', 'Error in Loading Lectures', 'error');
-        }
-      );
+      this._lecture.getAllLecturesByUser().subscribe({
+        next: handleSuccess,
+        error: handleError,
+      });
     }
   }
 
@@ -83,8 +101,8 @@ export class ShowAllLecturesComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this._lecture.deleteLecture(id).subscribe(
-          (success) => {
+        this._lecture.deleteLecture(id).subscribe({
+          next: (success) => {
             this._snack.open('Lecture deleted successfully', 'Close', {
               duration: 3000,
               panelClass: ['success-mentor-snackbar'],
@@ -95,15 +113,15 @@ export class ShowAllLecturesComponent implements OnInit {
               (lecture: any) => lecture.lId != id
             );
           },
-          (error) => {
+          error: (error) => {
             this._snack.open('Failed to delete lecture', 'Close', {
               duration: 3000,
               panelClass: ['error-snackbar'],
               verticalPosition: 'top',
               horizontalPosition: 'right',
             });
-          }
-        );
+          },
+        });
       }
     });
   }

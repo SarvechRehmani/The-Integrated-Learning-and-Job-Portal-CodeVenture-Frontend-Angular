@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { LoginService } from 'src/app/services/login.service';
   templateUrl: './sidebar-mentor.component.html',
   styleUrls: ['./sidebar-mentor.component.css'],
 })
-export class SidebarMentorComponent {
+export class SidebarMentorComponent implements OnInit {
   @Input() isOpen = false;
   @Output() isOpenChange = new EventEmitter<boolean>();
 
@@ -38,6 +38,10 @@ export class SidebarMentorComponent {
   ];
 
   constructor(private login: LoginService) {}
+  user: any = {};
+  ngOnInit(): void {
+    this.user = this.login.getUser();
+  }
 
   toggle() {
     this.isOpen = !this.isOpen;
