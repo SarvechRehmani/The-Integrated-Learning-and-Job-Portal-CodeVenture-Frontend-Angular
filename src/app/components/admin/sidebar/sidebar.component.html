@@ -1,0 +1,71 @@
+<div
+  class="fixed inset-y-0 left-0 z-20 w-64 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 ease-in-out"
+  [class.translate-x-0]="isOpen"
+  [class.-translate-x-full]="!isOpen"
+  [class.md:translate-x-0]="true"
+>
+  <div class="flex flex-col h-full">
+    <!-- Sidebar Header -->
+    <div class="p-4 border-b border-blue-100 dark:border-cyan-900/50">
+      <div class="flex items-center space-x-3">
+        <div
+          class="w-14 h-14 rounded-full overflow-hidden p-1 flex items-center justify-center bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-500 dark:to-cyan-500"
+        >
+          <img
+            *ngIf="user?.profile"
+            [src]="'http://localhost:9191/file/profile/' + user.profile"
+            class="w-full h-full rounded-full object-cover"
+            alt="Profile Picture"
+          />
+          <span
+            *ngIf="!user?.profile"
+            class="text-white text-3xl font-bold uppercase"
+          >
+            {{ user?.username ? user.username.charAt(0) : "U" }}
+          </span>
+        </div>
+        <span
+          class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-500 dark:to-cyan-500"
+        >
+          Admin Panel
+        </span>
+      </div>
+    </div>
+
+    <!-- Sidebar Content -->
+    <nav class="flex-1 overflow-y-auto p-4 space-y-1">
+      <a
+        *ngFor="let link of sidebarLinks"
+        [routerLink]="link.path"
+        class="flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-300"
+        [routerLinkActive]="[
+          '!text-white',
+          '!bg-gradient-to-r',
+          'from-blue-600',
+          'to-cyan-600',
+          'dark:from-blue-500',
+          'dark:to-cyan-500'
+        ]"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon class="mr-3">{{ link.icon }}</mat-icon>
+        <span class="font-medium">{{ link.label }}</span>
+      </a>
+
+      <button
+        (click)="logout()"
+        class="w-full flex items-center px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-rose-900/20 transition-colors duration-300"
+      >
+        <mat-icon class="mr-3">logout</mat-icon>
+        <span class="font-medium">Logout</span>
+      </button>
+    </nav>
+  </div>
+</div>
+
+<!-- Overlay for mobile -->
+<div
+  *ngIf="isOpen"
+  class="fixed inset-0 z-[9] bg-black bg-opacity-50 md:hidden"
+  (click)="toggle()"
+></div>

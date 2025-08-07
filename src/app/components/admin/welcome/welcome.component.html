@@ -1,0 +1,363 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Hero Header with Glass Morphism Effect - Updated to blue/cyan gradient -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-cyan-600/5 opacity-60 dark:from-blue-500/5 dark:to-cyan-500/5"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-500 dark:to-cyan-500 mb-3"
+      >
+        <span>ADMIN DASHBOARD</span>
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        System overview and user management
+      </p>
+    </div>
+  </div>
+
+  <!-- User Stats Cards -->
+  <div class="mb-8">
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-500"
+    >
+      <div class="p-6">
+        <h2
+          class="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white"
+        >
+          User Statistics
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Normal Users Card -->
+          <div
+            class="group relative bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-500"
+          >
+            <div
+              class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="relative z-9 flex flex-col items-center text-center">
+              <div
+                class="w-16 h-16 bg-blue-50 dark:bg-blue-900/50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-100 dark:group-hover:bg-blue-800 transition-colors duration-300"
+              >
+                <mat-icon class="text-blue-600 dark:text-blue-400"
+                  >people</mat-icon
+                >
+              </div>
+              <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                NORMAL USERS
+              </h2>
+              <h3 class="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                {{ totalUsers }}
+              </h3>
+              <button
+                routerLink="/profile/showusers"
+                class="flex items-center mt-2 px-4 py-2 rounded-lg text-sm font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors border border-blue-100 dark:border-blue-900/50"
+              >
+                <i class="fas fa-eye text-xs mr-1"></i>
+                View All
+              </button>
+            </div>
+          </div>
+
+          <!-- Companies Card -->
+          <div
+            class="group relative bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-cyan-300 dark:hover:border-cyan-500"
+          >
+            <div
+              class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="relative z-9 flex flex-col items-center text-center">
+              <div
+                class="w-16 h-16 bg-cyan-50 dark:bg-cyan-900/50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-cyan-100 dark:group-hover:bg-cyan-800 transition-colors duration-300"
+              >
+                <mat-icon class="text-cyan-600 dark:text-cyan-400"
+                  >business</mat-icon
+                >
+              </div>
+              <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                COMPANIES
+              </h2>
+              <h3 class="text-3xl font-bold text-cyan-600 dark:text-cyan-400">
+                {{ totalCompanies }}
+              </h3>
+
+              <button
+                routerLink="/profile/showcompanies"
+                class="flex items-center mt-2 px-4 py-2 rounded-lg text-sm font-medium bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-100 dark:hover:bg-cyan-900/50 transition-colors border border-cyan-100 dark:border-cyan-900/50"
+              >
+                <i class="fas fa-eye text-xs mr-1"></i>
+                View All
+              </button>
+            </div>
+          </div>
+
+          <!-- Mentors Card -->
+          <div
+            class="group relative bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-sky-300 dark:hover:border-sky-500"
+          >
+            <div
+              class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="relative z-9 flex flex-col items-center text-center">
+              <div
+                class="w-16 h-16 bg-sky-50 dark:bg-sky-900/50 rounded-xl flex items-center justify-center mb-4 group-hover:bg-sky-100 dark:group-hover:bg-sky-800 transition-colors duration-300"
+              >
+                <mat-icon class="text-sky-600 dark:text-sky-400"
+                  >school</mat-icon
+                >
+              </div>
+              <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                MENTORS
+              </h2>
+              <h3 class="text-3xl font-bold text-sky-600 dark:text-sky-400">
+                {{ totalMentors }}
+              </h3>
+              <button
+                routerLink="/profile/showmentor"
+                class="flex items-center mt-2 px-4 py-2 rounded-lg text-sm font-medium bg-sky-50 dark:bg-sky-900/30 text-sky-600 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-900/50 transition-colors border border-sky-100 dark:border-sky-900/50"
+              >
+                <i class="fas fa-eye text-xs mr-1"></i>
+                View All
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- System Stats Cards -->
+  <div class="mb-8">
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-500"
+    >
+      <div class="p-6">
+        <h2
+          class="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white"
+        >
+          System Statistics
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <!-- Courses Card -->
+          <div
+            class="group relative bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-500 overflow-hidden"
+          >
+            <div
+              class="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="relative z-10 flex flex-col items-center text-center">
+              <div
+                class="w-16 h-16 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-800/30 transition-colors duration-300"
+              >
+                <i
+                  class="fas fa-book text-emerald-600 dark:text-emerald-400 text-xl"
+                ></i>
+              </div>
+              <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                COURSES
+              </h2>
+              <h3
+                class="text-3xl font-bold text-emerald-600 dark:text-emerald-400"
+              >
+                {{ systemStats.courses }}
+              </h3>
+            </div>
+          </div>
+
+          <!-- Enrollments Card -->
+          <div
+            class="group relative bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 overflow-hidden"
+          >
+            <div
+              class="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="relative z-10 flex flex-col items-center text-center">
+              <div
+                class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-100 dark:group-hover:bg-blue-800/30 transition-colors duration-300"
+              >
+                <i
+                  class="fas fa-user-graduate text-blue-600 dark:text-blue-400 text-xl"
+                ></i>
+              </div>
+              <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                ENROLLMENTS
+              </h2>
+              <h3 class="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                {{ systemStats.enrollments }}
+              </h3>
+            </div>
+          </div>
+
+          <!-- Active Sessions Card -->
+          <div
+            class="group relative bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-amber-300 dark:hover:border-amber-500 overflow-hidden"
+          >
+            <div
+              class="absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="relative z-10 flex flex-col items-center text-center">
+              <div
+                class="w-16 h-16 bg-amber-50 dark:bg-amber-900/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-amber-100 dark:group-hover:bg-amber-800/30 transition-colors duration-300"
+              >
+                <i
+                  class="fas fa-users text-amber-600 dark:text-amber-400 text-xl"
+                ></i>
+              </div>
+              <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                ACTIVE SESSIONS
+              </h2>
+              <h3 class="text-3xl font-bold text-amber-600 dark:text-amber-400">
+                {{ systemStats.activeSessions }}
+              </h3>
+            </div>
+          </div>
+
+          <!-- Storage Usage Card -->
+          <div
+            class="group relative bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:border-red-300 dark:hover:border-red-500 overflow-hidden"
+          >
+            <div
+              class="absolute inset-0 rounded-2xl bg-gradient-to-br from-red-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="relative z-10 flex flex-col items-center text-center">
+              <div
+                class="w-16 h-16 bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-red-100 dark:group-hover:bg-red-800/30 transition-colors duration-300"
+              >
+                <i
+                  class="fas fa-database text-red-600 dark:text-red-400 text-xl"
+                ></i>
+              </div>
+              <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                STORAGE USED
+              </h2>
+              <h3 class="text-3xl font-bold text-red-600 dark:text-red-400">
+                {{ systemStats.storageUsed }} GB
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity Section -->
+  <div class="mb-8">
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-500"
+    >
+      <div class="p-6">
+        <h2
+          class="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white"
+        >
+          Recent Activity
+        </h2>
+        <div class="overflow-x-auto">
+          <table
+            class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
+          >
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                >
+                  User
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                >
+                  Action
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                >
+                  Details
+                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                >
+                  Time
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
+            >
+              <tr
+                *ngFor="let activity of recentActivities"
+                class="hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-10 w-10">
+                      <img
+                        class="h-10 w-10 rounded-full"
+                        [src]="activity.userAvatar"
+                        alt=""
+                      />
+                    </div>
+                    <div class="ml-4">
+                      <div
+                        class="text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        {{ activity.userName }}
+                      </div>
+                      <div class="text-sm text-gray-500 dark:text-gray-400">
+                        {{ activity.userRole }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                    [ngClass]="{
+                      'bg-blue-100 text-blue-800':
+                        activity.actionType === 'login',
+                      'bg-cyan-100 text-cyan-800':
+                        activity.actionType === 'enrollment',
+                      'bg-sky-100 text-sky-800':
+                        activity.actionType === 'update'
+                    }"
+                  >
+                    {{ activity.action }}
+                  </span>
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"
+                >
+                  {{ activity.details }}
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"
+                >
+                  {{ activity.time | date : "medium" }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Chart Section -->
+  <div>
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-500"
+    >
+      <div class="p-6">
+        <h2
+          class="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white"
+        >
+          User Registration Trends
+        </h2>
+        <canvas id="myChart" class="w-full h-[400px]"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

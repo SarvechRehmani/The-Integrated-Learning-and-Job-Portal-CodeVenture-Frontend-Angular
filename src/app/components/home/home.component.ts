@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'src/app/services/login.service';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'home',
@@ -15,20 +16,13 @@ export class HomeComponent implements OnInit {
     private el: ElementRef,
     private _title: Title,
     private snack: MatSnackBar,
-    private login: LoginService
+    private login: LoginService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this._title.setTitle('Home | CodeVenture');
     if (this.login.isloggedIn()) {
-      if (this.login.userRole() == 'ADMIN') {
-        window.location.href = '/profile/';
-      } else if (this.login.userRole() == 'MENTOR') {
-        window.location.href = '/mentor';
-      } else if (this.login.userRole() == 'NORMAL') {
-        window.location.href = '/user/';
-      } else if (this.login.userRole() == 'COMPANY') {
-        window.location.href = '/company';
-      }
+      this.router.navigate(['/login']);
     }
   }
 

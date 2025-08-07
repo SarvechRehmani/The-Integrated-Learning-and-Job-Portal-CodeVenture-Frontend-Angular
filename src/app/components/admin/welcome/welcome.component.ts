@@ -11,17 +11,16 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.css']
+  styleUrls: ['./welcome.component.css'],
 })
 export class WelcomeComponent implements OnInit {
-
   registeredUsersCount: number = 100; // Replace with the actual count
 
   constructor(
     private _title: Title,
     private _dashboard: DashboardService,
-    private sncak: MatSnackBar,
-  ) { }
+    private sncak: MatSnackBar
+  ) {}
   totalUsers: any;
   totalMentors: any;
   totalCompanies: any;
@@ -32,11 +31,9 @@ export class WelcomeComponent implements OnInit {
     this._title.setTitle('DashBoard | Admin | CodeVenture');
     this.countUsers();
     this.loadUsers();
-
-    console.log(1);
-
+    this.loadSystemStats();
+    this.loadRecentActivities();
   }
-
 
   countUsers() {
     this._dashboard.countUsers().subscribe(
@@ -48,12 +45,11 @@ export class WelcomeComponent implements OnInit {
       (error) => {
         this.sncak.open('Error in Counting Users.', 'OK', {
           duration: 3000,
-          verticalPosition: 'top'
-        })
+          verticalPosition: 'top',
+        });
       }
     );
   }
-
 
   loadUsers() {
     this._dashboard.getAllUsers().subscribe(
@@ -61,42 +57,89 @@ export class WelcomeComponent implements OnInit {
         this.users = data;
         console.log(data);
         this.loadGraph();
-
       },
       (error) => {
         this.sncak.open('Error in loading users.', 'OK', {
           duration: 3000,
-          verticalPosition: 'top'
+          verticalPosition: 'top',
         });
       }
     );
+  }
+  systemStats: any;
+  recentActivities: any;
+  loadSystemStats() {
+    // You'll need to implement this method based on your backend API
+    // For now, we'll use mock data
+    this.systemStats = {
+      courses: 24,
+      enrollments: 156,
+      activeSessions: 42,
+      storageUsed: 5.7,
+    };
+  }
+
+  loadRecentActivities() {
+    // You'll need to implement this method based on your backend API
+    // For now, we'll use mock data
+    this.recentActivities = [
+      {
+        userAvatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+        userName: 'John Doe',
+        userRole: 'Student',
+        action: 'Login',
+        actionType: 'login',
+        details: 'Logged in to the system',
+        time: new Date(),
+      },
+      {
+        userAvatar: 'https://randomuser.me/api/portraits/women/2.jpg',
+        userName: 'Jane Smith',
+        userRole: 'Mentor',
+        action: 'Created Course',
+        actionType: 'update',
+        details: 'Created new course "Advanced Angular"',
+        time: new Date(Date.now() - 3600000),
+      },
+      {
+        userAvatar: 'https://randomuser.me/api/portraits/men/3.jpg',
+        userName: 'Acme Corp',
+        userRole: 'Company',
+        action: 'Posted Job',
+        actionType: 'update',
+        details: 'Posted new job "Frontend Developer"',
+        time: new Date(Date.now() - 7200000),
+      },
+    ];
   }
 
   loadGraph() {
     const dateCounts: any = {};
 
-    this.users.forEach(user => {
+    this.users.forEach((user) => {
       const date = user.date;
       dateCounts[date] = (dateCounts[date] || 0) + 1;
     });
 
     const uniqueDates = Object.keys(dateCounts).sort();
-    const counts = uniqueDates.map(date => dateCounts[date]);
+    const counts = uniqueDates.map((date) => dateCounts[date]);
 
     new Chart('myChart', {
       type: 'bar',
       data: {
         labels: uniqueDates,
-        datasets: [{
-          label: 'Registered Users',
-          data: counts,
-          backgroundColor: 'rgba(255, 64, 129, 0.3)',
-          borderColor: 'rgba(255, 64, 129, 1)',
-          borderWidth: 1,
-          borderRadius: 20,
-          hoverBackgroundColor: 'rgba(255, 64, 129, 1)',
-          hoverBorderWidth: 5
-        }]
+        datasets: [
+          {
+            label: 'Registered Users',
+            data: counts,
+            backgroundColor: 'rgba(255, 64, 129, 0.3)',
+            borderColor: 'rgba(255, 64, 129, 1)',
+            borderWidth: 1,
+            borderRadius: 20,
+            hoverBackgroundColor: 'rgba(255, 64, 129, 1)',
+            hoverBorderWidth: 5,
+          },
+        ],
       },
       options: {
         scales: {
@@ -105,12 +148,11 @@ export class WelcomeComponent implements OnInit {
             grace: 3,
             ticks: {
               // stepSize:2
-            }
-          }
+            },
+          },
         },
-        responsive: false
+        responsive: false,
       },
     });
   }
 }
-

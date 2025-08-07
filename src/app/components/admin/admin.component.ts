@@ -1,11 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-mentor',
-  templateUrl: './mentor.component.html',
-  styleUrls: ['./mentor.component.css'],
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.css'],
 })
-export class MentorComponent implements OnInit {
+export class AdminComponent implements OnInit {
   sidebarOpen = false;
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {

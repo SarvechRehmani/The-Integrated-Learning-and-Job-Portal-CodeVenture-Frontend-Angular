@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { WelcomeComponent } from './components/profile/welcome/welcome.component';
+import { WelcomeComponent } from './components/admin/welcome/welcome.component';
 import { MentorComponent } from './components/mentor/mentor.component';
 import { WelcomeMentorComponent } from './components/mentor/welcome-mentor/welcome-mentor.component';
 import { AddLectureMentorComponent } from './components/mentor/add-lecture-mentor/add-lecture-mentor.component';
@@ -19,8 +18,8 @@ import { AddCourseMentorComponent } from './components/mentor/add-course-mentor/
 import { CoursesMentorComponent } from './components/mentor/courses-mentor/courses-mentor.component';
 import { ShowLectureMentorComponent } from './components/mentor/show-lecture-mentor/show-lecture-mentor.component';
 import { ProfileGuard } from './services/profile.guard';
-import { AddmentorComponent } from './components/profile/addmentor/addmentor.component';
-import { ShowmentorComponent } from './components/profile/showmentor/showmentor.component';
+import { AddmentorComponent } from './components/admin/addmentor/addmentor.component';
+import { ShowmentorComponent } from './components/admin/showmentor/showmentor.component';
 import { UserComponent } from './components/user/user.component';
 import { UserprofileComponent } from './components/user/userprofile/userprofile.component';
 import { UsercourseComponent } from './components/user/usercourse/usercourse.component';
@@ -32,7 +31,7 @@ import { AssignmentsUserComponent } from './components/user/assignments-user/ass
 import { SubmitAssignmentUserComponent } from './components/user/submit-assignment-user/submit-assignment-user.component';
 import { QuizesUserComponent } from './components/user/quizes-user/quizes-user.component';
 import { UpdateCourseComponent } from './components/mentor/update-course/update-course.component';
-import { UpdateMentorComponent } from './components/profile/update-mentor/update-mentor.component';
+import { UpdateMentorComponent } from './components/admin/update-mentor/update-mentor.component';
 import { UpdateLectureComponent } from './components/mentor/update-lecture/update-lecture.component';
 import { UpdateQuizComponent } from './components/mentor/update-quiz/update-quiz.component';
 import { ShowAllLecturesComponent } from './components/mentor/show-all-lectures/show-all-lectures.component';
@@ -44,11 +43,11 @@ import { AddLabTaskMentorComponent } from './components/mentor/add-lab-task-ment
 import { ShowAllLabTaskMentorComponent } from './components/mentor/show-all-lab-task-mentor/show-all-lab-task-mentor.component';
 import { ShowLabTaskMentorComponent } from './components/mentor/show-lab-task-mentor/show-lab-task-mentor.component';
 import { UpdateLabTaskMentorComponent } from './components/mentor/update-lab-task-mentor/update-lab-task-mentor.component';
-import { AdminprofileComponent } from './components/profile/adminprofile/adminprofile.component';
+import { AdminprofileComponent } from './components/admin/adminprofile/adminprofile.component';
 import { WelcomeUserComponent } from './components/user/welcome-user/welcome-user.component';
 import { CompanyComponent } from './components/company/company.component';
 import { CompanyProfileComponent } from './components/company/company-profile/company-profile.component';
-import { AddCompanyComponent } from './components/profile/add-company/add-company.component';
+import { AddCompanyComponent } from './components/admin/add-company/add-company.component';
 import { companyGuard } from './services/company.guard';
 import { AddJobsCompanyComponent } from './components/company/add-jobs-company/add-jobs-company.component';
 import { ViewJobsCompanyComponent } from './components/company/view-jobs-company/view-jobs-company.component';
@@ -63,21 +62,22 @@ import { GraddingAssignmentMentorComponent } from './components/mentor/gradding-
 import { MarksAssignmentMentorComponent } from './components/mentor/marks-assignment-mentor/marks-assignment-mentor.component';
 import { GraddingLabTaskMentorComponent } from './components/mentor/gradding-lab-task-mentor/gradding-lab-task-mentor.component';
 import { MarksLabTaskMentorComponent } from './components/mentor/marks-lab-task-mentor/marks-lab-task-mentor.component';
-import { ShowCompanyAdminComponent } from './components/profile/show-company-admin/show-company-admin.component';
-import { UpdateCompanyAdminComponent } from './components/profile/update-company-admin/update-company-admin.component';
+import { ShowCompanyAdminComponent } from './components/admin/show-company-admin/show-company-admin.component';
+import { UpdateCompanyAdminComponent } from './components/admin/update-company-admin/update-company-admin.component';
 import { ViewJobComponent } from './components/user/view-job/view-job.component';
-import { ShowUsersAdminComponent } from './components/profile/show-users-admin/show-users-admin.component';
+import { ShowUsersAdminComponent } from './components/admin/show-users-admin/show-users-admin.component';
 import { WelcomeCompanyComponent } from './components/company/welcome-company/welcome-company.component';
-import { ViewCoursesAdminComponent } from './components/profile/view-courses-admin/view-courses-admin.component';
-import { ShowAllLecturesAdminComponent } from './components/profile/show-all-lectures-admin/show-all-lectures-admin.component';
-import { ShowLectureAdminComponent } from './components/profile/show-lecture-admin/show-lecture-admin.component';
-import { ShowQuizAdminComponent } from './components/profile/show-quiz-admin/show-quiz-admin.component';
-import { ShowAssignmentAdminComponent } from './components/profile/show-assignment-admin/show-assignment-admin.component';
-import { ShowLabtaskAdminComponent } from './components/profile/show-labtask-admin/show-labtask-admin.component';
+import { ViewCoursesAdminComponent } from './components/admin/view-courses-admin/view-courses-admin.component';
+import { ShowAllLecturesAdminComponent } from './components/admin/show-all-lectures-admin/show-all-lectures-admin.component';
+import { ShowLectureAdminComponent } from './components/admin/show-lecture-admin/show-lecture-admin.component';
+import { ShowQuizAdminComponent } from './components/admin/show-quiz-admin/show-quiz-admin.component';
+import { ShowAssignmentAdminComponent } from './components/admin/show-assignment-admin/show-assignment-admin.component';
+import { ShowLabtaskAdminComponent } from './components/admin/show-labtask-admin/show-labtask-admin.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
-import { ShowJobsComponent } from './components/profile/show-jobs/show-jobs.component';
+import { ShowJobsComponent } from './components/admin/show-jobs/show-jobs.component';
 import { PublicLayoutComponent } from './components/public-layout/public-layout.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
   {
@@ -98,8 +98,8 @@ const routes: Routes = [
   //   pathMatch: "full"
   // },
   {
-    path: 'profile',
-    component: ProfileComponent,
+    path: 'admin',
+    component: AdminComponent,
     canActivate: [ProfileGuard],
     children: [
       {

@@ -16,12 +16,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { FooterComponent } from './components/footer/footer.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { SidebarComponent } from './components/profile/sidebar/sidebar.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { SidebarComponent } from './components/admin/sidebar/sidebar.component';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
-import { AdminprofileComponent } from './components/profile/adminprofile/adminprofile.component';
-import { WelcomeComponent } from './components/profile/welcome/welcome.component';
+import { AdminprofileComponent } from './components/admin/adminprofile/adminprofile.component';
+import { WelcomeComponent } from './components/admin/welcome/welcome.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,8 +45,8 @@ import { AddCourseMentorComponent } from './components/mentor/add-course-mentor/
 import { CoursesMentorComponent } from './components/mentor/courses-mentor/courses-mentor.component';
 import { ShowLectureMentorComponent } from './components/mentor/show-lecture-mentor/show-lecture-mentor.component';
 import { authInterceptorProviders } from './services/auth.interceptor';
-import { AddmentorComponent } from './components/profile/addmentor/addmentor.component';
-import { ShowmentorComponent } from './components/profile/showmentor/showmentor.component';
+import { AddmentorComponent } from './components/admin/addmentor/addmentor.component';
+import { ShowmentorComponent } from './components/admin/showmentor/showmentor.component';
 import { UserprofileComponent } from './components/user/userprofile/userprofile.component';
 import { UsersidebarComponent } from './components/user/usersidebar/usersidebar.component';
 import { UsercourseComponent } from './components/user/usercourse/usercourse.component';
@@ -57,7 +57,7 @@ import { AssignmentsUserComponent } from './components/user/assignments-user/ass
 import { SubmitAssignmentUserComponent } from './components/user/submit-assignment-user/submit-assignment-user.component';
 import { QuizesUserComponent } from './components/user/quizes-user/quizes-user.component';
 import { UpdateCourseComponent } from './components/mentor/update-course/update-course.component';
-import { UpdateMentorComponent } from './components/profile/update-mentor/update-mentor.component';
+import { UpdateMentorComponent } from './components/admin/update-mentor/update-mentor.component';
 import { UpdateLectureComponent } from './components/mentor/update-lecture/update-lecture.component';
 import { UpdateQuizComponent } from './components/mentor/update-quiz/update-quiz.component';
 import { ShowAllAssignmentsComponent } from './components/mentor/show-all-assignments/show-all-assignments.component';
@@ -75,7 +75,7 @@ import { SidebarCompanyComponent } from './components/company/sidebar-company/si
 import { CompanyProfileComponent } from './components/company/company-profile/company-profile.component';
 import { AddJobsCompanyComponent } from './components/company/add-jobs-company/add-jobs-company.component';
 import { ViewJobsCompanyComponent } from './components/company/view-jobs-company/view-jobs-company.component';
-import { AddCompanyComponent } from './components/profile/add-company/add-company.component';
+import { AddCompanyComponent } from './components/admin/add-company/add-company.component';
 import { ViewApplicationCompanyComponent } from './components/company/view-application-company/view-application-company.component';
 import { UpdateJobComponent } from './components/company/update-job/update-job.component';
 import { FindJobUserComponent } from './components/user/find-job-user/find-job-user.component';
@@ -88,21 +88,21 @@ import { GraddingAssignmentMentorComponent } from './components/mentor/gradding-
 import { MarksAssignmentMentorComponent } from './components/mentor/marks-assignment-mentor/marks-assignment-mentor.component';
 import { GraddingLabTaskMentorComponent } from './components/mentor/gradding-lab-task-mentor/gradding-lab-task-mentor.component';
 import { MarksLabTaskMentorComponent } from './components/mentor/marks-lab-task-mentor/marks-lab-task-mentor.component';
-import { ShowCompanyAdminComponent } from './components/profile/show-company-admin/show-company-admin.component';
-import { UpdateCompanyAdminComponent } from './components/profile/update-company-admin/update-company-admin.component';
+import { ShowCompanyAdminComponent } from './components/admin/show-company-admin/show-company-admin.component';
+import { UpdateCompanyAdminComponent } from './components/admin/update-company-admin/update-company-admin.component';
 import { ViewJobComponent } from './components/user/view-job/view-job.component';
-import { ShowUsersAdminComponent } from './components/profile/show-users-admin/show-users-admin.component';
+import { ShowUsersAdminComponent } from './components/admin/show-users-admin/show-users-admin.component';
 import { NgChartsModule } from 'ng2-charts';
 import { WelcomeCompanyComponent } from './components/company/welcome-company/welcome-company.component';
-import { ViewCoursesAdminComponent } from './components/profile/view-courses-admin/view-courses-admin.component';
-import { ShowAllLecturesAdminComponent } from './components/profile/show-all-lectures-admin/show-all-lectures-admin.component';
-import { ShowLectureAdminComponent } from './components/profile/show-lecture-admin/show-lecture-admin.component';
-import { ShowQuizAdminComponent } from './components/profile/show-quiz-admin/show-quiz-admin.component';
-import { ShowAssignmentAdminComponent } from './components/profile/show-assignment-admin/show-assignment-admin.component';
-import { ShowLabtaskAdminComponent } from './components/profile/show-labtask-admin/show-labtask-admin.component';
+import { ViewCoursesAdminComponent } from './components/admin/view-courses-admin/view-courses-admin.component';
+import { ShowAllLecturesAdminComponent } from './components/admin/show-all-lectures-admin/show-all-lectures-admin.component';
+import { ShowLectureAdminComponent } from './components/admin/show-lecture-admin/show-lecture-admin.component';
+import { ShowQuizAdminComponent } from './components/admin/show-quiz-admin/show-quiz-admin.component';
+import { ShowAssignmentAdminComponent } from './components/admin/show-assignment-admin/show-assignment-admin.component';
+import { ShowLabtaskAdminComponent } from './components/admin/show-labtask-admin/show-labtask-admin.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
-import { ShowJobsComponent } from './components/profile/show-jobs/show-jobs.component';
+import { ShowJobsComponent } from './components/admin/show-jobs/show-jobs.component';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { PublicLayoutComponent } from './components/public-layout/public-layout.component';
@@ -116,7 +116,7 @@ import { TruncatePipe } from './pipe/TruncatePipe';
     LoginComponent,
     RegisterComponent,
     FooterComponent,
-    ProfileComponent,
+    AdminComponent,
     SidebarComponent,
     AdminprofileComponent,
     WelcomeComponent,
