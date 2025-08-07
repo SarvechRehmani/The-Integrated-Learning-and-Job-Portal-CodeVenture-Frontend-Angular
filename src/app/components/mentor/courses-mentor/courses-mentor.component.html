@@ -95,8 +95,48 @@
     </div>
   </div>
 
+  <!-- Empty Course State -->
+  <div *ngIf="courses.length === 0" class="text-center py-16">
+    <div
+      class="relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl p-8 max-w-2xl mx-auto"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-600/5 opacity-60"
+      ></div>
+      <div class="relative z-10">
+        <div class="w-48 h-48 mx-auto mb-6 relative">
+          <img
+            src="assets/img/NotFound/empty.png"
+            class="w-full h-full object-contain"
+            alt="No courses found"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-600/10 rounded-full blur-xl opacity-30"
+          ></div>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">
+          No Courses Available
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">
+          There are currently no
+          <span class="text-emerald-500 dark:text-emerald-400 font-medium"
+            >courses</span
+          >
+          to display.
+        </p>
+        <button
+          routerLink="/mentor/addcourse"
+          class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <mat-icon class="mr-2">add</mat-icon>
+          Create New Course
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Add New Course Button -->
-  <div class="text-center">
+  <div class="text-center" *ngIf="courses.length != 0">
     <button
       routerLink="/mentor/addcourse"
       class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300"

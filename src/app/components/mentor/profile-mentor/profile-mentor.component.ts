@@ -21,6 +21,7 @@ export class ProfileMentorComponent implements OnInit {
   ) {}
 
   user: any;
+  previewUrl: string | ArrayBuffer | null = null; // Add this for image preview
 
   ngOnInit(): void {
     this._title.setTitle('Profile | Mentor | CodeVenture');
@@ -336,9 +337,18 @@ export class ProfileMentorComponent implements OnInit {
 
   // Selection of Image
   selectedFile: any = null;
+  // Enhanced file selection with preview
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
-    this.userFile = this.selectedFile;
-    console.log(this.selectedFile);
+    if (this.selectedFile) {
+      this.userFile = this.selectedFile;
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.previewUrl = e.target?.result ?? null;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
   }
 }

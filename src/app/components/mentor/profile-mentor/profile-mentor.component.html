@@ -208,11 +208,11 @@
                 class="bg-gray-50 dark:bg-gray-700/50 p-5 rounded-xl border border-gray-200 dark:border-gray-600 transition-all duration-300 hover:shadow-md hover:border-emerald-300 dark:hover:border-emerald-400"
               >
                 <div class="flex items-center">
-                  <mat-icon class="text-emerald-600 dark:text-emerald-400 mr-3"
-                    >info</mat-icon
-                  >
                   <div>
                     <p class="text-sm text-gray-500 dark:text-gray-400">
+                      <i
+                        class="fa-solid fa-circle-info text-emerald-600 dark:text-emerald-400 mr-1 !text-sm"
+                      ></i>
                       About
                     </p>
                     <p
@@ -253,7 +253,11 @@
         (click)="fileInput.click()"
       >
         <img
-          [src]="'http://localhost:9191/file/profile/' + user.profile"
+          [src]="
+            selectedFile
+              ? previewUrl
+              : 'http://localhost:9191/file/profile/' + user.profile
+          "
           alt="Profile picture"
           class="w-48 h-48 rounded-full object-cover border-4 border-white dark:border-gray-700 shadow-lg transition-all duration-300 group-hover:border-emerald-200 dark:group-hover:border-emerald-400"
         />

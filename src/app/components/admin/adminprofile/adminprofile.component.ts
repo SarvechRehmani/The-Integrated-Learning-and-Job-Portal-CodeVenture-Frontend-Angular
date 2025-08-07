@@ -57,7 +57,7 @@ export class AdminprofileComponent implements OnInit {
           this._user.getUserById(updatedUser.id).subscribe(
             (data) => {
               this.login.setUser(data);
-              window.location.href = '/profile/profile';
+              window.location.href = '/admin/profile';
             },
             (error) => {
               Swal.fire('Error', 'Error in Redirecting...', 'error');
@@ -107,7 +107,7 @@ export class AdminprofileComponent implements OnInit {
           this._user.getUserById(this.user.id).subscribe(
             (data) => {
               this.login.setUser(data);
-              window.location.href = '/profile/profile';
+              window.location.href = '/admin/profile';
             },
             (error) => {
               Swal.fire('Error', 'Error in Redirecting...', 'error');
