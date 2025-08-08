@@ -1,101 +1,184 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card class="shadow mb-2">
-                    <div class="text-center m-3">
-                        <mat-card-title class="text-color">Update Mentor</mat-card-title>
-                        <mat-card-subtitle>Enter the details of mentor</mat-card-subtitle>
-                    </div>
-                </mat-card>
-                <div class="col-md-12">
-                    <mat-card class="shadow">
-                        <mat-card-content>
-                            {{user | json}}
-                            <form (ngSubmit)="formSubmit()" class="p-5">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!-- USERNAME-->
-                                            <mat-form-field appearance="fill" class="max-width">
-                                                <mat-label>Username</mat-label>
-                                                <input [(ngModel)]="user.username" name="username" matInput
-                                                    placeholder="Enter Mentor's Username">
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <!-- FIRST NAME-->
-                                            <mat-form-field appearance="fill" class="max-width">
-                                                <mat-label>First Name</mat-label>
-                                                <input [(ngModel)]="user.firstName" name="firstName" matInput
-                                                    placeholder="Enter Mentor's First Name">
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <!-- LAST NAME-->
-                                            <mat-form-field appearance="fill" class="max-width">
-                                                <mat-label>Last Name</mat-label>
-                                                <input [(ngModel)]="user.lastName" name="lastName" matInput
-                                                    placeholder="Enter Mentor's Last Name">
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <!-- PHONE -->
-                                            <mat-form-field appearance="fill" class="max-width">
-                                                <mat-label>Phone</mat-label>
-                                                <input [(ngModel)]="user.phone" name="phone" matInput
-                                                    placeholder="Enter Mentor's Phone">
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <!-- EMAIL ADDRESS-->
-                                            <mat-form-field appearance="fill" class="max-width">
-                                                <mat-label>Email Address</mat-label>
-                                                <input [(ngModel)]="user.email" name="email" matInput
-                                                    placeholder="Enter Mentor's Email">
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <!-- ADRESS-->
-                                            <mat-form-field appearance="fill" class="max-width">
-                                                <mat-label>Address</mat-label>
-                                                <input [(ngModel)]="user.address" name="address" matInput
-                                                    placeholder="Enter Mentor's Address">
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <!-- CATEGORY-->
-                                            <mat-form-field appearance="fill" class="max-width">
-                                                <mat-label>Select Category</mat-label>
-                                                <mat-select [(ngModel)]="user.field" name="field" matNativeControl
-                                                    id="catSelect">
-                                                    <mat-option value="frontend">Frontend</mat-option>
-                                                    <mat-option value="backend">Backend</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <!-- BIO-->
-                                            <mat-form-field appearance="fill" class="max-width">
-                                                <mat-label>Bio</mat-label>
-                                                <textarea [(ngModel)]="user.bio" name="bio" matInput
-                                                    placeholder="Enter Mentor's Bio"></textarea>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-md-12 text-center">
-                                            <button mat-raised-button color="accent">Update Mentor</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-            </div>
-        </div>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Hero Header with Glass Morphism Effect -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-cyan-600/5 opacity-60 dark:from-blue-500/5 dark:to-cyan-500/5"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-500 dark:to-cyan-500 mb-3"
+      >
+        <span>Update Mentor</span>
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Update the details of mentor
+      </p>
     </div>
-    <style>
-        .mw {
-            width: 100%;
-        }
-    </style>
+  </div>
+
+  <!-- Form Section -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-500"
+  >
+    <mat-card-content>
+      <form (ngSubmit)="formSubmit()" class="p-6 sm:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <!-- Username -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Username</mat-label
+            >
+            <input
+              [(ngModel)]="user.username"
+              name="username"
+              matInput
+              placeholder="Enter Mentor's Username"
+              required
+              class="dark:text-white"
+            />
+            <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+              >person</mat-icon
+            >
+          </mat-form-field>
+
+          <!-- First Name -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >First Name</mat-label
+            >
+            <input
+              [(ngModel)]="user.firstName"
+              name="firstName"
+              matInput
+              placeholder="Enter Mentor's First Name"
+              required
+              class="dark:text-white"
+            />
+            <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+              >badge</mat-icon
+            >
+          </mat-form-field>
+
+          <!-- Last Name -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Last Name</mat-label
+            >
+            <input
+              [(ngModel)]="user.lastName"
+              name="lastName"
+              matInput
+              placeholder="Enter Mentor's Last Name"
+              required
+              class="dark:text-white"
+            />
+            <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+              >badge</mat-icon
+            >
+          </mat-form-field>
+
+          <!-- Phone -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Phone</mat-label
+            >
+            <input
+              [(ngModel)]="user.phone"
+              name="phone"
+              matInput
+              placeholder="Enter Mentor's Phone"
+              class="dark:text-white"
+            />
+            <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+              >phone</mat-icon
+            >
+          </mat-form-field>
+
+          <!-- Email -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Email Address</mat-label
+            >
+            <input
+              [(ngModel)]="user.email"
+              name="email"
+              type="email"
+              matInput
+              placeholder="Enter Mentor's Email"
+              required
+              class="dark:text-white"
+            />
+            <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+              >email</mat-icon
+            >
+          </mat-form-field>
+
+          <!-- Address -->
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Address</mat-label
+            >
+            <input
+              [(ngModel)]="user.address"
+              name="address"
+              matInput
+              placeholder="Enter Mentor's Address"
+              class="dark:text-white"
+            />
+            <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+              >location_on</mat-icon
+            >
+          </mat-form-field>
+
+          <!-- Category -->
+          <mat-form-field appearance="outline" class="w-full md:col-span-2">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Select Category</mat-label
+            >
+            <mat-select
+              [(ngModel)]="user.field"
+              name="field"
+              required
+              class="dark:text-white"
+            >
+              <mat-option value="frontend">Frontend</mat-option>
+              <mat-option value="backend">Backend</mat-option>
+            </mat-select>
+            <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+              >category</mat-icon
+            >
+          </mat-form-field>
+
+          <!-- Bio -->
+          <mat-form-field appearance="outline" class="w-full md:col-span-2">
+            <mat-label class="text-gray-700 dark:text-gray-300">Bio</mat-label>
+            <textarea
+              [(ngModel)]="user.bio"
+              name="bio"
+              matInput
+              placeholder="Enter Mentor's Bio"
+              class="dark:text-white"
+              rows="3"
+            ></textarea>
+            <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+              >info</mat-icon
+            >
+          </mat-form-field>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <button
+            type="submit"
+            class="!bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white !rounded-xl !font-medium !px-8 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300 flex items-center justify-center"
+          >
+            <mat-icon class="mr-2">update</mat-icon>
+            Update Mentor
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </div>
+</div>

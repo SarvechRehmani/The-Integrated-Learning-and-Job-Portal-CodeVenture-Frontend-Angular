@@ -1,67 +1,212 @@
-<div class="bootstrap-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <mat-card class="shadow mb-2">
-          <div class="text-center m-3">
-            <mat-card-title class="text-color">Show Jobs</mat-card-title>
-            <mat-card-subtitle>List of Jobs</mat-card-subtitle>
-          </div>
-        </mat-card>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Hero Header with Glass Morphism Effect -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-600/5 opacity-60"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 mb-3"
+      >
+        Job Openings
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Manage and review all current job listings
+      </p>
+    </div>
+  </div>
 
-        <!-- Iterate over jobs -->
-        <div class="row">
-          <div class="col-md-12" *ngFor="let j of jobs">
-            <div class="card shadow* mb-3">
-              <div class="card-header p-3 text-center">
-                <h1 class="text-color fw-bold m-0">{{ j.jTitle }}</h1>
-                <h3 class="m-0">{{ j.jType }}</h3>
+  <!-- Job Listings Grid -->
+  <div class="grid grid-cols-1 gap-8 mb-12">
+    <div
+      *ngFor="let j of jobs"
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-gray-100 dark:border-gray-700 group hover:border-blue-300 dark:hover:border-blue-500"
+    >
+      <!-- Job Header with Gradient -->
+      <div class="relative h-48 bg-gradient-to-br from-blue-500 to-indigo-600">
+        <div
+          class="absolute inset-0 bg-black/10 transition-all duration-300 group-hover:bg-black/20"
+        ></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <i
+            class="fa-solid fa-briefcase text-white text-6xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"
+          ></i>
+        </div>
+        <div class="relative p-6 h-full flex flex-col justify-between">
+          <div class="flex justify-between items-start">
+            <div>
+              <h2 class="text-2xl font-bold text-white">{{ j.jTitle }}</h2>
+              <div class="flex items-center mt-2 space-x-3">
+                <span class="text-blue-100 flex items-center">
+                  <i class="fas fa-building mr-2"></i>
+                  {{ j.jCompanyName }}
+                </span>
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/20 text-white"
+                >
+                  {{ j.jType }}
+                </span>
               </div>
-              <div class="card-body m-1 p-3">
-                <div class="row">
-                  <div class="col-md-9">
-                    <p class="justifyPara">{{ j.jDescription }}</p>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="tableDiv">
-                      <table class="table table-bordered">
-                        <tbody>
-                          <tr>
-                            <th class="text-color">Deadline</th>
-                            <td>{{ j.jDeadline }}</td>
-                          </tr>
-                          <tr>
-                            <th class="text-color">Skill</th>
-                            <td>{{ j.jSkills }}</td>
-                          </tr>
-                          <tr>
-                            <th class="text-color">Location</th>
-                            <td>{{ j.jLocation }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+            </div>
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 text-white backdrop-blur-sm"
+            >
+              <i class="fas fa-clock mr-1"></i>
+              Apply by: {{ j.jDeadline }}
+            </span>
+          </div>
+          <div class="flex space-x-2">
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 text-white backdrop-blur-sm"
+            >
+              <i class="fas fa-map-marker-alt mr-1"></i>
+              {{ j.jLocation }}
+            </span>
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 text-white backdrop-blur-sm"
+            >
+              <i class="fas fa-user-graduate mr-1"></i>
+              {{ j.jEducation }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job Content -->
+      <div class="p-6">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <!-- Main Description -->
+          <div class="lg:col-span-3">
+            <div class="mb-6">
+              <h3
+                class="text-lg font-semibold text-gray-900 dark:text-white mb-2 flex items-center"
+              >
+                <i class="fas fa-align-left text-blue-500 mr-2"></i>
+                Job Description
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300">
+                {{ j.jDescription }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Job Details Sidebar -->
+          <div class="lg:col-span-1">
+            <div
+              class="bg-gray-50 dark:bg-gray-700/30 rounded-xl p-4 border border-gray-200 dark:border-gray-600 backdrop-blur-sm"
+            >
+              <h4
+                class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center"
+              >
+                <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                Job Details
+              </h4>
+
+              <div class="space-y-4">
+                <div>
+                  <p
+                    class="text-sm text-gray-500 dark:text-gray-400 flex items-center"
+                  >
+                    <i class="fas fa-chart-line mr-2"></i>
+                    Experience Level
+                  </p>
+                  <p class="font-medium text-gray-900 dark:text-white mt-1">
+                    {{ j.jExperience }}
+                  </p>
+                </div>
+
+                <div>
+                  <p
+                    class="text-sm text-gray-500 dark:text-gray-400 flex items-center"
+                  >
+                    <i class="fas fa-tools mr-2"></i>
+                    Key Skills
+                  </p>
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    <span
+                      *ngFor="let skill of j.jSkills.split(',')"
+                      class="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200"
+                    >
+                      {{ skill.trim() }}
+                    </span>
                   </div>
                 </div>
-              </div>
-              <div class="card-footer">
-                <div class="row">
-                  <div class="col-md-12 text-center">
-                    <button
-                      class="m-2 btn btn-danger"
-                      (click)="deleteJob(j.jId)"
-                    >
-                      Delete
-                    </button>
-                    <button class="btn btn-warning m-2">
-                      Experience Level: {{ j.jExperience }}
-                    </button>
-                  </div>
+
+                <div>
+                  <p
+                    class="text-sm text-gray-500 dark:text-gray-400 flex items-center"
+                  >
+                    <i class="fas fa-phone mr-2"></i>
+                    Company Contact
+                  </p>
+                  <p class="font-medium text-gray-900 dark:text-white mt-1">
+                    {{ j.jCompanyContact }}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Job Footer -->
+      <div
+        class="px-6 py-4 bg-gray-50 dark:bg-gray-700/20 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center"
+      >
+        <div class="text-sm text-gray-500 dark:text-gray-400 flex items-center">
+          <i class="fas fa-calendar-alt mr-2"></i>
+          Posted on: {{ (j.postedDate | date : "mediumDate") || "12/22/2023" }}
+        </div>
+        <div class="flex space-x-3">
+          <button
+            (click)="deleteJob(j.jId)"
+            class="flex items-center px-4 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-xl shadow hover:shadow-md transition-all"
+          >
+            <i class="fas fa-trash mr-2"></i>
+            Delete
+          </button>
+          <button
+            class="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-xl shadow hover:shadow-md transition-all"
+          >
+            <i class="fas fa-edit mr-2"></i>
+            Edit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="jobs.length === 0" class="text-center py-16">
+    <div
+      class="relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl p-8 max-w-2xl mx-auto"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-600/5 opacity-60"
+      ></div>
+      <div class="relative z-10">
+        <div class="w-48 h-48 mx-auto mb-6 relative">
+          <img
+            src="assets/img/NotFound/empty.png"
+            class="w-full h-full object-contain"
+            alt="No jobs found"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-indigo-600/10 rounded-full blur-xl opacity-30"
+          ></div>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">
+          No Jobs Available
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">
+          There are currently no
+          <span class="text-blue-500 dark:text-blue-400 font-medium"
+            >job listings</span
+          >
+          to display.
+        </p>
       </div>
     </div>
   </div>

@@ -1,79 +1,146 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <mat-card class="shadow mb-2">
-            <div class="text-center m-3">
-              <mat-card-title class="text-color">Update Company</mat-card-title>
-              <mat-card-subtitle>Enter the details of Company</mat-card-subtitle>
-            </div>
-          </mat-card>
-          <mat-card>
-            <mat-card-content>
-              {{ company | json }}
-              <form (ngSubmit)="formSubmit()" class="p-5">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <!-- FIRST NAME-->
-                      <mat-form-field appearance="fill" class="max-width" color="accent">
-                        <mat-label>Conpany Name</mat-label>
-                        <input [(ngModel)]="company.firstName" name="firstName" matInput
-                          placeholder="Enter Company's Name" required/>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-12">
-                      <!-- USERNAME-->
-                      <mat-form-field appearance="fill" class="max-width" color="accent">
-                        <mat-label>Username</mat-label>
-                        <input [(ngModel)]="company.username" name="username" matInput
-                          placeholder="Enter Company's Username" required/>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-6">
-                      <!-- PHONE -->
-                      <mat-form-field appearance="fill" class="max-width" color="accent">
-                        <mat-label>Contact No</mat-label>
-                        <input [(ngModel)]="company.phone" name="phone" matInput placeholder="Enter Company's Contact" required/>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-6">
-                      <!-- EMAIL ADDRESS-->
-                      <mat-form-field appearance="fill" class="max-width" color="accent">
-                        <mat-label>Email Address</mat-label>
-                        <input [(ngModel)]="company.email" name="email" matInput placeholder="Enter Company's Email" required/>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-12">
-                      <!-- ADRESS-->
-                      <mat-form-field appearance="fill" class="max-width" color="accent">
-                        <mat-label>Address</mat-label>
-                        <input [(ngModel)]="company.address" name="address" matInput placeholder="Enter Company's Address" />
-                      </mat-form-field>
-                    </div>
-  
-                    <div class="col-md-12">
-                      <!-- BIO-->
-                      <mat-form-field appearance="fill" class="max-width" color="accent">
-                        <mat-label>About</mat-label>
-                        <textarea [(ngModel)]="company.bio" name="bio" matInput
-                          placeholder="Enter Company's About"></textarea>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-12 text-center">
-                      <button mat-raised-button color="accent" class="m-2">
-                        UPDATE COMPANY
-                      </button>
-                      <button mat-raised-button color="primary" class="m-2" type="reset">
-                        CLEAR
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Hero Header with Glass Morphism Effect -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-cyan-600/5 opacity-60 dark:from-blue-500/5 dark:to-cyan-500/5"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-500 dark:to-cyan-500 mb-3"
+      >
+        <span>Update Company</span>
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Update the details of the company
+      </p>
     </div>
   </div>
+
+  <!-- Form Section -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-500"
+  >
+    <form (ngSubmit)="formSubmit()" class="p-6 sm:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Company Name -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Company Name</mat-label
+          >
+          <input
+            [(ngModel)]="company.firstName"
+            name="firstName"
+            matInput
+            placeholder="Enter Company's Name"
+            required
+            class="dark:text-white"
+          />
+          <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+            >business</mat-icon
+          >
+        </mat-form-field>
+
+        <!-- Username -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Username</mat-label
+          >
+          <input
+            [(ngModel)]="company.username"
+            name="username"
+            matInput
+            placeholder="Enter Company's Username"
+            required
+            class="dark:text-white"
+          />
+          <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+            >person</mat-icon
+          >
+        </mat-form-field>
+
+        <!-- Contact No -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Contact No</mat-label
+          >
+          <input
+            [(ngModel)]="company.phone"
+            name="phone"
+            matInput
+            placeholder="Enter Company's Contact"
+            required
+            class="dark:text-white"
+          />
+          <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+            >phone</mat-icon
+          >
+        </mat-form-field>
+
+        <!-- Email Address -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Email Address</mat-label
+          >
+          <input
+            [(ngModel)]="company.email"
+            name="email"
+            type="email"
+            matInput
+            placeholder="Enter Company's Email"
+            required
+            class="dark:text-white"
+          />
+          <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+            >email</mat-icon
+          >
+        </mat-form-field>
+
+        <!-- Address -->
+        <mat-form-field appearance="outline" class="w-full md:col-span-2">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Address</mat-label
+          >
+          <input
+            [(ngModel)]="company.address"
+            name="address"
+            matInput
+            placeholder="Enter Company's Address"
+            class="dark:text-white"
+          />
+          <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+            >location_on</mat-icon
+          >
+        </mat-form-field>
+
+        <!-- About -->
+        <mat-form-field appearance="outline" class="w-full md:col-span-2">
+          <mat-label class="text-gray-700 dark:text-gray-300">About</mat-label>
+          <textarea
+            [(ngModel)]="company.bio"
+            name="bio"
+            matInput
+            placeholder="Enter Company's About"
+            class="dark:text-white"
+            rows="3"
+          ></textarea>
+          <mat-icon matPrefix class="text-blue-600 dark:text-blue-400 mr-2"
+            >info</mat-icon
+          >
+        </mat-form-field>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <button
+          type="submit"
+          class="!bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white !rounded-xl !font-medium !px-8 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300 flex items-center justify-center"
+        >
+          <mat-icon class="mr-2">update</mat-icon>
+          Update Company
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
