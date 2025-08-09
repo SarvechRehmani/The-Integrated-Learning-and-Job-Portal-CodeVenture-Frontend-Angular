@@ -20,7 +20,7 @@ export class ShowCompanyAdminComponent implements OnInit {
   constructor(
     private _title: Title,
     private userService: UserService,
-    private snack: MatSnackBar
+    private _snack: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -29,21 +29,46 @@ export class ShowCompanyAdminComponent implements OnInit {
   }
 
   loadCompanies(): void {
-    this.userService.getCompanies().subscribe(
-      (data: any) => {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    this.userService.getCompanies().subscribe({
+      next: (data: any) => {
         this.companies = data || [];
         this.filteredCompanies = [...this.companies];
         this.totalPages = Math.ceil(
           this.filteredCompanies.length / this.pageSize
         );
       },
-      (error: any) => {
-        Swal.fire('Error', error, 'error');
+      error: (error: any) => {
+        Swal.fire({
+          title: 'Error',
+          text: error.message || 'Failed to load companies',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#2196F3',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark
+                ? 'dark:from-red-500 dark:to-pink-500'
+                : 'from-red-600 to-pink-600'
+            }`,
+            confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOut animate__faster',
+          },
+        });
+
         this.companies = [];
         this.filteredCompanies = [];
         this.totalPages = 1;
-      }
-    );
+      },
+    });
   }
 
   searchCompanies(): void {
@@ -118,22 +143,65 @@ export class ShowCompanyAdminComponent implements OnInit {
   }
 
   deleteCompany(id: any) {
+    const isDark = document.documentElement.classList.contains('dark');
+    const snackbarConfig = {
+      duration: 3000,
+      verticalPosition: 'top' as const,
+      horizontalPosition: 'right' as const,
+      panelClass: ['error-snackbar'],
+    };
+
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You want to delete this company',
+      title: 'Delete Company?',
+      text: 'This action cannot be undone',
       icon: 'warning',
+      background: isDark ? '#1f2937' : '#ffffff',
+      color: isDark ? '#f3f4f6' : '#1f2937',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#ff4081',
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#2196F3',
       confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        popup: `!rounded-2xl !shadow-xl ${
+          isDark
+            ? 'dark:from-red-500 dark:to-pink-500'
+            : 'from-red-600 to-pink-600'
+        }`,
+        confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r `,
+        cancelButton: `!rounded-xl !shadow-md bg-gradient-to-r `,
+      },
+      showClass: {
+        popup: 'animate__animated animate__fadeIn animate__faster',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOut animate__faster',
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userService.deleteUser(id).subscribe(
-          (success) => {
-            this.snack.open('Company has been deleted..', 'Ok', {
-              verticalPosition: 'top',
-              duration: 3000,
+        this.userService.deleteUser(id).subscribe({
+          next: (success) => {
+            Swal.fire({
+              title: 'Deleted',
+              text: 'Company was successfully deleted',
+              icon: 'success',
+              background: isDark ? '#1f2937' : '#ffffff',
+              color: isDark ? '#f3f4f6' : '#1f2937',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#2196F3',
+              customClass: {
+                popup: `!rounded-2xl !shadow-xl ${
+                  isDark
+                    ? 'dark:from-green-500 dark:to-teal-500'
+                    : 'from-green-600 to-teal-600'
+                }`,
+                confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+              },
+              showClass: {
+                popup: 'animate__animated animate__fadeIn animate__faster',
+              },
             });
+
             this.companies = this.companies.filter(
               (company: any) => company.id != id
             );
@@ -144,13 +212,13 @@ export class ShowCompanyAdminComponent implements OnInit {
               this.filteredCompanies.length / this.pageSize
             );
           },
-          (error) => {
-            this.snack.open('Something went wrong..', 'Ok', {
-              verticalPosition: 'top',
-              duration: 3000,
+          error: (error) => {
+            this._snack.open('Failed to delete company', 'Close', {
+              ...snackbarConfig,
+              panelClass: ['error-snackbar'],
             });
-          }
-        );
+          },
+        });
       }
     });
   }

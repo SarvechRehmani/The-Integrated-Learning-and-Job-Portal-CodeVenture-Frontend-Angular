@@ -41,37 +41,67 @@ export class ShowJobsComponent {
   }
 
   deleteJob(jId: any) {
+    const isDark = document.documentElement.classList.contains('dark');
+    const snackbarConfig = {
+      duration: 3000,
+      verticalPosition: 'top' as const,
+      horizontalPosition: 'right' as const,
+      panelClass: ['error-snackbar'],
+    };
+
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You want to delete this Course',
+      title: 'Delete Job?',
+      text: 'This action cannot be undone',
       icon: 'warning',
+      background: isDark ? '#1f2937' : '#ffffff',
+      color: isDark ? '#f3f4f6' : '#1f2937',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#673ab7',
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#2196F3',
       confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        popup: `!rounded-2xl !shadow-xl ${
+          isDark
+            ? 'dark:from-red-500 dark:to-pink-500'
+            : 'from-red-600 to-pink-600'
+        }`,
+        confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+        cancelButton: `!rounded-xl !shadow-md bg-gradient-to-r ${
+          isDark
+            ? 'dark:from-purple-500 dark:to-indigo-500'
+            : 'from-purple-600 to-indigo-600'
+        }`,
+      },
+      showClass: {
+        popup: 'animate__animated animate__fadeIn animate__faster',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOut animate__faster',
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        this._job.deleteJob(jId).subscribe(
-          (success) => {
-            this._snack.open('Job has been deleted..', 'Ok', {
-              verticalPosition: 'top',
-              duration: 3000,
+        this._job.deleteJob(jId).subscribe({
+          next: (success) => {
+            this._snack.open('Job has been deleted successfully', 'Close', {
+              ...snackbarConfig,
+              panelClass: ['success-snackbar'],
             });
             this.jobs = this.jobs.filter((job: any) => job.jId != jId);
           },
-          (error) => {
-            this._snack.open('Something went wroung..', 'Ok', {
-              verticalPosition: 'top',
-              duration: 3000,
+          error: (error) => {
+            this._snack.open('Failed to delete job', 'Close', {
+              ...snackbarConfig,
+              panelClass: ['error-snackbar'],
             });
-          }
-        );
+          },
+        });
       }
     });
   }
 
   searchQuery: any;
-  onSearchLecture() {
+  onSearchJobs() {
     if (this.searchQuery === '') {
       // reload all lectures again
       console.log(this.jobs);
@@ -81,13 +111,23 @@ export class ShowJobsComponent {
       return;
     }
 
-    const filtered = this.originalJobs.filter((lecture: any) =>
-      lecture.lTitle.toLowerCase().includes(this.searchQuery.toLowerCase())
+    const filtered = this.originalJobs.filter(
+      (job: any) =>
+        job.jTitle.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        job.jDescription
+          .toLowerCase()
+          .includes(this.searchQuery.toLowerCase()) ||
+        job.jSkills.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        job.jDeadline.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        job.jEducation.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        job.jLocation.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
 
     if (filtered.length === 0) {
       this._snack.open('No lectures found.', 'Ok', {
         verticalPosition: 'top',
+        horizontalPosition: 'right',
+        panelClass: ['error-snackbar'],
         duration: 3000,
       });
     }

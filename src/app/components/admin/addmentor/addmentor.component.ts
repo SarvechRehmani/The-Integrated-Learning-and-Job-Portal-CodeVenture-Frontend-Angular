@@ -7,89 +7,97 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-addmentor',
   templateUrl: './addmentor.component.html',
-  styleUrls: ['./addmentor.component.css']
+  styleUrls: ['./addmentor.component.css'],
 })
 export class AddmentorComponent implements OnInit {
   constructor(
-    private _title:Title,
+    private _title: Title,
     private userService: UserService,
     private snack: MatSnackBar
-    ){}
+  ) {}
   ngOnInit(): void {
     this._title.setTitle('Add Mentor | Admin | CodeVenture');
   }
-  public user={
-    username:'',
-    password:'',
-    firstName:'',
-    lastName:'',
-    phone:'',
-    email:'',
-    address:'',
-    field:'',
-    bio:'',
-    checkRole: 'MENTOR'
-  }
-  formSubmit(){
+  public user: any = {
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    address: '',
+    field: '',
+    bio: '',
+    checkRole: 'MENTOR',
+  };
+  formSubmit() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const snackbarConfig = {
+      duration: 3000,
+      verticalPosition: 'top' as const,
+      horizontalPosition: 'right' as const,
+      panelClass: ['error-snackbar'],
+    };
 
-    if(this.user.username == '' || this.user.username == null){
-      this.snack.open('Username can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    if(this.user.password == '' || this.user.password == null){
-      this.snack.open('Password can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    if(this.user.firstName == '' || this.user.firstName == null){
-      this.snack.open('First name can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    if(this.user.lastName == '' || this.user.lastName == null){
-      this.snack.open('Last name can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    if(this.user.email == '' || this.user.email == null){
-      this.snack.open('Email can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    if(this.user.field == '' || this.user.field == null){
-      this.snack.open('Please select category for mentor.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    // addUser : userService
-    this.userService.addUser(this.user).subscribe(
-      (data:any) => {
-        // success
-        console.log(data);
-        Swal.fire('Mentor is Successfully Registered','Mentor ID is '+data.id,'success');
-        // alert("success");
-      },
-      (error) => {
-        console.log(error);
-        this.snack.open('Something went wrong.'+error,'OK',{
-          duration: 3000,
-          verticalPosition:'top'
-        })
-        // alert("Something went wrong..");
+    // Validation checks
+    const validations = [
+      { field: 'username', message: 'Username cannot be blank' },
+      { field: 'password', message: 'Password cannot be blank' },
+      { field: 'firstName', message: 'First name cannot be blank' },
+      { field: 'lastName', message: 'Last name cannot be blank' },
+      { field: 'email', message: 'Email cannot be blank' },
+      { field: 'field', message: 'Please select category for mentor' },
+    ];
+
+    for (const validation of validations) {
+      if (!this.user[validation.field]) {
+        this.snack.open(validation.message, 'OK', snackbarConfig);
+        return;
       }
-    )
+    }
+
+    // Add mentor user
+    this.userService.addUser(this.user).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        Swal.fire({
+          title: 'Mentor Successfully Registered',
+          text: `Mentor ID is ${data.id}`,
+          icon: 'success',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonText: 'OK',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark
+                ? 'dark:from-blue-500 dark:to-cyan-500'
+                : 'from-blue-600 to-cyan-600'
+            }`,
+            confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+          },
+          confirmButtonColor: '#2196F3',
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        }).then(() => {
+          // Reset form if needed
+          this.user = {
+            username: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            phone: '',
+            email: '',
+            address: '',
+            field: '',
+            bio: '',
+            checkRole: 'MENTOR',
+          };
+        });
+      },
+      error: (error) => {
+        this.snack.open('Something went wrong', 'OK', snackbarConfig);
+      },
+    });
   }
 }

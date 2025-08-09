@@ -7,97 +7,104 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-company',
   templateUrl: './add-company.component.html',
-  styleUrls: ['./add-company.component.css']
+  styleUrls: ['./add-company.component.css'],
 })
 export class AddCompanyComponent {
   constructor(
-    private _title:Title,
+    private _title: Title,
     private userService: UserService,
     private snack: MatSnackBar
-    ){}
+  ) {}
   ngOnInit(): void {
- 
     this._title.setTitle('Add Company | Admin | CodeVenture');
   }
-  public user={
-    username:'',
-    password:'',
-    firstName:'',
-    lastName:'',
-    phone:'',
-    email:'',
-    address:'',
-    field:'',
-    bio:'',
-    checkRole: 'COMPANY'
-  }
-  formSubmit(){
-    if(this.user.username == '' || this.user.username == null){
-      this.snack.open('username can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
+  public user: any = {
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    address: '',
+    field: '',
+    bio: '',
+    checkRole: 'COMPANY',
+  };
+  formSubmit() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const snackbarConfig = {
+      duration: 3000,
+      verticalPosition: 'top' as const,
+      horizontalPosition: 'right' as const,
+      panelClass: ['error-snackbar'],
+    };
+
+    // Validation checks
+    const validations = [
+      { field: 'username', message: 'Please enter a username' },
+      { field: 'password', message: 'Please enter a password' },
+      { field: 'firstName', message: 'Please enter a company name' },
+      { field: 'phone', message: 'Please enter a phone number' },
+      { field: 'email', message: 'Please enter a email' },
+    ];
+
+    for (const validation of validations) {
+      if (!this.user[validation.field]) {
+        this.snack.open(validation.message, 'OK', snackbarConfig);
+        return;
+      }
     }
-    if(this.user.password == '' || this.user.password == null){
-      this.snack.open('Password can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    if(this.user.firstName == '' || this.user.firstName == null){
-      this.snack.open('Conpany name can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    if(this.user.phone == '' || this.user.phone == null){
-      this.snack.open('Contact no can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    if(this.user.email == '' || this.user.email == null){
-      this.snack.open('Email no can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    // addUser : userService
-    this.userService.addUser(this.user).subscribe(
-      (data:any) => {
-        // success
+
+    // Add company user
+    this.userService.addUser(this.user).subscribe({
+      next: (data: any) => {
         console.log(data);
-        Swal.fire('Company is Successfully Registered','Company ID is '+data.id,'success').then(
-          (e)=>{
-            this.user={
-              username:'',
-              password:'',
-              firstName:'',
-              lastName:'',
-              phone:'',
-              email:'',
-              address:'',
-              field:'',
-              bio:'',
-              checkRole: 'COMPANY'
-            }
+        Swal.fire({
+          title: 'Company Successfully Registered',
+          text: `Company ID is ${data.id}`,
+          icon: 'success',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonText: 'OK',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark
+                ? 'dark:from-blue-500 dark:to-cyan-500'
+                : 'from-blue-600 to-cyan-600'
+            }`,
+            confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+          },
+          confirmButtonColor: '#2196F3',
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        }).then((e) => {
+          this.user = {
+            username: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            phone: '',
+            email: '',
+            address: '',
+            field: '',
+            bio: '',
+            checkRole: 'COMPANY',
+          };
+        });
+      },
+      error: (error) => {
+        console.log(error);
+        this.snack.open(
+          `Something went wrong: ${error.message || error}`,
+          'OK',
+          {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: isDark ? ['dark-snackbar'] : [],
           }
         );
-        // alert("success");
       },
-      (error) => {
-        console.log(error);
-        this.snack.open('Something went wrong.'+error,'OK',{
-          duration: 3000,
-          verticalPosition:'top'
-        })
-        // alert("Something went wrong..");
-      }
-    )
+    });
   }
 }

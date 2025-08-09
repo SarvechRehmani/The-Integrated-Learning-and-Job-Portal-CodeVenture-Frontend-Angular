@@ -1,49 +1,136 @@
-<div class="bootstrap-wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <mat-card *ngIf="assignment" class="shadow mb-2">
-                    <div class="text-center m-3">
-                        <mat-card-title class="text-color">{{lecture.lNo}}:-
-                            {{lecture.lTitle}}</mat-card-title>
-                        <mat-card-subtitle>
-                            <b>Course:</b> {{course.cTitle}}
-                            ||
-                            <b>Field:</b> {{course.cField}}
-                        </mat-card-subtitle>
-                    </div>
-                </mat-card>
-                <mat-card *ngIf="assignment" class="shadow p-4">
-                    <div class="text-center">
-                        <mat-card-title>Assignment: </mat-card-title>
-                    </div>
-                    <mat-card-content>
-                        <div [innerHTML]="assignment.aContent">
-                        </div>
-                    </mat-card-content>
-                    <div class="text-center">
-                     
-                        <button (click)="deleteAssignment(assignment.aId)" class="m-2" mat-raised-button color="warn">Delete</button>
-  
-                   
-                    </div>
-                </mat-card>
-  
-  
-                <mat-card *ngIf="!assignment" class="shadow mb-2">
-                    <div class="text-center m-3">
-                        <mat-card-title class="text-color">Assignment for this Lecture is not available right now...</mat-card-title>
-                        <mat-card-subtitle>Please come back letter...</mat-card-subtitle>
-                    </div>
-                    
-                </mat-card>
-                <mat-card *ngIf="!assignment" class="shadow p-4">
-                    <div class="text-center">
-                        <img src="assets/img/stockNotFound.png" class="img-fluid" style="max-width: 45%;">
-                        <h2 class="text-color">NOT FOUND</h2>
-                    </div>
-                </mat-card>
-            </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Assignment Header with Glass Morphism Effect -->
+  <div *ngIf="assignment" class="mb-8">
+    <div
+      class="relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-600/5 opacity-60"
+      ></div>
+      <div class="p-8 relative z-10">
+        <div class="text-center">
+          <h1
+            class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-500 dark:to-cyan-500 mb-2"
+          >
+            {{ assignment.lecture.lNo }}: {{ assignment.lecture.lTitle }}
+          </h1>
+          <div class="flex flex-wrap justify-center gap-4 mt-3">
+            <span
+              class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200"
+            >
+              <i class="fa-solid fa-graduation-cap mr-2 text-sm"></i>
+              {{ course.cTitle }}
+            </span>
+            <span
+              class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-cyan-100 text-cyan-800 dark:bg-cyan-900/20 dark:text-cyan-200"
+            >
+              <i class="fa-solid fa-shapes mr-2 text-sm"></i>
+              {{ course.field }}
+            </span>
+          </div>
         </div>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+          <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 shadow-sm">
+            <p class="text-sm text-gray-500 dark:text-gray-400">Max Marks</p>
+            <p class="text-xl font-bold text-blue-600 dark:text-blue-400">
+              {{ assignment.maxMarks }}
+            </p>
+          </div>
+          <div
+            class="bg-cyan-100/50 dark:bg-cyan-900/30 rounded-xl p-4 shadow-sm"
+          >
+            <p class="text-sm text-gray-500 dark:text-gray-400">Status</p>
+            <p class="text-xl font-bold text-cyan-600 dark:text-cyan-400">
+              Active
+            </p>
+          </div>
+          <div
+            class="bg-blue-100/50 dark:bg-blue-900/30 rounded-xl p-4 shadow-sm"
+          >
+            <p class="text-sm text-gray-500 dark:text-gray-400">Submissions</p>
+            <p class="text-xl font-bold text-blue-700 dark:text-blue-300">
+              <!-- {{ assignmentResult.length || 0 }} -->
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 text-center space-x-3">
+          <button
+            [routerLink]="'/admin/gradding/assignment/' + assignment.aId"
+            class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            <mat-icon class="mr-2">grading</mat-icon>
+            Grade Submissions
+          </button>
+
+          <button
+            (click)="deleteAssignment(assignment.aId)"
+            class="inline-flex items-center px-6 py-3 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-700 font-medium rounded-xl shadow hover:shadow-md transition-all duration-300"
+          >
+            <mat-icon class="mr-2">delete</mat-icon>
+            Delete Assignment
+          </button>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- Assignment Content Section -->
+  <div *ngIf="assignment" class="space-y-6">
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+    >
+      <div class="p-6">
+        <!-- Assignment Content Header -->
+        <div class="flex items-center mb-4">
+          <div
+            class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center text-white font-bold text-lg shadow-md mr-4 flex-shrink-0"
+          >
+            <mat-icon>assignment</mat-icon>
+          </div>
+          <h2 class="text-xl font-bold text-gray-800 dark:text-white">
+            Assignment Details
+          </h2>
+        </div>
+
+        <!-- Assignment Content -->
+        <div class="ml-14">
+          <div
+            class="prose dark:prose-invert max-w-none p-6 bg-gray-50 dark:bg-gray-700/30 rounded-lg"
+            [innerHTML]="assignment.aContent"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty Assignment State -->
+  <div *ngIf="!assignment" class="text-center py-16">
+    <div
+      class="relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl p-8 max-w-2xl mx-auto"
+    >
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-600/5 opacity-60"
+      ></div>
+      <div class="relative z-10">
+        <div class="w-48 h-48 mx-auto mb-6 relative">
+          <img
+            src="assets/img/NotFound/empty.png"
+            class="w-full h-full object-contain"
+            alt="Assignment not found"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-600/10 rounded-full blur-xl opacity-30"
+          ></div>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">
+          Assignment Not Available
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">
+          There is no assignment available for this lecture at the moment.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

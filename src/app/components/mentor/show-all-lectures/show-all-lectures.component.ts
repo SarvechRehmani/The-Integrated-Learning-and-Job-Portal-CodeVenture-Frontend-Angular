@@ -135,8 +135,12 @@ export class ShowAllLecturesComponent implements OnInit {
       return;
     }
 
-    const filtered = this.originalLectures.filter((lecture: any) =>
-      lecture.lTitle.toLowerCase().includes(this.searchQuery.toLowerCase())
+    const filtered = this.originalLectures.filter(
+      (lecture: any) =>
+        lecture.lTitle.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        lecture.lDescription
+          .toLowerCase()
+          .includes(this.searchQuery.toLowerCase())
     );
 
     if (filtered.length === 0) {
