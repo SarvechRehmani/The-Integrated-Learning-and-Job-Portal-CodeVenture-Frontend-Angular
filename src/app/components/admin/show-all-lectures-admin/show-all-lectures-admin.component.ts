@@ -25,12 +25,7 @@ export class ShowAllLecturesAdminComponent implements OnInit {
   originalLectures: any;
 
   ngOnInit(): void {
-    const snackbarConfig = {
-      duration: 3000,
-      verticalPosition: 'top' as const,
-      horizontalPosition: 'right' as const,
-      panelClass: ['error-snackbar'],
-    };
+    const isDark = document.documentElement.classList.contains('dark');
 
     this._title.setTitle(this.cTitle + ' Course | Admin | CodeVenture');
 
@@ -40,7 +35,24 @@ export class ShowAllLecturesAdminComponent implements OnInit {
         this.lectures = structuredClone(data);
       },
       error: (error) => {
-        this._snack.open('Error in loading lectures...', 'OK', snackbarConfig);
+        console.error('Error loading lectures:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load lectures. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
       },
     });
   }
@@ -55,7 +67,7 @@ export class ShowAllLecturesAdminComponent implements OnInit {
     Swal.fire({
       title: 'Delete Lecture?',
       text: 'This action cannot be undone',
-      icon: 'warning',
+      icon: 'question',
       background: isDark ? '#1f2937' : '#ffffff',
       color: isDark ? '#f3f4f6' : '#1f2937',
       showCancelButton: true,
@@ -63,20 +75,24 @@ export class ShowAllLecturesAdminComponent implements OnInit {
       cancelButtonColor: '#2196F3',
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      customClass: {
-        popup: `!rounded-2xl !shadow-xl ${
-          isDark
-            ? 'dark:from-red-500 dark:to-pink-500'
-            : 'from-red-600 to-pink-600'
-        }`,
-        confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
-        cancelButton: `!rounded-xl !shadow-md bg-gradient-to-r `,
-      },
+      backdrop: `
+        rgba(0,0,0,0.4)
+        center top
+        no-repeat
+      `,
       showClass: {
         popup: 'animate__animated animate__fadeIn animate__faster',
       },
       hideClass: {
         popup: 'animate__animated animate__fadeOut animate__faster',
+      },
+      customClass: {
+        popup: `!rounded-2xl !shadow-xl !border-8 ${
+          isDark ? '!border !border-emerald-600' : '!border !border-emerald-400'
+        }`,
+        confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        cancelButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        actions: '!gap-3',
       },
     }).then((result) => {
       if (result.isConfirmed) {

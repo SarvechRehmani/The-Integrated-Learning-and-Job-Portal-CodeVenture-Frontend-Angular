@@ -8,21 +8,22 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-update-company-admin',
   templateUrl: './update-company-admin.component.html',
-  styleUrls: ['./update-company-admin.component.css']
+  styleUrls: ['./update-company-admin.component.css'],
 })
-export class UpdateCompanyAdminComponent implements OnInit{
-
+export class UpdateCompanyAdminComponent implements OnInit {
   constructor(
-    private _title:Title,
+    private _title: Title,
     private _user: UserService,
     private _snack: MatSnackBar,
     private _rout: ActivatedRoute,
     private _router: Router
-  ) { }
+  ) {}
   id = this._rout.snapshot.params['id'];
 
-  company:any = {};
+  company: any = {};
   ngOnInit(): void {
+    const isDark = document.documentElement.classList.contains('dark');
+
     this._user.getUserById(this.id).subscribe(
       (data: any) => {
         this.company.id = data.id;
@@ -34,62 +35,100 @@ export class UpdateCompanyAdminComponent implements OnInit{
         this.company.bio = data.bio;
         this.company.address = data.address;
 
-        this._title.setTitle('Update '+this.company.username+' Company | Admin | CodeVenture');
+        this._title.setTitle(
+          'Update ' + this.company.username + ' Company | Admin | CodeVenture'
+        );
       },
       (error) => {
-        this._snack.open('Something went wroung. please try again letter..', 'OK', {
-          duration: 3000,
-          verticalPosition: 'top'
-        }
-        );
+        console.error('Error loading company details:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load company details. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
       }
     );
   }
-  formSubmit(){
-    if(this.company.username == '' || this.company.username == null){
-      this._snack.open('username can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
+
+  formSubmit() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const snackbarConfig = {
+      duration: 3000,
+      verticalPosition: 'top' as const,
+      horizontalPosition: 'right' as const,
+      panelClass: ['error-snackbar'],
+    };
+
+    // Validation checks
+    const validations = [
+      { field: 'username', message: 'Please enter a username' },
+      { field: 'firstName', message: 'Please enter a company name' },
+      { field: 'phone', message: 'Please enter a phone number' },
+      { field: 'email', message: 'Please enter a email' },
+    ];
+
+    for (const validation of validations) {
+      if (!this.company[validation.field]) {
+        this._snack.open(validation.message, 'OK', snackbarConfig);
+        return;
+      }
     }
-    if(this.company.firstName == '' || this.company.firstName == null){
-      this.company.open('Conpany name can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    if(this.company.phone == '' || this.company.phone == null){
-      this._snack.open('Contact no can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    if(this.company.email == '' || this.company.email == null){
-      this._snack.open('Email no can not be blank.','OK',{
-        duration: 3000,
-        verticalPosition:'top'
-      })
-      return;
-    }
-    this._user.updateUser(this.company).subscribe(
-      (data:any) => {
-        // success
-        Swal.fire('Updated..','Company is Successfully Updated','success').then(
-          (e)=>{
-            this._router.navigate(['/profile/showcompanies']);
+
+    this._user.updateUser(this.company).subscribe({
+      next: (data: any) => {
+        Swal.fire({
+          title: 'Company Successfully updated',
+          text: `Company with ID : ${data.id} is updated.`,
+          icon: 'success',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#2196F3',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark
+                ? '!border !border-emerald-600'
+                : '!border !border-emerald-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        }).then((e) => {
+          this._router.navigate(['/admin/showcompanies']);
         });
       },
-      (error) => {
-        console.log(error);
-        this._snack.open(error.error.message,'OK',{
-          duration: 5000,
-          verticalPosition:'top',
-          horizontalPosition:'end'
-        })
-      }
-    )
+      error: (error) => {
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to update company.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
 }

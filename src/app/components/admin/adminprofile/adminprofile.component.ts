@@ -36,7 +36,6 @@ export class AdminprofileComponent implements OnInit {
   ngOnInit(): void {
     this._title.setTitle('Profile | Admin | CodeVenture');
     this.user = this.login.getUser();
-    console.log(this.user);
   }
 
   toggleUpdateDetail() {
@@ -46,6 +45,9 @@ export class AdminprofileComponent implements OnInit {
   // Updating User Details
   updateDetails() {
     const isDark = document.documentElement.classList.contains('dark');
+    const updatedUser = { ...this.user };
+    delete updatedUser['authorities'];
+
     const snackbarConfig = {
       duration: 3000,
       verticalPosition: 'top' as const,
@@ -53,28 +55,21 @@ export class AdminprofileComponent implements OnInit {
       panelClass: ['error-snackbar'],
     };
 
-    // Prepare updated user data
-    const updatedUser = { ...this.user };
-    delete updatedUser['authorities'];
-
     this._user.updateUser(updatedUser).subscribe({
       next: (data: any) => {
         Swal.fire({
-          title: 'Details Updated',
+          title: 'Updated!',
           text: 'Your details have been successfully updated',
           icon: 'success',
           background: isDark ? '#1f2937' : '#ffffff',
           color: isDark ? '#f3f4f6' : '#1f2937',
-          confirmButtonText: 'OK',
+          confirmButtonColor: '#2196F3',
           customClass: {
             popup: `!rounded-2xl !shadow-xl ${
-              isDark
-                ? 'dark:from-blue-500 dark:to-cyan-500'
-                : 'from-blue-600 to-cyan-600'
+              isDark ? '!border !border-green-600' : '!border !border-green-400'
             }`,
-            confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
           },
-          confirmButtonColor: '#2196F3',
           showClass: {
             popup: 'animate__animated animate__fadeIn animate__faster',
           },
@@ -86,31 +81,45 @@ export class AdminprofileComponent implements OnInit {
               window.location.href = '/admin/profile';
             },
             error: (error) => {
-              this._snack.open(
-                'Error loading updated profile',
-                'OK',
-                snackbarConfig
-              );
+              console.error('Error fetching updated data:', error);
+              Swal.fire({
+                title: 'Error',
+                text: 'Could not load updated profile',
+                icon: 'error',
+                background: isDark ? '#1f2937' : '#ffffff',
+                color: isDark ? '#f3f4f6' : '#1f2937',
+                confirmButtonColor: '#2196F3',
+                customClass: {
+                  popup: `!rounded-2xl !shadow-xl ${
+                    isDark
+                      ? '!border !border-red-600'
+                      : '!border !border-red-400'
+                  }`,
+                  confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+                },
+                showClass: {
+                  popup: 'animate__animated animate__fadeIn animate__faster',
+                },
+              });
             },
           });
           this.toggleUpdateDetail();
         });
       },
       error: (error) => {
+        console.error('Error updating details:', error);
         Swal.fire({
-          title: 'Update Failed',
-          text: 'Error in updating details',
+          title: 'Error',
+          text: 'Could not update details',
           icon: 'error',
           background: isDark ? '#1f2937' : '#ffffff',
           color: isDark ? '#f3f4f6' : '#1f2937',
-          confirmButtonText: 'OK',
+          confirmButtonColor: '#ef4444',
           customClass: {
             popup: `!rounded-2xl !shadow-xl ${
-              isDark
-                ? 'dark:from-red-500 dark:to-pink-500'
-                : 'from-red-600 to-pink-600'
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
             }`,
-            confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
           },
           showClass: {
             popup: 'animate__animated animate__fadeIn animate__faster',
@@ -143,7 +152,11 @@ export class AdminprofileComponent implements OnInit {
 
     // Validate file selection
     if (!this.selectedFile) {
-      this._snack.open('Please select a file first.', 'OK', snackbarConfig);
+      this._snack.open(
+        'Please select a profile picture',
+        'Close',
+        snackbarConfig
+      );
       return;
     }
 
@@ -153,22 +166,21 @@ export class AdminprofileComponent implements OnInit {
 
     this._file.uploadProfile(picture).subscribe({
       next: (data: any) => {
+        console.log('Profile upload success:', data);
+
         Swal.fire({
-          title: 'Profile Updated',
-          text: 'Your profile picture has been successfully uploaded',
+          title: 'Updated!',
+          text: 'Profile picture successfully uploaded',
           icon: 'success',
           background: isDark ? '#1f2937' : '#ffffff',
           color: isDark ? '#f3f4f6' : '#1f2937',
-          confirmButtonText: 'OK',
+          confirmButtonColor: '#2196F3',
           customClass: {
             popup: `!rounded-2xl !shadow-xl ${
-              isDark
-                ? 'dark:from-blue-500 dark:to-cyan-500'
-                : 'from-blue-600 to-cyan-600'
+              isDark ? '!border !border-green-600' : '!border !border-green-400'
             }`,
-            confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
           },
-          confirmButtonColor: '#2196F3',
           showClass: {
             popup: 'animate__animated animate__fadeIn animate__faster',
           },
@@ -180,34 +192,47 @@ export class AdminprofileComponent implements OnInit {
               window.location.href = '/admin/profile';
             },
             error: (error) => {
-              this._snack.open(
-                'Error loading updated profile',
-                'OK',
-                snackbarConfig
-              );
-              this.toggleUpdateProfileContainer();
+              console.error('Error fetching updated profile:', error);
+              Swal.fire({
+                title: 'Error',
+                text: 'Could not load updated profile',
+                icon: 'error',
+                background: isDark ? '#1f2937' : '#ffffff',
+                color: isDark ? '#f3f4f6' : '#1f2937',
+                confirmButtonColor: '#ef4444',
+                customClass: {
+                  popup: `!rounded-2xl !shadow-xl ${
+                    isDark
+                      ? '!border !border-red-600'
+                      : '!border !border-red-400'
+                  }`,
+                  confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+                },
+                showClass: {
+                  popup: 'animate__animated animate__fadeIn animate__faster',
+                },
+              }).then((e) => {
+                this.toggleUpdateProfileContainer();
+              });
             },
           });
-          this.toggleUpdateProfileContainer();
         });
       },
       error: (error) => {
+        console.error('Profile upload error:', error);
         Swal.fire({
-          title: 'Upload Failed',
-          text: 'Error in uploading profile picture',
+          title: 'Error',
+          text: 'Could not upload profile picture',
           icon: 'error',
           background: isDark ? '#1f2937' : '#ffffff',
           color: isDark ? '#f3f4f6' : '#1f2937',
-          confirmButtonText: 'OK',
+          confirmButtonColor: '#2196f#',
           customClass: {
             popup: `!rounded-2xl !shadow-xl ${
-              isDark
-                ? 'dark:from-red-500 dark:to-pink-500'
-                : 'from-red-600 to-pink-600'
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
             }`,
-            confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
           },
-          confirmButtonColor: '#2196F3',
           showClass: {
             popup: 'animate__animated animate__fadeIn animate__faster',
           },
@@ -246,22 +271,25 @@ export class AdminprofileComponent implements OnInit {
       return;
     }
 
+    // Confirmation dialog
     Swal.fire({
       title: 'Are you sure?',
-      text: 'You want to Update your Password.',
+      text: 'You want to update your password',
       icon: 'warning',
       background: isDark ? '#1f2937' : '#ffffff',
       color: isDark ? '#f3f4f6' : '#1f2937',
       showCancelButton: true,
-      confirmButtonText: 'Yes',
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#2196F3',
       cancelButtonText: 'No',
+      confirmButtonText: 'Yes, update it',
       customClass: {
-        popup: `!rounded-2xl !shadow-xl`,
-        confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r `,
-        cancelButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+        popup: `!rounded-2xl !shadow-xl ${
+          isDark ? '!border !border-gray-600' : '!border !border-gray-200'
+        }`,
+        confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        cancelButton: '!rounded-xl !shadow-md hover:!shadow-lg',
       },
-      confirmButtonColor: '#2196F3',
-
       showClass: {
         popup: 'animate__animated animate__fadeIn animate__faster',
       },
@@ -270,21 +298,20 @@ export class AdminprofileComponent implements OnInit {
         this._user.updatePassword(this.changePassword).subscribe(
           (data) => {
             Swal.fire({
-              title: 'Updated',
-              text: 'Your password is successfully updated..',
+              title: 'Updated!',
+              text: 'Your password has been successfully updated',
               icon: 'success',
               background: isDark ? '#1f2937' : '#ffffff',
               color: isDark ? '#f3f4f6' : '#1f2937',
-              confirmButtonText: 'OK',
+              confirmButtonColor: '#2196F3',
               customClass: {
                 popup: `!rounded-2xl !shadow-xl ${
                   isDark
-                    ? 'dark:from-blue-500 dark:to-cyan-500'
-                    : 'from-blue-600 to-cyan-600'
+                    ? '!border !border-green-600'
+                    : '!border !border-green-400'
                 }`,
-                confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+                confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
               },
-              confirmButtonColor: '#2196F3',
               showClass: {
                 popup: 'animate__animated animate__fadeIn animate__faster',
               },
@@ -292,7 +319,24 @@ export class AdminprofileComponent implements OnInit {
             this.toggleChangePasswordFlag();
           },
           (error) => {
-            this._snack.open(error.error.message, 'Ok', snackbarConfig);
+            console.error('Error updating password:', error);
+            Swal.fire({
+              title: 'Error',
+              text: 'Could not update password. Please try again.',
+              icon: 'error',
+              background: isDark ? '#1f2937' : '#ffffff',
+              color: isDark ? '#f3f4f6' : '#1f2937',
+              confirmButtonColor: '#2196F3',
+              customClass: {
+                popup: `!rounded-2xl !shadow-xl ${
+                  isDark ? '!border !border-red-600' : '!border !border-red-400'
+                }`,
+                confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+              },
+              showClass: {
+                popup: 'animate__animated animate__fadeIn animate__faster',
+              },
+            });
           }
         );
       }

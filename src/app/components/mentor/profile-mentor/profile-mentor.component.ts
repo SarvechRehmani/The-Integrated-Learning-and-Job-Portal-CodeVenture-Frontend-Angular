@@ -25,7 +25,6 @@ export class ProfileMentorComponent implements OnInit {
 
   ngOnInit(): void {
     this._title.setTitle('Profile | Mentor | CodeVenture');
-
     this.user = this.login.getUser();
   }
   updateDetailsFlag = false;
@@ -63,15 +62,7 @@ export class ProfileMentorComponent implements OnInit {
               window.location.href = '/mentor/profile';
             },
             error: (error) => {
-              console.error('Error fetching updated user:', error);
-
-              this._snack.open('Error redirecting to profile', 'Close', {
-                duration: 3000,
-                panelClass: ['error-snackbar'],
-                verticalPosition: 'top',
-                horizontalPosition: 'right',
-              });
-
+              console.error('Error fetching updated data:', error);
               Swal.fire({
                 title: 'Error',
                 text: 'Could not load updated profile',
@@ -124,6 +115,11 @@ export class ProfileMentorComponent implements OnInit {
   updateProfileFlag = false;
   toggleUpdateProfileContainer() {
     this.updateProfileFlag = !this.updateProfileFlag;
+    // Reset preview when closing
+    if (!this.updateProfileFlag) {
+      this.previewUrl = null;
+      this.selectedFile = null;
+    }
   }
   // Updating Profile Picture
   userFile: any = File;
@@ -171,14 +167,6 @@ export class ProfileMentorComponent implements OnInit {
             },
             error: (error) => {
               console.error('Error fetching updated profile:', error);
-
-              this._snack.open('Error redirecting to profile', 'Close', {
-                duration: 3000,
-                panelClass: ['error-snackbar'],
-                verticalPosition: 'top',
-                horizontalPosition: 'right',
-              });
-
               Swal.fire({
                 title: 'Error',
                 text: 'Could not load updated profile',
@@ -197,9 +185,9 @@ export class ProfileMentorComponent implements OnInit {
                 showClass: {
                   popup: 'animate__animated animate__fadeIn animate__faster',
                 },
+              }).then((e) => {
+                this.toggleUpdateProfileContainer();
               });
-
-              this.toggleUpdateProfileContainer();
             },
           });
         });

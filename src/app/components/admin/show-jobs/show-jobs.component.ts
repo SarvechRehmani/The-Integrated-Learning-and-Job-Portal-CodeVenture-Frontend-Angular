@@ -19,18 +19,37 @@ export class ShowJobsComponent {
   jobs: any;
   originalJobs: any;
   ngOnInit(): void {
+    const isDark = document.documentElement.classList.contains('dark');
+
     this._title.setTitle('Jobs | Admin | CodeVenture');
 
-    this._job.getAllJobs().subscribe(
-      (data) => {
+    this._job.getAllJobs().subscribe({
+      next: (data) => {
         this.originalJobs = data;
         this.jobs = structuredClone(data);
         this.formatDate(this.jobs);
       },
-      (error: any) => {
-        Swal.fire('Error', 'Something went wroung..', 'error');
-      }
-    );
+      error: (error: any) => {
+        console.error('Error loading jobs:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load jobs. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
+      },
+    });
   }
   formatDate(jobs: any) {
     jobs.forEach((j: any) => {
@@ -85,7 +104,7 @@ export class ShowJobsComponent {
           next: (success) => {
             this._snack.open('Job has been deleted successfully', 'Close', {
               ...snackbarConfig,
-              panelClass: ['success-snackbar'],
+              panelClass: ['success-admin-snackbar'],
             });
             this.jobs = this.jobs.filter((job: any) => job.jId != jId);
           },

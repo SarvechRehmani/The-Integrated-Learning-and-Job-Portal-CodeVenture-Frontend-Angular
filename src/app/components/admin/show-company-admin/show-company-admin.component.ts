@@ -40,27 +40,22 @@ export class ShowCompanyAdminComponent implements OnInit {
         );
       },
       error: (error: any) => {
+        console.error('Error loading companies:', error);
         Swal.fire({
           title: 'Error',
-          text: error.message || 'Failed to load companies',
+          text: 'Could not load companies. Please try again.',
           icon: 'error',
           background: isDark ? '#1f2937' : '#ffffff',
           color: isDark ? '#f3f4f6' : '#1f2937',
-          confirmButtonText: 'OK',
-          confirmButtonColor: '#2196F3',
+          confirmButtonColor: '#ef4444',
           customClass: {
             popup: `!rounded-2xl !shadow-xl ${
-              isDark
-                ? 'dark:from-red-500 dark:to-pink-500'
-                : 'from-red-600 to-pink-600'
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
             }`,
-            confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
           },
           showClass: {
             popup: 'animate__animated animate__fadeIn animate__faster',
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOut animate__faster',
           },
         });
 
@@ -181,27 +176,10 @@ export class ShowCompanyAdminComponent implements OnInit {
       if (result.isConfirmed) {
         this.userService.deleteUser(id).subscribe({
           next: (success) => {
-            Swal.fire({
-              title: 'Deleted',
-              text: 'Company was successfully deleted',
-              icon: 'success',
-              background: isDark ? '#1f2937' : '#ffffff',
-              color: isDark ? '#f3f4f6' : '#1f2937',
-              confirmButtonText: 'OK',
-              confirmButtonColor: '#2196F3',
-              customClass: {
-                popup: `!rounded-2xl !shadow-xl ${
-                  isDark
-                    ? 'dark:from-green-500 dark:to-teal-500'
-                    : 'from-green-600 to-teal-600'
-                }`,
-                confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
-              },
-              showClass: {
-                popup: 'animate__animated animate__fadeIn animate__faster',
-              },
+            this._snack.open('Company was successfully deleted', 'Close', {
+              ...snackbarConfig,
+              panelClass: ['success-admin-snackbar'],
             });
-
             this.companies = this.companies.filter(
               (company: any) => company.id != id
             );

@@ -58,23 +58,21 @@ export class AddCompanyComponent {
     // Add company user
     this.userService.addUser(this.user).subscribe({
       next: (data: any) => {
-        console.log(data);
         Swal.fire({
           title: 'Company Successfully Registered',
           text: `Company ID is ${data.id}`,
           icon: 'success',
           background: isDark ? '#1f2937' : '#ffffff',
           color: isDark ? '#f3f4f6' : '#1f2937',
-          confirmButtonText: 'OK',
+          confirmButtonColor: '#2196F3',
           customClass: {
             popup: `!rounded-2xl !shadow-xl ${
               isDark
-                ? 'dark:from-blue-500 dark:to-cyan-500'
-                : 'from-blue-600 to-cyan-600'
+                ? '!border !border-emerald-600'
+                : '!border !border-emerald-400'
             }`,
-            confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
           },
-          confirmButtonColor: '#2196F3',
           showClass: {
             popup: 'animate__animated animate__fadeIn animate__faster',
           },
@@ -94,16 +92,24 @@ export class AddCompanyComponent {
         });
       },
       error: (error) => {
-        console.log(error);
-        this.snack.open(
-          `Something went wrong: ${error.message || error}`,
-          'OK',
-          {
-            duration: 3000,
-            verticalPosition: 'top',
-            panelClass: isDark ? ['dark-snackbar'] : [],
-          }
-        );
+        console.error(error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to register company.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
       },
     });
   }

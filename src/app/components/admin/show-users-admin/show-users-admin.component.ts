@@ -13,7 +13,7 @@ export class ShowUsersAdminComponent implements OnInit {
   constructor(
     private _title: Title,
     private userService: UserService,
-    private snack: MatSnackBar
+    private _snack: MatSnackBar
   ) {}
 
   users: any[] = [];
@@ -29,19 +29,35 @@ export class ShowUsersAdminComponent implements OnInit {
   }
 
   loadUsers(): void {
-    this.userService.getAllNormalUsers().subscribe(
-      (data: any) => {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    this.userService.getAllNormalUsers().subscribe({
+      next: (data: any) => {
         this.users = data;
         this.filteredUsers = [...this.users];
         this.totalPages = Math.ceil(this.filteredUsers.length / this.pageSize);
       },
-      (error: any) => {
-        this.snack.open('Error in loading users.', 'OK', {
-          duration: 3000,
-          verticalPosition: 'top',
+      error: (error: any) => {
+        console.error('Error loading users:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load users. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
         });
-      }
-    );
+      },
+    });
   }
 
   searchUsers(event: any): void {
@@ -115,34 +131,62 @@ export class ShowUsersAdminComponent implements OnInit {
     return Math.min(a, b);
   }
   deleteUser(id: any): void {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    const snackbarConfig = {
+      duration: 3000,
+      verticalPosition: 'top' as const,
+      horizontalPosition: 'right' as const,
+      panelClass: ['error-snackbar'],
+    };
+
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You want to delete this user',
+      title: 'Delete User?',
+      text: 'This action cannot be undone',
       icon: 'warning',
+      background: isDark ? '#1f2937' : '#ffffff',
+      color: isDark ? '#f3f4f6' : '#1f2937',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#ff4081',
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#2196F3',
       confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        popup: `!rounded-2xl !shadow-xl ${
+          isDark
+            ? 'dark:from-red-500 dark:to-pink-500'
+            : 'from-red-600 to-pink-600'
+        }`,
+        confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r `,
+        cancelButton: `!rounded-xl !shadow-md bg-gradient-to-r `,
+      },
+      showClass: {
+        popup: 'animate__animated animate__fadeIn animate__faster',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOut animate__faster',
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userService.deleteUser(id).subscribe(
-          (success) => {
-            this.snack.open('User has been deleted..', 'Ok', {
-              verticalPosition: 'top',
-              duration: 3000,
+        this.userService.deleteUser(id).subscribe({
+          next: (success) => {
+            this._snack.open('User was successfully deleted', 'Close', {
+              ...snackbarConfig,
+              panelClass: ['success-admin-snackbar'],
             });
+
             this.users = this.users.filter((user: any) => user.id != id);
             this.filteredUsers = this.filteredUsers.filter(
               (user: any) => user.id != id
             );
           },
-          (error) => {
-            this.snack.open('Something went wrong..', 'Ok', {
-              verticalPosition: 'top',
-              duration: 3000,
+          error: (error) => {
+            this._snack.open('Failed to delete user', 'Close', {
+              ...snackbarConfig,
+              panelClass: ['error-snackbar'],
             });
-          }
-        );
+          },
+        });
       }
     });
   }

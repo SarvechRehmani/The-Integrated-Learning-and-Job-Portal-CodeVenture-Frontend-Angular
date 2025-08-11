@@ -40,16 +40,6 @@ export class GraddingAssignmentMentorComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading assignments:', error);
-
-        // Show snackbar notification
-        this._snack.open('Failed to load assignments', 'Close', {
-          duration: 3000,
-          panelClass: ['error-snackbar'],
-          verticalPosition: 'top',
-          horizontalPosition: 'right',
-        });
-
-        // Show error dialog
         Swal.fire({
           title: 'Error',
           text: 'Could not load assignment submissions. Please try again.',

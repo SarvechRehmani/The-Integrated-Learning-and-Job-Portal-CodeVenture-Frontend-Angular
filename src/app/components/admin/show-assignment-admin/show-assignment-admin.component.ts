@@ -26,12 +26,8 @@ export class ShowAssignmentAdminComponent implements OnInit {
   course: any = {};
 
   ngOnInit(): void {
-    const snackbarConfig = {
-      duration: 3000,
-      verticalPosition: 'top' as const,
-      horizontalPosition: 'right' as const,
-      panelClass: ['error-snackbar'],
-    };
+    const isDark = document.documentElement.classList.contains('dark');
+
     this._assignment.getAssignmentByLecture(this.id).subscribe({
       next: (data) => {
         console.log(data);
@@ -44,12 +40,26 @@ export class ShowAssignmentAdminComponent implements OnInit {
             "'s lecture Assignment | Admin | CodeVenture"
         );
       },
+
       error: (error) => {
-        this._snack.open(
-          'Error in loading Assignment...',
-          'Close',
-          snackbarConfig
-        );
+        console.error('Error loading assignment:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load assignment. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
       },
     });
   }
@@ -62,10 +72,9 @@ export class ShowAssignmentAdminComponent implements OnInit {
       horizontalPosition: 'right' as const,
       panelClass: ['error-snackbar'],
     };
-
     Swal.fire({
       title: 'Delete Assignment?',
-      text: 'This action cannot be undone',
+      text: 'This will permanently remove the assignment',
       icon: 'warning',
       background: isDark ? '#1f2937' : '#ffffff',
       color: isDark ? '#f3f4f6' : '#1f2937',
@@ -76,50 +85,27 @@ export class ShowAssignmentAdminComponent implements OnInit {
       cancelButtonText: 'Cancel',
       customClass: {
         popup: `!rounded-2xl !shadow-xl ${
-          isDark
-            ? 'dark:from-red-500 dark:to-pink-500'
-            : 'from-red-600 to-pink-600'
+          isDark ? '!border !border-gray-700' : '!border !border-gray-200'
         }`,
-        confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r `,
-        cancelButton: `!rounded-xl !shadow-md bg-gradient-to-r `,
+        confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        cancelButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+        actions: '!gap-3',
       },
       showClass: {
         popup: 'animate__animated animate__fadeIn animate__faster',
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOut animate__faster',
       },
     }).then((result) => {
       if (result.isConfirmed) {
         this._assignment.deleteAssignment(id).subscribe({
           next: (success) => {
-            Swal.fire({
-              title: 'Deleted',
-              text: 'Assignment was successfully deleted',
-              icon: 'success',
-              background: isDark ? '#1f2937' : '#ffffff',
-              color: isDark ? '#f3f4f6' : '#1f2937',
-              confirmButtonText: 'OK',
-              confirmButtonColor: '#2196F3',
-              customClass: {
-                popup: `!rounded-2xl !shadow-xl ${
-                  isDark
-                    ? 'dark:from-green-500 dark:to-teal-500'
-                    : 'from-green-600 to-teal-600'
-                }`,
-                confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
-              },
-              showClass: {
-                popup: 'animate__animated animate__fadeIn animate__faster',
-              },
-            }).then(() => {
-              this._router.navigate([
-                '/profile/lectures/' +
-                  this.course.cId +
-                  '/' +
-                  this.course.cTitle,
-              ]);
+            this._snack.open('Failed to delete assignment', 'Close', {
+              ...snackbarConfig,
+              panelClass: ['success-admin-snackbar'],
             });
+
+            this._router.navigate([
+              '/admin/lectures/' + this.course.cId + '/' + this.course.cTitle,
+            ]);
           },
           error: (error) => {
             this._snack.open('Failed to delete assignment', 'Close', {

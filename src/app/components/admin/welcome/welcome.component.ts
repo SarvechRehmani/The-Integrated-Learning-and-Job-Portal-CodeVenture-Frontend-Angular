@@ -7,6 +7,7 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 import { LabTaskService } from 'src/app/services/lab-task.service';
 import { QuizService } from 'src/app/services/quiz.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-welcome',
@@ -36,6 +37,8 @@ export class WelcomeComponent implements OnInit {
   }
 
   countUsers() {
+    const isDark = document.documentElement.classList.contains('dark');
+
     this._dashboard.countUsers().subscribe(
       (data: any) => {
         this.totalUsers = data.normalUsers;
@@ -43,15 +46,31 @@ export class WelcomeComponent implements OnInit {
         this.totalCompanies = data.companyUsers;
       },
       (error) => {
-        this.sncak.open('Error in Counting Users.', 'OK', {
-          duration: 3000,
-          verticalPosition: 'top',
+        console.error('Error loading count Users:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load count Users. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
         });
       }
     );
   }
 
   loadUsers() {
+    const isDark = document.documentElement.classList.contains('dark');
+
     this._dashboard.getAllUsers().subscribe(
       (data: any) => {
         this.users = data;
@@ -59,9 +78,23 @@ export class WelcomeComponent implements OnInit {
         this.loadGraph();
       },
       (error) => {
-        this.sncak.open('Error in loading users.', 'OK', {
-          duration: 3000,
-          verticalPosition: 'top',
+        console.error('Error loading users:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load users. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
         });
       }
     );

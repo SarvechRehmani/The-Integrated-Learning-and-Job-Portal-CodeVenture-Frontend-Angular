@@ -20,7 +20,7 @@ export class ShowmentorComponent implements OnInit {
   constructor(
     private _title: Title,
     private userService: UserService,
-    private snack: MatSnackBar
+    private _snack: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -29,21 +29,40 @@ export class ShowmentorComponent implements OnInit {
   }
 
   loadMentors(): void {
-    this.userService.getMentors().subscribe(
-      (data: any) => {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    this.userService.getMentors().subscribe({
+      next: (data: any) => {
         this.mentors = data || [];
         this.filteredMentors = [...this.mentors];
         this.totalPages = Math.ceil(
           this.filteredMentors.length / this.pageSize
         );
       },
-      (error: any) => {
-        Swal.fire('Error', error, 'error');
+      error: (error: any) => {
+        console.error('Error loading mentors:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Could not load mentors. Please try again.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
         this.mentors = [];
         this.filteredMentors = [];
         this.totalPages = 1;
-      }
-    );
+      },
+    });
   }
 
   searchMentors(): void {
@@ -115,22 +134,50 @@ export class ShowmentorComponent implements OnInit {
   }
 
   deleteMentor(id: any) {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    const snackbarConfig = {
+      duration: 3000,
+      verticalPosition: 'top' as const,
+      horizontalPosition: 'right' as const,
+      panelClass: ['error-snackbar'],
+    };
+
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You want to delete this mentor',
+      title: 'Delete Mentor?',
+      text: 'This action cannot be undone',
       icon: 'warning',
+      background: isDark ? '#1f2937' : '#ffffff',
+      color: isDark ? '#f3f4f6' : '#1f2937',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#ff4081',
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#2196F3',
       confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        popup: `!rounded-2xl !shadow-xl ${
+          isDark
+            ? 'dark:from-red-500 dark:to-pink-500'
+            : 'from-red-600 to-pink-600'
+        }`,
+        confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r `,
+        cancelButton: `!rounded-xl !shadow-md bg-gradient-to-r `,
+      },
+      showClass: {
+        popup: 'animate__animated animate__fadeIn animate__faster',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOut animate__faster',
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userService.deleteUser(id).subscribe(
-          (success) => {
-            this.snack.open('Mentor has been deleted..', 'Ok', {
-              verticalPosition: 'top',
-              duration: 3000,
+        this.userService.deleteUser(id).subscribe({
+          next: (success) => {
+            this._snack.open('Mentor was successfully deleted', 'Close', {
+              ...snackbarConfig,
+              panelClass: ['success-admin-snackbar'],
             });
+
             this.mentors = this.mentors.filter(
               (mentor: any) => mentor.id != id
             );
@@ -141,13 +188,13 @@ export class ShowmentorComponent implements OnInit {
               this.filteredMentors.length / this.pageSize
             );
           },
-          (error) => {
-            this.snack.open('Something went wrong..', 'Ok', {
-              verticalPosition: 'top',
-              duration: 3000,
+          error: (error) => {
+            this._snack.open('Failed to delete mentor', 'Close', {
+              ...snackbarConfig,
+              panelClass: ['error-snackbar'],
             });
-          }
-        );
+          },
+        });
       }
     });
   }

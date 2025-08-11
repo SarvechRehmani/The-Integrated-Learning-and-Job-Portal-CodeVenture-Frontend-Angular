@@ -62,20 +62,19 @@ export class AddmentorComponent implements OnInit {
         console.log(data);
         Swal.fire({
           title: 'Mentor Successfully Registered',
-          text: `Mentor ID is ${data.id}`,
+          text: 'Mentor ID is ${data.id}',
           icon: 'success',
           background: isDark ? '#1f2937' : '#ffffff',
           color: isDark ? '#f3f4f6' : '#1f2937',
-          confirmButtonText: 'OK',
+          confirmButtonColor: '#2196F3',
           customClass: {
             popup: `!rounded-2xl !shadow-xl ${
               isDark
-                ? 'dark:from-blue-500 dark:to-cyan-500'
-                : 'from-blue-600 to-cyan-600'
+                ? '!border !border-emerald-600'
+                : '!border !border-emerald-400'
             }`,
-            confirmButton: `!rounded-xl !shadow-md bg-gradient-to-r`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
           },
-          confirmButtonColor: '#2196F3',
           showClass: {
             popup: 'animate__animated animate__fadeIn animate__faster',
           },
@@ -96,7 +95,24 @@ export class AddmentorComponent implements OnInit {
         });
       },
       error: (error) => {
-        this.snack.open('Something went wrong', 'OK', snackbarConfig);
+        console.error(error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to register mentor.',
+          icon: 'error',
+          background: isDark ? '#1f2937' : '#ffffff',
+          color: isDark ? '#f3f4f6' : '#1f2937',
+          confirmButtonColor: '#ef4444',
+          customClass: {
+            popup: `!rounded-2xl !shadow-xl ${
+              isDark ? '!border !border-red-600' : '!border !border-red-400'
+            }`,
+            confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn animate__faster',
+          },
+        });
       },
     });
   }

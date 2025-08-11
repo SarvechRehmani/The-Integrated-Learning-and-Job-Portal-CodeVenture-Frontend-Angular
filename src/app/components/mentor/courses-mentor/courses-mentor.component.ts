@@ -113,9 +113,33 @@ export class CoursesMentorComponent implements OnInit {
   }
 
   loadLectureLength() {
+    const isDark = document.documentElement.classList.contains('dark');
+
     this.courses.forEach((course: any) => {
-      this._lecture.countLectureOfCourse(course.cId).subscribe((data: any) => {
-        course.lectureLength = data;
+      this._lecture.countLectureOfCourse(course.cId).subscribe({
+        next: (data: any) => {
+          course.lectureLength = data;
+        },
+        error: (error) => {
+          console.error('Error loading lectures count:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Could not load lectures count. Please try again.',
+            icon: 'error',
+            background: isDark ? '#1f2937' : '#ffffff',
+            color: isDark ? '#f3f4f6' : '#1f2937',
+            confirmButtonColor: '#ef4444',
+            customClass: {
+              popup: `!rounded-2xl !shadow-xl ${
+                isDark ? '!border !border-red-600' : '!border !border-red-400'
+              }`,
+              confirmButton: '!rounded-xl !shadow-md hover:!shadow-lg',
+            },
+            showClass: {
+              popup: 'animate__animated animate__fadeIn animate__faster',
+            },
+          });
+        },
       });
     });
   }
