@@ -1,208 +1,265 @@
-<div class="bootstrap-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <mat-card class="shadow mb-2">
-          <div class="text-center m-3">
-            <mat-card-title class="text-color">Add Job</mat-card-title>
-            <mat-card-subtitle>Add details of the Job</mat-card-subtitle>
-          </div>
-        </mat-card>
-      </div>
-      <div class="col-md-12">
-        <mat-card class="shadow">
-          <mat-card-content>
-            <div class="row">
-              <div class="col-md-8 offset-md-2">
-                <form (ngSubmit)="formSubmit()" class="p-5">
-                  <!-- JOB TITLE -->
-                  <div class="mb-3">
-                    <label for="jTitle" class="form-label">Job Title</label>
-                    <input
-                      [(ngModel)]="job.jTitle"
-                      name="jTitle"
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter Job Title"
-                      required
-                    />
-                  </div>
-                  <!-- JOB DESCRIPTION -->
-                  <div class="mb-3">
-                    <label for="jDescription" class="form-label"
-                      >Job Description</label
-                    >
-                    <textarea
-                      class="form-control"
-                      [(ngModel)]="job.jDescription"
-                      name="jDescription"
-                      placeholder="Enter Job Description"
-                      rows="5"
-                      required
-                    ></textarea>
-                  </div>
-
-                  <!-- JOB TYPE -->
-                  <div class="mb-3">
-                    <label for="jType" class="form-label">Job Type</label>
-                    <select
-                      [(ngModel)]="job.jType"
-                      name="jType"
-                      class="form-select"
-                      id="jobType"
-                      required
-                    >
-                      <option value="" disabled selected>
-                        --Select Job Type--
-                      </option>
-                      <option value="Full-time">Full-time</option>
-                      <option value="Part-time">Part-time</option>
-                      <option value="Contract">Contract</option>
-                      <option value="Remote">Remote</option>
-                    </select>
-                  </div>
-
-                  <!-- LOCATION -->
-                  <div class="mb-3">
-                    <label for="jLocation" class="form-label">Location</label>
-                    <input
-                      [(ngModel)]="job.jLocation"
-                      name="jLocation"
-                      type="text"
-                      class="form-control"
-                      id="location"
-                      placeholder="Enter Job Location"
-                      required
-                    />
-                  </div>
-
-                  <!-- COMPANY NAME -->
-                  <div class="mb-3">
-                    <label for="jCompanyName" class="form-label"
-                      >Company Name</label
-                    >
-                    <input
-                      [(ngModel)]="job.jCompanyName"
-                      name="jCompanyName"
-                      type="text"
-                      class="form-control"
-                      disabled
-                      id="companyName"
-                      placeholder="Enter Company Name"
-                      required
-                    />
-                  </div>
-
-                  <!-- COMPANY DESCRIPTION -->
-                  <div class="mb-3">
-                    <label for="jCompanyDes" class="form-label"
-                      >Company Description</label
-                    >
-                    <textarea
-                      [(ngModel)]="job.jCompanyDes"
-                      name="jCompanyDes"
-                      class="form-control"
-                      disabled
-                      placeholder="Enter Company Description"
-                      rows="5"
-                      required
-                    ></textarea>
-                  </div>
-
-                  <!-- CONTACT INFORMATION -->
-                  <div class="mb-3">
-                    <label for="jCompanyContact" class="form-label"
-                      >Contact Information</label
-                    >
-                    <input
-                      [(ngModel)]="job.jCompanyContact"
-                      name="jCompanyContact"
-                      type="text"
-                      class="form-control"
-                      disabled
-                      placeholder="Enter Contact Information"
-                      required
-                    />
-                  </div>
-
-                  <!-- APPLICATION DEADLINE -->
-                  <div class="mb-3">
-                    <label for="jDeadline" class="form-label"
-                      >Application Deadline</label
-                    >
-                    <input
-                      [(ngModel)]="job.jDeadline"
-                      name="jDeadline"
-                      type="date"
-                      class="form-control"
-                      required
-                    />
-                  </div>
-
-                  <!-- EXPERIENCE LEVEL -->
-                  <div class="mb-3">
-                    <label for="jExperience" class="form-label"
-                      >Experience Level</label
-                    >
-                    <select
-                      [(ngModel)]="job.jExperience"
-                      name="jExperience"
-                      class="form-select"
-                      required
-                    >
-                      <option value="" disabled selected>
-                        Select Experience Level
-                      </option>
-                      <option value="Entry-level">Entry-level</option>
-                      <option value="Mid-level">Mid-level</option>
-                      <option value="Senior">Senior</option>
-                    </select>
-                  </div>
-
-                  <!-- EDUCATION REQUIREMENTS -->
-                  <div class="mb-3">
-                    <label for="jEducation" class="form-label"
-                      >Education Requirements</label
-                    >
-                    <input
-                      [(ngModel)]="job.jEducation"
-                      name="jEducation"
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter Education Requirements"
-                      required
-                    />
-                  </div>
-
-                  <!-- SKILLS REQUIRED -->
-                  <div class="mb-3">
-                    <label for="jSkills" class="form-label"
-                      >Skills Required</label
-                    >
-                    <input
-                      [(ngModel)]="job.jSkills"
-                      name="jSkills"
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter Skill Required"
-                      required
-                    />
-                  </div>
-
-                  <div class="text-center mt20">
-                    <button type="submit" class="m-2 btn btn-primary">
-                      ADD JOB
-                    </button>
-                    <button class="m-2 btn btn-secondary" type="reset">
-                      CLEAR
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Hero Header with Glass Morphism Effect -->
+  <div
+    class="mb-8 relative overflow-hidden rounded-2xl bg-white/10 dark:bg-gray-900/10 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-600/5 opacity-60"
+    ></div>
+    <div class="p-8 text-center relative z-10">
+      <h1
+        class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400 mb-3"
+      >
+        <span>Create New Job Posting</span>
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Define job details and requirements for potential candidates
+      </p>
     </div>
+  </div>
+
+  <!-- Form Section with Enhanced Styling -->
+  <div
+    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-amber-300 dark:hover:border-amber-500"
+  >
+    <form (ngSubmit)="formSubmit()" class="p-6 sm:p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Job Title -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Job Title</mat-label
+          >
+          <input
+            [(ngModel)]="job.jTitle"
+            name="jTitle"
+            type="text"
+            matInput
+            placeholder="e.g. Software Engineer"
+            required
+            class="dark:text-white"
+          />
+          <mat-icon matPrefix class="text-amber-600 dark:text-amber-400 mr-2"
+            >work_outline</mat-icon
+          >
+        </mat-form-field>
+
+        <!-- Job Type -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Job Type</mat-label
+          >
+          <mat-select
+            [(ngModel)]="job.jType"
+            name="jType"
+            required
+            class="dark:text-white"
+          >
+            <mat-option value="">-- Select Job Type --</mat-option>
+            <mat-option value="Full-time">Full-time</mat-option>
+            <mat-option value="Part-time">Part-time</mat-option>
+            <mat-option value="Contract">Contract</mat-option>
+            <mat-option value="Remote">Remote</mat-option>
+          </mat-select>
+          <mat-icon matPrefix class="text-amber-600 dark:text-amber-400 mr-2"
+            >schedule</mat-icon
+          >
+        </mat-form-field>
+      </div>
+
+      <!-- Job Description -->
+      <mat-form-field appearance="outline" class="w-full mb-6">
+        <mat-label class="text-gray-700 dark:text-gray-300"
+          >Job Description</mat-label
+        >
+        <textarea
+          [(ngModel)]="job.jDescription"
+          name="jDescription"
+          matInput
+          placeholder="Enter detailed job description..."
+          required
+          rows="5"
+          class="dark:text-white"
+        ></textarea>
+        <mat-icon matPrefix class="text-amber-600 dark:text-amber-400 mr-2"
+          >description</mat-icon
+        >
+      </mat-form-field>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Location -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Location</mat-label
+          >
+          <input
+            [(ngModel)]="job.jLocation"
+            name="jLocation"
+            type="text"
+            matInput
+            placeholder="e.g. New York, NY or Remote"
+            required
+            class="dark:text-white"
+          />
+          <mat-icon matPrefix class="text-amber-600 dark:text-amber-400 mr-2"
+            >location_on</mat-icon
+          >
+        </mat-form-field>
+
+        <!-- Application Deadline -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Application Deadline</mat-label
+          >
+          <input
+            [(ngModel)]="job.jDeadline"
+            name="jDeadline"
+            type="date"
+            matInput
+            required
+            class="dark:text-white"
+          />
+          <mat-icon matPrefix class="text-amber-600 dark:text-amber-400 mr-2"
+            >event</mat-icon
+          >
+        </mat-form-field>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Experience Level -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Experience Level</mat-label
+          >
+          <mat-select
+            [(ngModel)]="job.jExperience"
+            name="jExperience"
+            required
+            class="dark:text-white"
+          >
+            <mat-option value="">-- Select Experience Level --</mat-option>
+            <mat-option value="Entry-level">Entry-level</mat-option>
+            <mat-option value="Mid-level">Mid-level</mat-option>
+            <mat-option value="Senior">Senior</mat-option>
+          </mat-select>
+          <mat-icon matPrefix class="text-amber-600 dark:text-amber-400 mr-2"
+            >timeline</mat-icon
+          >
+        </mat-form-field>
+
+        <!-- Education Requirements -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Education Requirements</mat-label
+          >
+          <input
+            [(ngModel)]="job.jEducation"
+            name="jEducation"
+            type="text"
+            matInput
+            placeholder="e.g. Bachelor's degree in Computer Science"
+            required
+            class="dark:text-white"
+          />
+          <mat-icon matPrefix class="text-amber-600 dark:text-amber-400 mr-2"
+            >school</mat-icon
+          >
+        </mat-form-field>
+      </div>
+
+      <!-- Skills Required -->
+      <mat-form-field appearance="outline" class="w-full mb-6">
+        <mat-label class="text-gray-700 dark:text-gray-300"
+          >Skills Required (comma separated)</mat-label
+        >
+        <input
+          [(ngModel)]="job.jSkills"
+          name="jSkills"
+          type="text"
+          matInput
+          placeholder="e.g. JavaScript, React, Node.js"
+          required
+          class="dark:text-white"
+        />
+        <mat-icon matPrefix class="text-amber-600 dark:text-amber-400 mr-2"
+          >code</mat-icon
+        >
+        <mat-hint class="text-gray-500 dark:text-gray-400"
+          >Separate multiple skills with commas</mat-hint
+        >
+      </mat-form-field>
+
+      <!-- Company Information (Readonly) -->
+      <div
+        class="bg-gray-50 dark:bg-gray-700/50 p-5 rounded-xl border border-gray-200 dark:border-gray-600 mb-6"
+      >
+        <h3 class="text-lg font-medium text-gray-800 dark:text-white mb-4">
+          <mat-icon class="text-amber-600 dark:text-amber-400 mr-2"
+            >business</mat-icon
+          >
+          Company Information
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Company Name</mat-label
+            >
+            <input
+              [(ngModel)]="job.jCompanyName"
+              name="jCompanyName"
+              type="text"
+              matInput
+              readonly
+              class="dark:text-white"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label class="text-gray-700 dark:text-gray-300"
+              >Contact Information</mat-label
+            >
+            <input
+              [(ngModel)]="job.jCompanyContact"
+              name="jCompanyContact"
+              type="text"
+              matInput
+              readonly
+              class="dark:text-white"
+            />
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-full mt-4">
+          <mat-label class="text-gray-700 dark:text-gray-300"
+            >Company Description</mat-label
+          >
+          <textarea
+            [(ngModel)]="job.jCompanyDes"
+            name="jCompanyDes"
+            matInput
+            readonly
+            rows="3"
+            class="dark:text-white"
+          ></textarea>
+        </mat-form-field>
+      </div>
+
+      <!-- Form Actions with Enhanced Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <button
+          type="submit"
+          class="!bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white !rounded-xl !font-medium !px-8 !py-3 !shadow-lg hover:!shadow-xl transition-all duration-300 flex items-center justify-center"
+        >
+          <mat-icon class="mr-2">add_circle</mat-icon>
+          Post Job
+        </button>
+        <button
+          type="reset"
+          class="!border-gray-300 !text-gray-700 dark:!text-gray-300 hover:!bg-gray-50 dark:hover:!bg-gray-700/20 !rounded-xl !font-medium !px-8 !py-3 transition-all duration-300 hover:shadow-md flex items-center justify-center"
+        >
+          <mat-icon class="mr-2">clear</mat-icon>
+          Clear Form
+        </button>
+      </div>
+    </form>
   </div>
 </div>
